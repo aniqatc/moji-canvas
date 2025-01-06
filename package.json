@@ -2,6 +2,28 @@
   "name": "moji-canvas",
   "private": true,
   "version": "0.0.0",
+  "description": "An interactive emoji-based sticker canvas, built with React.",
+  "keywords": [
+    "emoji",
+    "canvas",
+    "stickers",
+    "art",
+    "interactive",
+    "drag-and-drop",
+    "creative",
+    "playground",
+    "react",
+    "framer-motion",
+    "digital-art",
+    "web-app"
+  ],
+  "author": {
+    "name": "Aniqa",
+    "email": "hello@aniqa.dev",
+    "url": "https://aniqa.dev"
+  },
+  "homepage": "https://moji.aniqa.dev",
+  "repository": "https://github.com/aniqatc/moji-canvas",
   "type": "module",
   "scripts": {
     "dev": "vite",
