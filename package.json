@@ -26,7 +26,7 @@
   "repository": "https://github.com/aniqatc/moji-canvas",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "start": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",

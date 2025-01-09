@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  @apply font-sans;
+  @apply font-mono;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
