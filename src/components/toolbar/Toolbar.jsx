@@ -1,4 +1,4 @@
-import { StickerControls } from './controls';
+import { StickerControls, ThemeSelector } from './controls';
 
 export default function Toolbar() {
     return (
@@ -9,6 +9,8 @@ export default function Toolbar() {
         className="top-4 left-3 bottom-4 text-xs fixed bg-white bg-white/20 font-semibold
         border border-stone-200 shadow rounded-md p-2 flex flex-col gap-2 text-gray-500 text-center">
             <StickerControls />
+            <Separator />
+            <ThemeSelector />
             <Separator />
     </aside>
     )
