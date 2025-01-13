@@ -1,0 +1,1 @@
+/* Actions: Save (png), Share (link), Reset (remove all stickers) */

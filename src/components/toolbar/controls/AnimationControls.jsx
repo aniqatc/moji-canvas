@@ -1,0 +1,1 @@
+/* Animation toggles: float, rotate, speed */

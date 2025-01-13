@@ -1,0 +1,1 @@
+/* Handle background and dot color changes */

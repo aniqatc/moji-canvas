@@ -6,7 +6,10 @@ export default {
     extend: {
       colors: {
         'accent-maroon': '#540F0F',
-        'muted-maroon': '#7f4646'
+        'muted-maroon': '#7f4646',
+        'highlight-maroon': '#fce5e5',
+        'active-gray': '#f0e7e7',
+        'light-gray': '#E5E5E5',
       },
       fontFamily: {
         sans: [
