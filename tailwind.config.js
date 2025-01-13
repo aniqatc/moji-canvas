@@ -4,6 +4,10 @@ export default {
   content: ['./index.html', './src/**/*.{js,jsx}'],
   theme: {
     extend: {
+      colors: {
+        'accent-maroon': '#540F0F',
+        'muted-maroon': '#7f4646'
+      },
       fontFamily: {
         sans: [
           'Inter',
@@ -25,9 +29,12 @@ export default {
           'monospace',
         ],
         display: ['Agbalumo', 'sans-serif'],
-        handwritten: ['Shantell Sans', 'sans-serif'],
+        hand: ['Shantell Sans', 'sans-serif'],
       },
     },
   },
   plugins: [],
+  corePlugins: {
+    backdropFilter: true,
+  }
 };
