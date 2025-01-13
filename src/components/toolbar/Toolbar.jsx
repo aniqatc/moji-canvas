@@ -1,4 +1,4 @@
-import { StickerControls, ThemeSelector, BackgroundChanger } from './controls';
+import { StickerControls, ThemeSelector, BackgroundChanger, AnimationControls, ActionButtons, SizeControls } from './controls';
 
 export default function Toolbar() {
     return (
@@ -14,6 +14,11 @@ export default function Toolbar() {
             <Separator />
             <BackgroundChanger />
             <Separator />
+            <AnimationControls />
+            <Separator />
+            <SizeControls />
+            <Separator />
+            <ActionButtons />
     </aside>
     )
 }
