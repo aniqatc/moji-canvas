@@ -9,6 +9,8 @@ function App() {
   const [showInitialElements, setShowInitialElements] = useState(true);
   const [stickers, setStickers] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
+  const [stickerMode, setStickerMode] = useState('add');
+
   const controls = useDragControls();
 
     async function handleCanvasClick(e) {
@@ -17,17 +19,27 @@ function App() {
       const forbidden = document.querySelectorAll('aside, header');
       if ([...forbidden].some(el => el?.contains(e.target))) return;
 
-      setShowInitialElements(false);
+     if (stickerMode === 'add') {
+        setShowInitialElements(false);
 
-      const sticker = await getStickerByCategory();
-      const { width, rotation, height } = generateRandomSize();
-      const stickerWithStyles = { ...sticker, id: Date.now() + sticker.hexcode,
-          height, width, rotation,
-          top: (e.clientY - parseInt(height) / 2) + 'px',
-          left: (e.clientX - parseInt(width) / 2) + 'px',
-      };
-      setStickers(prev => [...prev, stickerWithStyles]);
-  }
+        const sticker = await getStickerByCategory();
+        const { width, rotation, height } = generateRandomSize();
+        const stickerWithStyles = { ...sticker, id: Date.now() + sticker.hexcode,
+            height, width, rotation,
+            top: (e.clientY - parseInt(height) / 2) + 'px',
+            left: (e.clientX - parseInt(width) / 2) + 'px',
+        };
+        setStickers(prev => [...prev, stickerWithStyles]);
+    } else if (stickerMode === 'remove') {
+         if (e.target.classList.contains('sticker-div')) {
+             const updatedStickers = stickers.filter(sticker => sticker.id !== e.target.id);
+             setStickers(updatedStickers);
+             if (updatedStickers.length === 0) {
+                 setShowInitialElements(true);
+             }
+         }
+    }
+    }
 
   return (
     <main
@@ -65,6 +77,8 @@ function App() {
         )}
           {stickers && stickers.map(sticker => (
               <motion.div
+                  className="sticker-div"
+                  id={sticker.id}
                   key={sticker.id}
                   style={{
                       position: 'absolute',
@@ -78,6 +92,7 @@ function App() {
                   }}
                   initial={{ opacity: 0, scale: 0, rotate: 0 }}
                   animate={{ opacity: 1, scale: 1, rotate: sticker.rotation }}
+                  exit={{ opacity: 0, scale: 0, rotate: 0 }}
                   transition={{ duration: 0.3, type: "spring" }}
                   drag
                   dragMomentum={false}
@@ -98,7 +113,8 @@ function App() {
               </motion.div>
           ))}
       </AnimatePresence>
-      <Toolbar backgroundProps={{ backgroundColor, dotColor, setBackgroundColor, setDotColor }} />
+      <Toolbar backgroundProps={{ backgroundColor, dotColor, setBackgroundColor, setDotColor }}
+      onStickerMode={(mode) => setStickerMode(mode)} />
     </main>
   );
 }

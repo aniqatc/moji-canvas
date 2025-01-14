@@ -54,3 +54,10 @@ a:focus-visible {
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.2);
 }
+
+@media (max-width: 400px) {
+  .centering-override {
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+  }
+}
