@@ -7,7 +7,7 @@ export default function Toolbar() {
         backdropFilter: 'blur(3px)',
         WebkitBackdropFilter: 'blur(3px)',
     }}
-        className="h-xs:-translate-y-1/2 h-xs:top-1/2 h-xs:overflow-y-scroll h-xs:h-[444px] h-max top-50 h-sm:left-0 left-3 h-sm:text-[11px] text-xs fixed bg-white bg-white/60 font-semibold
+        className="h-sm:-translate-y-1/2 h-sm:top-1/2 h-xs:overflow-y-scroll h-xs:h-[444px] h-max top-50 h-sm:left-1 left-3 h-sm:text-[11px] text-xs fixed bg-white bg-white/60 font-semibold
         border border-stone-200 shadow rounded-md p-2 flex flex-col gap-2 text-gray-500 text-center h-sm:gap-1.5 h-sm:p-1.5">
             <StickerControls />
             <Separator />
