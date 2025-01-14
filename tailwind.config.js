@@ -5,25 +5,18 @@ export default {
   theme: {
     extend: {
       screens: {
-        'h-sm': { 'raw': '(max-height: 800px) or (max-width: 600px)' },
-        'h-xs': { 'raw': '(max-height: 720px) or (max-width: 400px)' },
-        'w-xs': { 'raw': '(max-width: 380px)' },
+        'h-sm': { raw: '(max-height: 800px) or (max-width: 600px)' },
+        'h-xs': { raw: '(max-height: 720px) or (max-width: 400px)' },
+        'w-xs': { raw: '(max-width: 380px)' },
       },
       colors: {
         'accent-maroon': 'var(--accent-maroon, #540F0F)',
-        'muted': 'var(--muted, #7f4646)',
-        'highlight': 'var(--highlight, #fce5e5)',
+        muted: 'var(--muted, #7f4646)',
+        highlight: 'var(--highlight, #fce5e5)',
         'active-gray': '#f0e7e7',
       },
       fontFamily: {
-        sans: [
-          'Inter',
-          'system-ui',
-          'Avenir',
-          'Helvetica',
-          'Arial',
-          'sans-serif',
-        ],
+        sans: ['Inter', 'system-ui', 'Avenir', 'Helvetica', 'Arial', 'sans-serif'],
         mono: [
           'DM Mono',
           'ui-monospace',
@@ -41,7 +34,7 @@ export default {
       keyframes: {
         shake: {
           '0%, 100%': { transform: 'rotate(0deg) scale(1)' },
-          '25%': { transform: 'rotate(-20deg) scale(1.1)'},
+          '25%': { transform: 'rotate(-20deg) scale(1.1)' },
           '75%': { transform: 'rotate(20deg) scale(1.1)' },
         },
       },
@@ -53,5 +46,5 @@ export default {
   plugins: [],
   corePlugins: {
     backdropFilter: true,
-  }
+  },
 };

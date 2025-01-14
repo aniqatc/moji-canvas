@@ -10,14 +10,14 @@ import symbols from './symbols.svg';
 import travel from './travel.svg';
 
 export const themes = [
-    { id: 'all', icon: random, label: 'All Categories' },
-    { id: 'activities', icon: activities, label: 'Activities' },
-    { id: 'animals', icon: animals, label: 'Animals & Nature' },
-    { id: 'flags', icon: flags, label: 'Flags' },
-    { id: 'food', icon: food, label: 'Food & Drink' },
-    { id: 'objects', icon: objects, label: 'Objects' },
-    { id: 'people', icon: people, label: 'People' },
-    { id: 'symbols', icon: symbols, label: 'Symbols' },
-    { id: 'smileys', icon: smileys, label: 'Smileys' },
-    { id: 'travel', icon: travel, label: 'Travel & Places' },
-]
+  { id: 'all', icon: random, label: 'All Categories' },
+  { id: 'activities', icon: activities, label: 'Activities' },
+  { id: 'animals', icon: animals, label: 'Animals & Nature' },
+  { id: 'flags', icon: flags, label: 'Flags' },
+  { id: 'food', icon: food, label: 'Food & Drink' },
+  { id: 'objects', icon: objects, label: 'Objects' },
+  { id: 'people', icon: people, label: 'People' },
+  { id: 'symbols', icon: symbols, label: 'Symbols' },
+  { id: 'smileys', icon: smileys, label: 'Smileys' },
+  { id: 'travel', icon: travel, label: 'Travel & Places' },
+];

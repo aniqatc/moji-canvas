@@ -10,17 +10,39 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   height: 100%;
   overflow: hidden;
 }
 
-*:focus, button:focus {
+*:focus,
+button:focus {
   outline: none;
 }
 
-input:focus-visible, button:focus-visible, a:focus-visible {
+input:focus-visible,
+button:focus-visible,
+a:focus-visible {
   outline: 2px solid #464646;
   transition: all 200ms ease-in;
+}
+
+.custom-scrollbar {
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
 }
