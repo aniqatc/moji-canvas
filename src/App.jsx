@@ -2,7 +2,7 @@ import { Heading, ClickHintText, Toolbar } from './components';
 
 function App() {
 return (
-    <main className="h-dvh overflow-hidden mx-auto flex min-h-screen w-full flex-col items-center justify-center
+    <main className="h-svh overflow-hidden mx-auto flex min-h-screen w-full flex-col items-center justify-center
     gap-5 w-xs:justify-normal"
           style={{
               backgroundColor: "#ffefef",
