@@ -4,7 +4,7 @@ import { Download, Share, ArrowsCounterClockwise } from '@phosphor-icons/react';
 export default function ActionButtons({ onReset }) {
   return (
     <>
-      <BaseButton ariaLabel="Save canvas as png image" onClick={() => {}}>
+      <BaseButton disabled={true} ariaLabel="Save canvas as png image" onClick={() => {}}>
         <Download weight="bold" className="text-[28px] h-sm:text-[24px]" />
         <span>Save</span>
       </BaseButton>

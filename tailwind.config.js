@@ -5,8 +5,8 @@ export default {
   theme: {
     extend: {
       screens: {
-        'h-sm': { raw: '(max-height: 800px) or (max-width: 600px)' },
-        'h-xs': { raw: '(max-height: 720px) or (max-width: 400px)' },
+        'h-sm': { raw: '(max-height: 810px) or (max-width: 600px)' },
+        'h-xs': { raw: '(max-height: 750px) or (max-width: 400px)' },
         'w-xs': { raw: '(max-width: 380px)' },
       },
       colors: {

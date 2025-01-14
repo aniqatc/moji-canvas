@@ -46,7 +46,7 @@ function App() {
     <main
       ref={constraintsRef}
       onClick={handleCanvasClick}
-      className="cursor-pointer relative mx-auto flex h-svh min-h-screen w-full flex-col items-center justify-center gap-5 w-xs:justify-normal"
+      className="cursor-pointer relative h-dvh mx-auto flex min-h-screen w-full flex-col items-center justify-center gap-5 w-xs:justify-normal"
       style={{
         backgroundColor: backgroundColor,
         backgroundImage: `radial-gradient(${dotColor} 2px, transparent 2px), 
