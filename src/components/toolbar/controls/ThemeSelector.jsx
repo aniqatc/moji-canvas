@@ -5,13 +5,13 @@ import { CaretDown } from '@phosphor-icons/react';
 import { themes } from '../../../assets/themes';
 
 export default function ThemeSelector() {
-  const [selectedTheme, setSelectedTheme] = useState(themes.find((t) => t.id === 'all'));
+  const [selectedTheme, setSelectedTheme] = useState(themes.find((t) => t.value === 'extras-'));
 
   return (
     <>
       <Select.Root
         onValueChange={(value) => {
-          const theme = themes.find((t) => t.id === value);
+          const theme = themes.find((t) => t.value === value);
           setSelectedTheme(theme);
         }}
       >
@@ -51,7 +51,7 @@ export default function ThemeSelector() {
                   }}
                 >
                   <Select.Item
-                    value={theme.id}
+                    value={theme.value}
                     className="flex cursor-pointer items-center gap-1 transition-all hover:bg-stone-100"
                   >
                     <img src={theme.icon} alt={theme.label} className="size-7" />

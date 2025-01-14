@@ -10,14 +10,14 @@ import symbols from './symbols.svg';
 import travel from './travel.svg';
 
 export const themes = [
-  { id: 'all', icon: random, label: 'All Categories' },
-  { id: 'activities', icon: activities, label: 'Activities' },
-  { id: 'animals', icon: animals, label: 'Animals & Nature' },
-  { id: 'flags', icon: flags, label: 'Flags' },
-  { id: 'food', icon: food, label: 'Food & Drink' },
-  { id: 'objects', icon: objects, label: 'Objects' },
-  { id: 'people', icon: people, label: 'People' },
-  { id: 'symbols', icon: symbols, label: 'Symbols' },
-  { id: 'smileys', icon: smileys, label: 'Smileys' },
-  { id: 'travel', icon: travel, label: 'Travel & Places' },
+  { id: 'extras-', icon: random, label: 'Random', value: 'extras-' },
+  { id: 'activities', icon: activities, label: 'Activities', value: 'activities' },
+  { id: 'animals-nature', icon: animals, label: 'Animals & Nature', value: 'animals-nature' },
+  { id: 'flags', icon: flags, label: 'Flags', value: 'flags' },
+  { id: 'food-drink', icon: food, label: 'Food & Drink', value: 'food-drink' },
+  { id: 'objects', icon: objects, label: 'Objects', value: 'objects' },
+  { id: 'people-body', icon: people, label: 'People', value: 'people-body' },
+  { id: 'symbols', icon: symbols, label: 'Symbols', value: 'symbols' },
+  { id: 'smileys-emotion', icon: smileys, label: 'Smileys', value: 'smileys-emotion' },
+  { id: 'travel-places', icon: travel, label: 'Travel & Places', value: 'travel-places' },
 ];

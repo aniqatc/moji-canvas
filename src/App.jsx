@@ -1,15 +1,21 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Heading, ClickHintText, Toolbar } from './components';
+import { getRandomSticker, getStickerByCategory } from "./utils/stickers.js";
 
 function App() {
   const [backgroundColor, setBackgroundColor] = useState('#ffefef');
   const [dotColor, setDotColor] = useState('#ec1111');
   const [showInitialElements, setShowInitialElements] = useState(true);
+  const [stickers, setStickers] = useState([]);
+
+  function handleCanvasClick() {
+      setShowInitialElements(false);
+  }
 
   return (
     <main
-      onClick={() => setShowInitialElements(false)}
+      onClick={handleCanvasClick}
       className="mx-auto flex h-svh min-h-screen w-full flex-col items-center justify-center gap-5 overflow-hidden w-xs:justify-normal"
       style={{
         backgroundColor: backgroundColor,
@@ -41,6 +47,7 @@ function App() {
             </motion.div>
           </>
         )}
+          {stickers.map(sticker => <img key={sticker.id} src={sticker.src} />)}
       </AnimatePresence>
       <Toolbar backgroundProps={{ backgroundColor, dotColor, setBackgroundColor, setDotColor }} />
     </main>
