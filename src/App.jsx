@@ -23,7 +23,8 @@ function App() {
       const { width, rotation, height } = generateRandomSize();
       const stickerWithStyles = { ...sticker, id: Date.now() + sticker.hexcode,
           height, width, rotation,
-          top: (e.clientY - 100) + 'px', left: (e.clientX - 100) + 'px',
+          top: (e.clientY - parseInt(height)/2) + 'px',
+          left: (e.clientX - parseInt(width)/2) + 'px',
       };
       setStickers(prev => [...prev, stickerWithStyles]);
   }
