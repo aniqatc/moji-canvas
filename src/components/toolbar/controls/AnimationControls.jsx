@@ -1,11 +1,14 @@
 import { useState } from 'react';
+import { BaseSlider } from '../../reusable';
 
 export default function AnimationControls() {
     const [animationMode, setAnimationMode] = useState(false);
     const [float, setFloat] = useState(animationMode);
     const [rotate, setRotate] = useState(animationMode);
+    const [speed, setSpeed] = useState(1);
 
     return (
+        <>
     <fieldset className="block mx-auto accent-slate-500">
         <div key="animation-checkbox" className="flex items-center gap-1">
             <input type="checkbox" id="animation-checkbox" checked={animationMode} onChange={() => {
@@ -26,5 +29,13 @@ export default function AnimationControls() {
             <label htmlFor="rotate-checkbox" className={`${animationMode ? 'cursor-pointer' : 'cursor-not-allowed'}`}>Rotate</label>
         </div>
     </fieldset>
+            <BaseSlider id="speed-slider"
+                        min={0}
+                        max={2}
+                        step={0.1}
+                        value={speed}
+                        onChange={(event) => setSpeed(event.target.value)}
+                        label="Speed" />
+        </>
     )
 }

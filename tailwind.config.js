@@ -34,6 +34,16 @@ export default {
         display: ['Agbalumo', 'sans-serif'],
         hand: ['Shantell Sans', 'sans-serif'],
       },
+      keyframes: {
+        shake: {
+          '0%, 100%': { transform: 'rotate(0deg) scale(1)' },
+          '25%': { transform: 'rotate(-20deg) scale(1.1)'},
+          '75%': { transform: 'rotate(20deg) scale(1.1)' },
+        },
+      },
+      animation: {
+        shake: 'shake 0.5s ease-in-out 0.2s',
+      },
     },
   },
   plugins: [],

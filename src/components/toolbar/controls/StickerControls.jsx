@@ -1,4 +1,4 @@
-import BaseButton from '../BaseButton.jsx';
+import { BaseButton } from '../../reusable';
 import { Minus, Plus } from "@phosphor-icons/react";
 
 export default function StickerControls() {

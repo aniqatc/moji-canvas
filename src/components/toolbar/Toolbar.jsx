@@ -1,4 +1,5 @@
 import { StickerControls, ThemeSelector, BackgroundChanger, AnimationControls, ActionButtons, SizeControls } from './controls';
+import { InfoButton } from '../reusable';
 
 export default function Toolbar() {
     return (
@@ -19,6 +20,7 @@ export default function Toolbar() {
             <SizeControls />
             <Separator />
             <ActionButtons />
+            <InfoButton />
     </aside>
     )
 }

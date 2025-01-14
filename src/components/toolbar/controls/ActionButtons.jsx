@@ -1,4 +1,4 @@
-import BaseButton from '../BaseButton.jsx';
+import { BaseButton } from '../../reusable';
 import { Download, Share, ArrowsCounterClockwise } from "@phosphor-icons/react";
 
 

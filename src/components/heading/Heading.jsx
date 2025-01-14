@@ -1,5 +1,5 @@
-import { Info } from '@phosphor-icons/react';
 import { headingIcons } from '../../assets/heading'
+import { InfoButton } from '../reusable';
 
 const { sparkles, partyface, bouquet, pizza, teddy } = headingIcons;
 
@@ -20,7 +20,7 @@ export default function Heading() {
                 WebkitBackdropFilter: 'blur(4px)',
             }}
                  className="-translate-x-2/4 absolute -top-12 left-2/4 text-gray-600 text-sm border border-gray-300 shadow-md rounded-md p-2 w-max bg-white/35 flex items-center gap-2 invisible group-hover:visible">
-                <Info size="24"/>
+                <InfoButton />
                 <div className="flex flex-col">
                     <span>Emoji stickers are designed by <a href="https://openmoji.org/" target="_blank" className="font-semibold underline text-gray-700 hover:text-black">OpenMoji</a>.</span>
                     <span>App designed and coded by <a href="https://aniqa.dev" target="_blank" className="font-semibold underline text-gray-700 hover:text-black">Aniqa</a>.</span>

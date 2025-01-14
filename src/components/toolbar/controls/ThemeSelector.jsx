@@ -13,7 +13,7 @@ export default function ThemeSelector() {
             const theme = themes.find(t => t.id === value);
             setSelectedTheme(theme);
         }}>
-            <Select.Trigger className="flex items-center justify-center w-full h-12 bg-white/75 rounded border border-stone-200
+            <Select.Trigger className="flex items-center justify-center w-full h-10 bg-white/75 rounded border border-stone-200
                           hover:bg-active-gray transition-all duration-300"
                         aria-label="Select sticker category">
                 <div className="flex items-center justify-center w-full transition-all">
