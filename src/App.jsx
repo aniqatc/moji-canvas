@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Heading, ClickHintText, Toolbar } from './components';
-import { getRandomSticker, getStickerByCategory } from "./utils/stickers.js";
+import { getStickerByCategory } from "./utils/stickers.js";
 
 function App() {
   const [backgroundColor, setBackgroundColor] = useState('#ffefef');
@@ -9,14 +9,20 @@ function App() {
   const [showInitialElements, setShowInitialElements] = useState(true);
   const [stickers, setStickers] = useState([]);
 
-  function handleCanvasClick() {
+  async function handleCanvasClick(e) {
+      if (e.target !== e.currentTarget) return;
       setShowInitialElements(false);
+
+      const sticker = await getStickerByCategory();
+      const stickerWithPosition = { ...sticker, height: '100px', width: '100px', position: 'absolute', top: e.clientY + 'px', left: e.clientX + 'px', };
+      setStickers(prev => [...prev, stickerWithPosition]);
+      console.log(stickerWithPosition);
   }
 
   return (
     <main
       onClick={handleCanvasClick}
-      className="mx-auto flex h-svh min-h-screen w-full flex-col items-center justify-center gap-5 overflow-hidden w-xs:justify-normal"
+      className="relative mx-auto flex h-svh min-h-screen w-full flex-col items-center justify-center gap-5 w-xs:justify-normal"
       style={{
         backgroundColor: backgroundColor,
         backgroundImage: `radial-gradient(${dotColor} 2px, transparent 2px), 
@@ -47,7 +53,13 @@ function App() {
             </motion.div>
           </>
         )}
-          {stickers.map(sticker => <img key={sticker.id} src={sticker.src} />)}
+          {stickers.map(sticker => <img key={Date.now()} src={sticker.src} alt={sticker.annotation} style={{
+              position: 'absolute',
+              top: sticker.top,
+              left: sticker.left,
+              height: sticker.height,
+              width: sticker.width
+          }} />)}
       </AnimatePresence>
       <Toolbar backgroundProps={{ backgroundColor, dotColor, setBackgroundColor, setDotColor }} />
     </main>
