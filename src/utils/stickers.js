@@ -7,10 +7,10 @@ async function getStickerByCategory(category) {
         const randomIndex = Math.floor(Math.random() * filteredStickers.length);
         const sticker = filteredStickers[randomIndex];
 
-        const svg = await import (`/stickers/${sticker.hexcode}.svg`);
+        const svg = await fetch(`/stickers/${sticker.hexcode}.svg`);
         return {
             ...sticker,
-            src: svg.default
+            src: svg.url
         }
     } catch (error) {
         console.error('getStickerByCategory error: ' + error.message);
