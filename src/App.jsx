@@ -14,6 +14,9 @@ function App() {
     async function handleCanvasClick(e) {
       if (isDragging) return;
 
+      const x = e.touches ? e.touches[0].clientX : e.clientX;
+      const y = e.touches ? e.touches[0].clientY : e.clientY;
+
       const forbidden = document.querySelectorAll('aside, header');
       if ([...forbidden].some(el => el?.contains(e.target))) return;
 
@@ -23,8 +26,8 @@ function App() {
       const { width, rotation, height } = generateRandomSize();
       const stickerWithStyles = { ...sticker, id: Date.now() + sticker.hexcode,
           height, width, rotation,
-          top: (e.clientY - parseInt(height)/2) + 'px',
-          left: (e.clientX - parseInt(width)/2) + 'px',
+          top: (y - parseInt(height) / 2) + 'px',
+          left: (x - parseInt(width) / 2) + 'px',
       };
       setStickers(prev => [...prev, stickerWithStyles]);
   }
@@ -32,6 +35,7 @@ function App() {
   return (
     <main
       onClick={handleCanvasClick}
+      onTouchStart={handleCanvasClick}
       className="cursor-pointer relative mx-auto flex h-svh min-h-screen w-full flex-col items-center justify-center gap-5 w-xs:justify-normal"
       style={{
         backgroundColor: backgroundColor,
