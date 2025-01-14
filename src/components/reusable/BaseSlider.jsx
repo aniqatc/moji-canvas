@@ -1,6 +1,6 @@
 export default function BaseSlider({ id, label, min = 0, max = 2, step = 0.1, value, onChange }) {
     return (
-        <div className="relative flex flex-col gap-2 mt-2">
+        <div className="relative flex flex-col gap-2 mt-2 mx-auto">
             <input type="range"
                    id={id}
                    min={min}
@@ -8,7 +8,7 @@ export default function BaseSlider({ id, label, min = 0, max = 2, step = 0.1, va
                    step={step}
                    value={value}
                    onChange={onChange}
-                   className="w-20 h-1 mt-2 bg-gray-200 rounded-lg cursor-pointer accent-slate-500 border border-slate-300
+                   className="h-sm:w-16 w-20 h-1 mt-2 bg-gray-200 rounded-lg cursor-pointer accent-slate-500 border border-slate-300
                            appearance-none
                            [&::-webkit-slider-thumb]:appearance-none
                            [&::-webkit-slider-thumb]:w-3

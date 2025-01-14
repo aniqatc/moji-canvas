@@ -4,12 +4,16 @@ export default {
   content: ['./index.html', './src/**/*.{js,jsx}'],
   theme: {
     extend: {
+      screens: {
+        'h-sm': { 'raw': '(max-height: 800px) or (max-width: 600px)' },
+        'h-xs': { 'raw': '(max-height: 720px) or (max-width: 400px)' },
+        'w-xs': { 'raw': '(max-width: 380px)' },
+      },
       colors: {
         'accent-maroon': '#540F0F',
         'muted-maroon': '#7f4646',
         'highlight-maroon': '#fce5e5',
         'active-gray': '#f0e7e7',
-        'light-gray': '#E5E5E5',
       },
       fontFamily: {
         sans: [
