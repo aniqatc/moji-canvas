@@ -6,8 +6,8 @@ const { sparkles, partyface, bouquet, pizza, teddy } = headingIcons;
 
 export default function Heading() {
   return (
-    <div className="group relative cursor-default w-xs:mt-4">
-      <header className="relative">
+    <header className="group relative cursor-default w-xs:mt-4">
+      <div className="relative">
         <motion.h1
           initial={{ opacity: 0, scaleX: 0 }}
           animate={{ opacity: 1, scaleX: 1 }}
@@ -56,7 +56,7 @@ export default function Heading() {
           alt="teddy emoji"
           className="absolute -right-11 top-4 size-12 rotate-12 sm:-right-16 sm:top-2 sm:size-16"
         />
-      </header>
+      </div>
 
       <div
         style={{
@@ -91,6 +91,6 @@ export default function Heading() {
           </span>
         </div>
       </div>
-    </div>
+    </header>
   );
 }

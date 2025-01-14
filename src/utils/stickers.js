@@ -17,4 +17,14 @@ async function getStickerByCategory(category) {
     }
 }
 
-export { getStickerByCategory };
+function generateRandomSize() {
+    const size = Math.floor(Math.random() * 300 + 100);
+
+    return {
+        width: size + 'px',
+        height: size + 'px',
+        rotation: Math.floor(Math.random() * 45 - 30) + 'deg',
+    }
+}
+
+export { getStickerByCategory, generateRandomSize };

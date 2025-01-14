@@ -1,28 +1,37 @@
 import { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useDragControls } from 'framer-motion';
 import { Heading, ClickHintText, Toolbar } from './components';
-import { getStickerByCategory } from "./utils/stickers.js";
+import { getStickerByCategory, generateRandomSize } from "./utils/stickers.js";
 
 function App() {
   const [backgroundColor, setBackgroundColor] = useState('#ffefef');
   const [dotColor, setDotColor] = useState('#ec1111');
   const [showInitialElements, setShowInitialElements] = useState(true);
   const [stickers, setStickers] = useState([]);
+  const [isDragging, setIsDragging] = useState(false);
+  const controls = useDragControls();
 
-  async function handleCanvasClick(e) {
-      if (e.target !== e.currentTarget) return;
+    async function handleCanvasClick(e) {
+      if (isDragging) return;
+
+      const forbidden = document.querySelectorAll('aside, header');
+      if ([...forbidden].some(el => el?.contains(e.target))) return;
+
       setShowInitialElements(false);
 
       const sticker = await getStickerByCategory();
-      const stickerWithPosition = { ...sticker, height: '100px', width: '100px', position: 'absolute', top: e.clientY + 'px', left: e.clientX + 'px', };
-      setStickers(prev => [...prev, stickerWithPosition]);
-      console.log(stickerWithPosition);
+      const { width, rotation, height } = generateRandomSize();
+      const stickerWithStyles = { ...sticker, id: Date.now() + sticker.hexcode,
+          height, width, rotation,
+          top: (e.clientY - 100) + 'px', left: (e.clientX - 100) + 'px',
+      };
+      setStickers(prev => [...prev, stickerWithStyles]);
   }
 
   return (
     <main
       onClick={handleCanvasClick}
-      className="relative mx-auto flex h-svh min-h-screen w-full flex-col items-center justify-center gap-5 w-xs:justify-normal"
+      className="cursor-pointer relative mx-auto flex h-svh min-h-screen w-full flex-col items-center justify-center gap-5 w-xs:justify-normal"
       style={{
         backgroundColor: backgroundColor,
         backgroundImage: `radial-gradient(${dotColor} 2px, transparent 2px), 
@@ -53,13 +62,40 @@ function App() {
             </motion.div>
           </>
         )}
-          {stickers.map(sticker => <img key={Date.now()} src={sticker.src} alt={sticker.annotation} style={{
-              position: 'absolute',
-              top: sticker.top,
-              left: sticker.left,
-              height: sticker.height,
-              width: sticker.width
-          }} />)}
+          {stickers && stickers.map(sticker => (
+              <motion.div
+                  key={sticker.id}
+                  style={{
+                      position: 'absolute',
+                      top: sticker.top,
+                      left: sticker.left,
+                      width: sticker.width,
+                      height: sticker.height,
+                      transform: `rotate(${sticker.rotation})`,
+                      cursor: 'grab',
+                      filter: 'drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.5))'
+                  }}
+                  initial={{ opacity: 0, scale: 0, rotate: 0 }}
+                  animate={{ opacity: 1, scale: 1, rotate: sticker.rotation }}
+                  transition={{ duration: 0.3, type: "spring" }}
+                  drag
+                  dragMomentum={false}
+                  dragControls={controls}
+                  onDragStart={() => setIsDragging(true)}
+                  onDragEnd={() => setIsDragging(false)}
+                  whileDrag={{ cursor: 'grabbing' }}
+              >
+                  <img
+                      src={sticker.src}
+                      alt={sticker.annotation}
+                      style={{
+                          width: '100%',
+                          height: '100%',
+                          pointerEvents: 'none',
+                      }}
+                  />
+              </motion.div>
+          ))}
       </AnimatePresence>
       <Toolbar backgroundProps={{ backgroundColor, dotColor, setBackgroundColor, setDotColor }} />
     </main>
