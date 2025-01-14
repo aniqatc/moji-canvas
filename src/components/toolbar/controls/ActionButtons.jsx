@@ -1,7 +1,7 @@
 import { BaseButton } from '../../reusable';
 import { Download, Share, ArrowsCounterClockwise } from '@phosphor-icons/react';
 
-export default function ActionButtons() {
+export default function ActionButtons({ onReset }) {
   return (
     <>
       <BaseButton ariaLabel="Save canvas as png image" onClick={() => {}}>
@@ -12,7 +12,7 @@ export default function ActionButtons() {
         <Share weight="bold" className="text-[28px] h-sm:text-[24px]" />
         <span>Share</span>
       </BaseButton>
-      <BaseButton ariaLabel="Reset canvas" onClick={() => {}}>
+      <BaseButton ariaLabel="Reset canvas" onClick={onReset}>
         <ArrowsCounterClockwise weight="bold" className="text-[28px] h-sm:text-[24px]" />
         <span>Reset</span>
       </BaseButton>

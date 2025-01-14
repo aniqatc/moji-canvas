@@ -9,7 +9,7 @@ import {
 } from './controls';
 import { InfoButton } from '../reusable';
 
-export default function Toolbar({ backgroundProps, onStickerMode }) {
+export default function Toolbar({ backgroundProps, onStickerMode, onReset }) {
   return (
     <motion.aside
       initial={{ opacity: 0, x: -60 }}
@@ -31,7 +31,7 @@ export default function Toolbar({ backgroundProps, onStickerMode }) {
       <Separator />
       <SizeControls />
       <Separator />
-      <ActionButtons />
+      <ActionButtons onReset={onReset} />
       <InfoButton />
     </motion.aside>
   );

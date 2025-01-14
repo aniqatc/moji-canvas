@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { AnimatePresence, motion, useDragControls } from 'framer-motion';
 import { Heading, ClickHintText, Toolbar } from './components';
 import { getStickerByCategory, generateRandomSize } from "./utils/stickers.js";
@@ -12,6 +12,7 @@ function App() {
   const [stickerMode, setStickerMode] = useState('add');
 
   const controls = useDragControls();
+  const constraintsRef = useRef(null);
 
     async function handleCanvasClick(e) {
       if (isDragging) return;
@@ -43,6 +44,7 @@ function App() {
 
   return (
     <main
+      ref={constraintsRef}
       onClick={handleCanvasClick}
       className="cursor-pointer relative mx-auto flex h-svh min-h-screen w-full flex-col items-center justify-center gap-5 w-xs:justify-normal"
       style={{
@@ -95,11 +97,11 @@ function App() {
                   exit={{ opacity: 0, scale: 0, rotate: 0 }}
                   transition={{ duration: 0.3, type: "spring" }}
                   drag
-                  dragMomentum={false}
                   dragControls={controls}
                   onDragStart={() => setIsDragging(true)}
                   onDragEnd={() => setIsDragging(false)}
                   whileDrag={{ cursor: 'grabbing' }}
+                  dragConstraints={constraintsRef}
               >
                   <img
                       src={sticker.src}
@@ -114,7 +116,10 @@ function App() {
           ))}
       </AnimatePresence>
       <Toolbar backgroundProps={{ backgroundColor, dotColor, setBackgroundColor, setDotColor }}
-      onStickerMode={(mode) => setStickerMode(mode)} />
+      onStickerMode={(mode) => setStickerMode(mode)}
+      onReset={() => {
+          setStickers([])
+          setShowInitialElements(true)}}/>
     </main>
   );
 }
