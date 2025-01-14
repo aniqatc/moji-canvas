@@ -5,7 +5,7 @@ export default function ClickHintText() {
     const transitionValue = { repeat: Infinity, repeatDelay: 0.2, duration: 0.8 };
 
     return (
-    <motion.mark initial={{ opacity: 0, scaleX: 0 }} animate={{ opacity: 1, scaleX: 1, rotate: '20deg' }} transition={{ delay: 1 }}
+    <motion.mark initial={{ opacity: 0, scaleX: 0 }} animate={{ opacity: 1, scaleX: 1, rotate: '20deg' }} transition={{ delay: 1.5, type: 'spring' }}
                  className="bg-highlight text-muted font-hand relative -top-24 -right-20 sm:-top-[96px] sm:-right-[200px]
     h-xs:-right-8 w-xs:top-44 rotate-[20deg] w-xs:-rotate-0 flex items-center gap-0.5">
         <motion.div animate={{ scale: [1, 0.88, 1] }} transition={transitionValue}>

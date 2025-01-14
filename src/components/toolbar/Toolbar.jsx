@@ -4,7 +4,7 @@ import { InfoButton } from '../reusable';
 
 export default function Toolbar({ backgroundProps }) {
     return (
-    <motion.aside initial={{ opacity: 0, x: -60 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.2, duration: 0.5 }}
+    <motion.aside initial={{ opacity: 0, x: -60 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.2, duration: 0.5, type: 'spring' }}
         style={{
         backdropFilter: 'blur(2px)',
         WebkitBackdropFilter: 'blur(2px)',
