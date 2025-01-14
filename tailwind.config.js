@@ -10,9 +10,9 @@ export default {
         'w-xs': { 'raw': '(max-width: 380px)' },
       },
       colors: {
-        'accent-maroon': '#540F0F',
-        'muted-maroon': '#7f4646',
-        'highlight-maroon': '#fce5e5',
+        'accent-maroon': 'var(--accent-maroon, #540F0F)',
+        'muted': 'var(--muted, #7f4646)',
+        'highlight': 'var(--highlight, #fce5e5)',
         'active-gray': '#f0e7e7',
       },
       fontFamily: {

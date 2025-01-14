@@ -1,9 +1,4 @@
-import { useState } from 'react';
-
-export default function BackgroundChanger() {
-    const [backgroundColor, setBackgroundColor] = useState('#ffefef');
-    const [dotColor, setDotColor] = useState('#ec1111');
-
+export default function BackgroundChanger({ backgroundColor, dotColor, setBackgroundColor, setDotColor }) {
     return (
         <div className="flex flex-col items-center gap-2">
             <div className="mt-1 flex flex-col items-center gap-1">

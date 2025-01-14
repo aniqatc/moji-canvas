@@ -16,10 +16,11 @@ html, body {
   overflow: hidden;
 }
 
-*:focus {
+*:focus, button:focus {
   outline: none;
 }
 
-button:focus {
-  outline: none;
+input:focus-visible, button:focus-visible, a:focus-visible {
+  outline: 2px solid #464646;
+  transition: all 200ms ease-in;
 }

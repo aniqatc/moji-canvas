@@ -9,7 +9,7 @@ export default function AnimationControls() {
 
     return (
         <>
-    <fieldset className="block mx-auto accent-slate-500">
+    <fieldset className="flex flex-col gap-0.5 mx-auto accent-slate-500">
         <div key="animation-checkbox" className="flex items-center gap-1">
             <input type="checkbox" id="animation-checkbox" checked={animationMode} onChange={() => {
                 setAnimationMode(!animationMode);

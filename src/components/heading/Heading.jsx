@@ -19,7 +19,7 @@ export default function Heading() {
                 backdropFilter: 'blur(4px)',
                 WebkitBackdropFilter: 'blur(4px)',
             }}
-                 className="z-50 -translate-x-2/4 absolute top-14 sm:top-16 left-2/4 text-gray-600 text-[11px] sm:text-sm border border-gray-300 shadow-md rounded-md p-2 w-max bg-white/35 flex items-center gap-1 sm:gap-2 invisible group-hover:visible">
+                 className="z-50 -translate-x-2/4 absolute top-14 sm:top-16 left-2/4 text-gray-600 text-[11px] sm:text-sm border border-gray-300/50 shadow-md rounded-md p-2 w-max bg-white/55 flex items-center gap-1 sm:gap-2 invisible group-hover:visible">
                 <InfoButton />
                 <div className="flex flex-col">
                     <span>Emoji stickers are designed by <a href="https://openmoji.org/" target="_blank" className="font-semibold underline text-gray-700 hover:text-black">OpenMoji</a>.</span>

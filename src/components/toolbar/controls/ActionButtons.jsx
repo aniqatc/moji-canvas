@@ -9,7 +9,7 @@ export default function ActionButtons() {
             <Download weight="bold" className="text-[28px] h-sm:text-[24px]"/>
             <span>Save</span>
         </BaseButton>
-        <BaseButton disabled="true" ariaLabel="Share canvas" onClick={() => {
+        <BaseButton disabled={true} ariaLabel="Share canvas" onClick={() => {
         }}>
             <Share weight="bold" className="text-[28px] h-sm:text-[24px]"/>
             <span>Share</span>
