@@ -222,6 +222,7 @@ function App() {
           localStorage.removeItem('bg-color');
           localStorage.removeItem('dot-color');
           localStorage.removeItem('designers');
+          setDesigners([]);
           setStickers([]);
           setShowInitialElements(true);
           setSpeed(1);
