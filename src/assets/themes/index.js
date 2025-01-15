@@ -4,13 +4,14 @@ import flags from './flags.svg';
 import food from './food.svg';
 import objects from './objects.svg';
 import people from './people.svg';
-import random from './random.svg';
+import all from './all.svg';
 import smileys from './smileys.svg';
 import symbols from './symbols.svg';
 import travel from './travel.svg';
+import misc from './misc.svg';
 
 export const themes = [
-  { id: 'extras-', icon: random, label: 'Random', value: 'extras-' },
+  { id: 'all', icon: all, label: 'Random', value: 'all' },
   { id: 'activities', icon: activities, label: 'Activities', value: 'activities' },
   { id: 'animals-nature', icon: animals, label: 'Animals & Nature', value: 'animals-nature' },
   { id: 'flags', icon: flags, label: 'Flags', value: 'flags' },
@@ -20,4 +21,5 @@ export const themes = [
   { id: 'symbols', icon: symbols, label: 'Symbols', value: 'symbols' },
   { id: 'smileys-emotion', icon: smileys, label: 'Smileys', value: 'smileys-emotion' },
   { id: 'travel-places', icon: travel, label: 'Travel & Places', value: 'travel-places' },
+  { id: 'extras-', icon: misc, label: 'Miscellaneous', value: 'extras-' },
 ];

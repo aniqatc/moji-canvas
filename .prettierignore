@@ -4,4 +4,4 @@ dist
 .eslintcache
 .DS_Store
 .env
-src/assets/
+public/

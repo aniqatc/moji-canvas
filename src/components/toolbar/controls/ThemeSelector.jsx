@@ -5,7 +5,7 @@ import { CaretDown } from '@phosphor-icons/react';
 import { themes } from '../../../assets/themes';
 
 export default function ThemeSelector() {
-  const [selectedTheme, setSelectedTheme] = useState(themes.find((t) => t.value === 'extras-'));
+  const [selectedTheme, setSelectedTheme] = useState(themes.find((t) => t.value === 'all'));
 
   return (
     <>
