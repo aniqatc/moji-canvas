@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from '@phosphor-icons/react';
 import all from '../../assets/themes/all.svg';
@@ -27,7 +26,7 @@ export default function Modal({ heading, children, isOpen, onClose }) {
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.9, opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="h-sm:min-w-[80%] min-w-96 bg-white rounded shadow-lg p-6"
+                        className="cursor-default h-sm:max-w-[90%] w-[500px] bg-white rounded shadow-xl p-6"
                     >
                         <div className="flex justify-between items-center border-b pb-2 mb-2">
                             <p className="text-lg font-semibold flex items-center">
@@ -39,7 +38,7 @@ export default function Modal({ heading, children, isOpen, onClose }) {
                                 <X weight="bold" size="24"/>
                             </button>
                         </div>
-                        <div className="text-sm text-gray-800">
+                        <div className="text-[13px] text-gray-800">
                             {children}
                         </div>
                     </motion.div>

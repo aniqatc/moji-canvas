@@ -3,12 +3,13 @@ import { AnimatePresence, motion, useDragControls } from 'framer-motion';
 import { Heading, ClickHintText, Toolbar } from './components';
 import { getStickerByCategory, generateRandomSizeAndPosition } from './utils/stickers.js';
 import { downloadImage } from './utils/download.js';
-import { Modal } from './components/reusable'
+import { InfoModal } from './components/modals';
 
 function App() {
   const controls = useDragControls();
   const constraintsRef = useRef(null);
   const [infoModalOpen, setInfoModalOpen] = useState(false);
+  const [designers, setDesigners] = useState(JSON.parse(localStorage.getItem('designers')) || []);
 
   const [metadata, setMetadata] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -63,11 +64,13 @@ function App() {
         left: e.clientX - parseInt(width) / 2 + 'px',
       };
       setStickers((prev) => [...prev, stickerWithStyles]);
+      setDesigners(prev => [...prev, stickerWithStyles.openmoji_author]);
     } else if (stickerMode === 'remove') {
       const stickerDiv = e.target.closest('.sticker-div');
       if (stickerDiv) {
         const updatedStickers = stickers.filter((sticker) => sticker.id !== stickerDiv.id);
         setStickers(updatedStickers);
+        setDesigners(prev => [...prev, updatedStickers.openmoji_author]);
 
         if (updatedStickers.length === 0) {
           setShowInitialElements(true);
@@ -217,6 +220,7 @@ function App() {
           localStorage.removeItem('stickers');
           localStorage.removeItem('bg-color');
           localStorage.removeItem('dot-color');
+          localStorage.removeItem('designers');
           setStickers([]);
           setShowInitialElements(true);
           setSpeed(1);
@@ -232,6 +236,7 @@ function App() {
           localStorage.setItem('stickers', JSON.stringify(stickers));
           localStorage.setItem('bg-color', backgroundColor);
           localStorage.setItem('dot-color', dotColor);
+          localStorage.setItem('designers', JSON.stringify(designers));
         }}
         onDownload={() => {
           downloadImage(constraintsRef);
@@ -239,7 +244,7 @@ function App() {
         onShare={() => {}}
         openModal={() => setInfoModalOpen(true)}
       />
-      <Modal heading="About" isOpen={infoModalOpen} onClose={() => {setInfoModalOpen(false)}}>Hi</Modal>
+      <InfoModal isOpen={infoModalOpen} onClose={() => setInfoModalOpen(false)} stickerDesigners={designers} />
     </main>
   );
 }
