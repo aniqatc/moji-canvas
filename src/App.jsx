@@ -28,7 +28,7 @@ function App() {
   async function handleCanvasClick(e) {
     if (isDragging) return;
 
-    const forbidden = document.querySelectorAll('aside, header');
+    const forbidden = document.querySelectorAll('aside, header, [data-radix-popper-content-wrapper]');
     if ([...forbidden].some((el) => el?.contains(e.target))) return;
 
     if (stickerMode === 'add') {
@@ -116,7 +116,10 @@ function App() {
               initial={{ opacity: 0, scale: 0, rotate: 0 }}
               animate={{ opacity: 1, scale: 1, rotate: sticker.rotation }}
               exit={{ opacity: 0, scale: 0, rotate: 0 }}
-              transition={{ duration: 0.3, type: 'spring' }}
+              transition={{
+                initial: { duration: 0.3, type: 'spring' },
+                exit: { duration: 0.3, type: 'spring', delay: 0.1 },
+              }}
               drag
               dragControls={controls}
               onDragStart={() => setIsDragging(true)}
@@ -142,6 +145,9 @@ function App() {
         onReset={() => {
           setStickers([]);
           setShowInitialElements(true);
+        }}
+        onThemeSelect={(theme) => {
+          setCategory(theme);
         }}
       />
     </main>

@@ -9,7 +9,7 @@ import {
 } from './controls';
 import { InfoButton } from '../reusable';
 
-export default function Toolbar({ backgroundProps, onStickerMode, onReset }) {
+export default function Toolbar({ backgroundProps, onStickerMode, onReset, onThemeSelect }) {
   return (
     <motion.aside
       initial={{ opacity: 0, x: -60 }}
@@ -23,7 +23,7 @@ export default function Toolbar({ backgroundProps, onStickerMode, onReset }) {
     >
       <StickerControls onStickerMode={onStickerMode} />
       <Separator />
-      <ThemeSelector />
+      <ThemeSelector onThemeSelect={onThemeSelect} />
       <Separator />
       <BackgroundChanger {...backgroundProps} />
       <Separator />

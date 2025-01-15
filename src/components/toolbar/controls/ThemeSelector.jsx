@@ -4,15 +4,16 @@ import * as Select from '@radix-ui/react-select';
 import { CaretDown } from '@phosphor-icons/react';
 import { themes } from '../../../assets/themes';
 
-export default function ThemeSelector() {
+export default function ThemeSelector({ onThemeSelect }) {
   const [selectedTheme, setSelectedTheme] = useState(themes.find((t) => t.value === 'all'));
 
   return (
     <>
       <Select.Root
         onValueChange={(value) => {
-          const theme = themes.find((t) => t.value === value);
-          setSelectedTheme(theme);
+            const theme = themes.find((t) => t.value === value);
+            setSelectedTheme(theme);
+            onThemeSelect(theme.value);
         }}
       >
         <Select.Trigger

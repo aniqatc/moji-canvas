@@ -11,7 +11,7 @@ import travel from './travel.svg';
 import misc from './misc.svg';
 
 export const themes = [
-  { id: 'all', icon: all, label: 'Random', value: 'all' },
+  { id: 'all', icon: all, label: 'All Categories', value: 'all' },
   { id: 'activities', icon: activities, label: 'Activities', value: 'activities' },
   { id: 'animals-nature', icon: animals, label: 'Animals & Nature', value: 'animals-nature' },
   { id: 'flags', icon: flags, label: 'Flags', value: 'flags' },
