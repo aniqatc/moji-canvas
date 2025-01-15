@@ -1,13 +1,21 @@
 import { BaseSlider } from '../../reusable';
 
-export default function AnimationControls({ animateMode, float, rotate, speed, setRotate, setFloat, setSpeed, setAnimateMode }) {
-  return (
+export default function AnimationControls({ animateMode, float, rotate, speed, setRotate, setFloat, setSpeed, setAnimateMode, stickerLength }) {
+  if (stickerLength >= 50) {
+      setAnimateMode(false);
+      setFloat(false);
+      setSpeed(false);
+      setRotate(false);
+  }
+    return (
     <>
       <fieldset className="mx-auto flex flex-col gap-0.5 accent-slate-500">
         <div key="animation-checkbox" className="flex items-center gap-1">
           <input
+            className={`${stickerLength < 50 ? 'cursor-pointer' : 'cursor-not-allowed'}`}
             type="checkbox"
             id="animation-checkbox"
+            disabled={stickerLength >= 50}
             checked={animateMode}
             onChange={() => {
               setAnimateMode(!animateMode);
@@ -15,7 +23,7 @@ export default function AnimationControls({ animateMode, float, rotate, speed, s
               setFloat(!animateMode);
             }}
           />
-          <label htmlFor="animation-checkbox" className="cursor-pointer">
+          <label htmlFor="animation-checkbox" className={`${stickerLength < 50 ? 'cursor-pointer' : 'cursor-not-allowed text-gray-500/85'}`}>
             Animate
           </label>
         </div>
@@ -32,7 +40,7 @@ export default function AnimationControls({ animateMode, float, rotate, speed, s
           />
           <label
             htmlFor="float-checkbox"
-            className={`${animateMode ? 'cursor-pointer' : 'cursor-not-allowed'}`}
+            className={`${animateMode ? 'cursor-pointer' : 'cursor-not-allowed text-gray-500/85'}`}
           >
             Float
           </label>
@@ -50,7 +58,7 @@ export default function AnimationControls({ animateMode, float, rotate, speed, s
           />
           <label
             htmlFor="rotate-checkbox"
-            className={`${animateMode ? 'cursor-pointer' : 'cursor-not-allowed'}`}
+            className={`${animateMode ? 'cursor-pointer' : 'cursor-not-allowed text-gray-500/85'}`}
           >
             Rotate
           </label>
@@ -64,6 +72,7 @@ export default function AnimationControls({ animateMode, float, rotate, speed, s
         value={speed}
         onChange={(event) => setSpeed(Number(event.target.value))}
         label="Speed"
+        disabled={!animateMode}
       />
     </>
   );
