@@ -69,9 +69,10 @@ function App() {
     } else if (stickerMode === 'remove') {
       const stickerDiv = e.target.closest('.sticker-div');
       if (stickerDiv) {
-        const updatedStickers = stickers.filter((sticker) => sticker.id !== stickerDiv.id);
+        const stickerToRemove = stickers.find(sticker => sticker.id === stickerDiv.id);
+        const updatedStickers = stickers.filter(sticker => sticker.id !== stickerDiv.id);
         setStickers(updatedStickers);
-        setDesigners((prev) => [...prev, updatedStickers.openmoji_author]);
+        setDesigners(designers.filter(designer => designer !== stickerToRemove.openmoji_author));
 
         if (updatedStickers.length === 0) {
           setShowInitialElements(true);

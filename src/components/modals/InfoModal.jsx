@@ -34,11 +34,9 @@ export default function InfoModal({ isOpen, onClose, stickerDesigners }) {
         <>
           <h4 className="mb-1 font-bold">Featured OpenMoji Designers</h4>
           <ul className="mb-2 flex flex-wrap gap-x-2 gap-y-1 text-[11px] text-gray-600">
-            {uniqueDesigners.map((designer) => (
-              <li key={designer} className="rounded border px-1 py-0.5">
-                {designer}
-              </li>
-            ))}
+            {uniqueDesigners.map(designer => <li key={designer} className="rounded border px-1 py-0.5">
+              {designer}
+            </li>)}
           </ul>
         </>
       )}
