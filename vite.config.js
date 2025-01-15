@@ -16,20 +16,20 @@ export default defineConfig({
         name: 'Moji Canvas',
         short_name: 'Moji Canvas',
         description: 'Interactive emoji-based sticker canvas',
-        theme_color: '#ec1111',
+        theme_color: '#ffffff',
         background_color: '#ffefef',
         display: 'standalone',
         icons: [
           {
-            src: '/sparkles.svg',
+            src: '/sparkles-192.png',
             sizes: '192x192',
-            type: 'image/svg+xml'
+            type: 'image/png'
           },
           {
-            src: '/sparkles.svg',
+            src: '/sparkles-512.png',
             sizes: '512x512',
-            type: 'image/svg+xml'
-          }
+            type: 'image/png'
+          },
         ]
       }
     })],
