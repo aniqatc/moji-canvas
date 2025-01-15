@@ -11,7 +11,7 @@ export default function BackgroundChanger({
           type="color"
           value={backgroundColor}
           onChange={(event) => setBackgroundColor(event.target.value)}
-          className="h-11 w-16 cursor-pointer rounded border border-stone-200 bg-white p-0.5 outline-0 transition-all focus:border-stone-400 focus:bg-active-gray h-sm:w-12"
+          className="h-10 w-16 cursor-pointer rounded border border-stone-200 bg-white p-0.5 outline-0 transition-all focus:border-stone-400 focus:bg-active-gray h-sm:w-12"
         />
         <span>Background</span>
       </div>
@@ -20,7 +20,7 @@ export default function BackgroundChanger({
           type="color"
           value={dotColor}
           onChange={(event) => setDotColor(event.target.value)}
-          className="h-11 w-16 cursor-pointer rounded border border-stone-200 bg-white p-0.5 outline-0 transition-all focus:border-stone-400 focus:bg-active-gray h-sm:w-12"
+          className="h-10 w-16 cursor-pointer rounded border border-stone-200 bg-white p-0.5 outline-0 transition-all focus:border-stone-400 focus:bg-active-gray h-sm:w-12"
         />
         <span>Dots</span>
       </div>

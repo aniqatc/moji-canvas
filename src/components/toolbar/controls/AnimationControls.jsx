@@ -12,7 +12,7 @@ export default function AnimationControls({
   setAnimateMode,
   stickerLength,
 }) {
-  const STICKER_LIMIT = 30;
+  const STICKER_LIMIT = 40;
   const isOverLimit = stickerLength > STICKER_LIMIT;
 
   if (isOverLimit && animateMode) {

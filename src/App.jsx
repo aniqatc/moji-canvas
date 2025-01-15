@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { AnimatePresence, motion, useDragControls } from 'framer-motion';
 import { Heading, ClickHintText, Toolbar } from './components';
 import { getStickerByCategory, generateRandomSizeAndPosition } from './utils/stickers.js';
+import { downloadImage } from './utils/download.js';
 
 function App() {
   const controls = useDragControls();
@@ -11,12 +12,16 @@ function App() {
   const [isDragging, setIsDragging] = useState(false);
   const [stickerMode, setStickerMode] = useState('add');
   const [showInitialElements, setShowInitialElements] = useState(!localStorage.getItem('stickers'));
-  const [backgroundColor, setBackgroundColor] = useState('#ffefef');
-  const [dotColor, setDotColor] = useState('#ec1111');
-  const [stickers, setStickers] = useState(() => JSON.parse(localStorage.getItem('stickers')) || []);
+  const [backgroundColor, setBackgroundColor] = useState(
+    localStorage.getItem('bg-color') || '#ffefef'
+  );
+  const [dotColor, setDotColor] = useState(localStorage.getItem('dot-color') || '#ec1111');
+  const [stickers, setStickers] = useState(
+    () => JSON.parse(localStorage.getItem('stickers')) || []
+  );
   const [category, setCategory] = useState('');
-  const [scale, setScale] = useState(1);
 
+  const [scale, setScale] = useState(1);
   const [animateMode, setAnimateMode] = useState(false);
   const [float, setFloat] = useState(false);
   const [rotate, setRotate] = useState(false);
@@ -207,8 +212,10 @@ function App() {
         onThemeSelect={(theme) => setCategory(theme)}
         onScaleChange={(value) => setScale(value)}
         onReset={() => {
+          localStorage.removeItem('stickers');
+          localStorage.removeItem('bg-color');
+          localStorage.removeItem('dot-color');
           setStickers([]);
-          localStorage.removeItem("stickers");
           setShowInitialElements(true);
           setSpeed(1);
           setScale(1);
@@ -216,9 +223,16 @@ function App() {
           setRotate(false);
           setFloat(false);
           setStickerMode('add');
+          setBackgroundColor('#ffefef');
+          setDotColor('#ec1111');
         }}
         onSave={() => {
           localStorage.setItem('stickers', JSON.stringify(stickers));
+          localStorage.setItem('bg-color', backgroundColor);
+          localStorage.setItem('dot-color', dotColor);
+        }}
+        onDownload={() => {
+          downloadImage(constraintsRef);
         }}
         onShare={() => {}}
       />

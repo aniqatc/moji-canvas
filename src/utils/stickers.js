@@ -26,16 +26,20 @@ function generateRandomSizeAndPosition() {
     height: size + 'px',
     rotation: getPositiveOrNegativeValue() * Math.random() * 360 + 'deg',
     floatOffsets: {
-      x: [getPositiveOrNegativeValue() * Math.random() * (window.innerWidth * 0.25),
-        getPositiveOrNegativeValue() * Math.random() * (window.innerWidth * 0.25)],
-      y: [getPositiveOrNegativeValue() * Math.random() * (window.innerHeight * 0.25),
-        getPositiveOrNegativeValue() * Math.random() * (window.innerHeight * 0.25)],
+      x: [
+        getPositiveOrNegativeValue() * Math.random() * (window.innerWidth * 0.25),
+        getPositiveOrNegativeValue() * Math.random() * (window.innerWidth * 0.25),
+      ],
+      y: [
+        getPositiveOrNegativeValue() * Math.random() * (window.innerHeight * 0.25),
+        getPositiveOrNegativeValue() * Math.random() * (window.innerHeight * 0.25),
+      ],
     },
   };
 }
 
 function getPositiveOrNegativeValue() {
-  return Math.random() > 0.5 ? - 1 : 1;
+  return Math.random() > 0.5 ? -1 : 1;
 }
 
 export { getStickerByCategory, generateRandomSizeAndPosition };

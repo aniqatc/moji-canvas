@@ -18,6 +18,7 @@ export default function Toolbar({
   onScaleChange,
   onSave,
   onShare,
+  onDownload
 }) {
   return (
     <motion.aside
@@ -28,7 +29,7 @@ export default function Toolbar({
         backdropFilter: 'blur(3px)',
         WebkitBackdropFilter: 'blur(3px)',
       }}
-      className="centering-override custom-scrollbar top-50 fixed left-3 flex h-max flex-col gap-2 rounded-md border border-stone-200 bg-white bg-white/85 p-2 text-center text-xs font-semibold text-gray-600 shadow h-sm:left-1 h-sm:gap-1.5 h-sm:p-1.5 h-sm:text-[11px] h-xs:h-[506px] h-xs:overflow-y-scroll"
+      className="centering-override custom-scrollbar top-50 fixed left-3 flex h-max flex-col gap-1.5 rounded-md border border-stone-200 bg-white bg-white/85 p-2 text-center text-xs font-semibold text-gray-600 shadow h-sm:left-1 h-sm:gap-1.5 h-sm:p-1.5 h-sm:text-[11px] h-xs:h-[506px] h-xs:overflow-y-scroll"
     >
       <StickerControls onStickerMode={onStickerMode} />
       <Separator />
@@ -40,7 +41,7 @@ export default function Toolbar({
       <Separator />
       <SizeControls onScaleChange={onScaleChange} />
       <Separator />
-      <ActionButtons onReset={onReset} onSave={onSave} onShare={onShare} />
+      <ActionButtons onReset={onReset} onSave={onSave} onShare={onShare} onDownload={onDownload} />
       <InfoButton />
     </motion.aside>
   );
