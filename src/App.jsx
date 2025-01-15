@@ -10,10 +10,10 @@ function App() {
   const [metadata, setMetadata] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   const [stickerMode, setStickerMode] = useState('add');
-  const [showInitialElements, setShowInitialElements] = useState(true);
+  const [showInitialElements, setShowInitialElements] = useState(!localStorage.getItem('stickers'));
   const [backgroundColor, setBackgroundColor] = useState('#ffefef');
   const [dotColor, setDotColor] = useState('#ec1111');
-  const [stickers, setStickers] = useState([]);
+  const [stickers, setStickers] = useState(() => JSON.parse(localStorage.getItem('stickers')) || []);
   const [category, setCategory] = useState('');
   const [scale, setScale] = useState(1);
 
@@ -125,6 +125,7 @@ function App() {
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0 }}
+              transition={{ duration: 0.3 }}
               drag
               dragControls={controls}
               onDragStart={() => setIsDragging(true)}
@@ -207,6 +208,7 @@ function App() {
         onScaleChange={(value) => setScale(value)}
         onReset={() => {
           setStickers([]);
+          localStorage.removeItem("stickers");
           setShowInitialElements(true);
           setSpeed(1);
           setScale(1);
@@ -215,7 +217,9 @@ function App() {
           setFloat(false);
           setStickerMode('add');
         }}
-        onSave={() => {}}
+        onSave={() => {
+          localStorage.setItem('stickers', JSON.stringify(stickers));
+        }}
         onShare={() => {}}
       />
     </main>

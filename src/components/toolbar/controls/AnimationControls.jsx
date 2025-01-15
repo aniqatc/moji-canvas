@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { BaseSlider } from '../../reusable';
 
 export default function AnimationControls({
@@ -11,31 +12,37 @@ export default function AnimationControls({
   setAnimateMode,
   stickerLength,
 }) {
-  if (stickerLength >= 50) {
+  const STICKER_LIMIT = 30;
+  const isOverLimit = stickerLength > STICKER_LIMIT;
+
+  if (isOverLimit && animateMode) {
     setAnimateMode(false);
     setFloat(false);
-    setSpeed(false);
     setRotate(false);
+    setSpeed(1);
   }
+
   return (
     <>
       <fieldset className="mx-auto flex flex-col gap-0.5 accent-slate-500">
         <div key="animation-checkbox" className="flex items-center gap-1">
           <input
-            className={`${stickerLength < 50 ? 'cursor-pointer' : 'cursor-not-allowed'}`}
+            className={`${!isOverLimit ? 'cursor-pointer' : 'cursor-not-allowed'}`}
             type="checkbox"
             id="animation-checkbox"
-            disabled={stickerLength >= 50}
+            disabled={isOverLimit}
             checked={animateMode}
             onChange={() => {
-              setAnimateMode(!animateMode);
-              setRotate(!animateMode);
-              setFloat(!animateMode);
+              if (!isOverLimit) {
+                setAnimateMode(!animateMode);
+                setRotate(!animateMode);
+                setFloat(!animateMode);
+              }
             }}
           />
           <label
             htmlFor="animation-checkbox"
-            className={`${stickerLength < 50 ? 'cursor-pointer' : 'cursor-not-allowed text-gray-500/85'}`}
+            className={`${!isOverLimit ? 'cursor-pointer' : 'cursor-not-allowed text-gray-500/85'}`}
           >
             Animate
           </label>
@@ -81,7 +88,7 @@ export default function AnimationControls({
         id="speed-slider"
         min={0}
         max={2}
-        step={0.25}
+        step={0.2}
         value={speed}
         onChange={(event) => setSpeed(Number(event.target.value))}
         label="Speed"
