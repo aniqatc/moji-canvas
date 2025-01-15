@@ -24,7 +24,7 @@
 - Choose from 4,000+ illustrations across 10 unique themes
 - Add, remove, and freely arrange stickers on the canvas
 - Customize background colors and patterns
-- Animate stickers with floating, rotating, and scaling effects
+- Animate stickers with floating, rotating, and scaling effects (*however, for performance reasons, animations are disabled if there are more than 40 stickers in the canvas*)
 - Save your creations to browser storage for future editing
 - Download your canvas as a high-quality PNG image
 - Share your creations directly to social media
