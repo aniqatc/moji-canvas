@@ -1,13 +1,23 @@
 import { BaseSlider } from '../../reusable';
 
-export default function AnimationControls({ animateMode, float, rotate, speed, setRotate, setFloat, setSpeed, setAnimateMode, stickerLength }) {
+export default function AnimationControls({
+  animateMode,
+  float,
+  rotate,
+  speed,
+  setRotate,
+  setFloat,
+  setSpeed,
+  setAnimateMode,
+  stickerLength,
+}) {
   if (stickerLength >= 50) {
-      setAnimateMode(false);
-      setFloat(false);
-      setSpeed(false);
-      setRotate(false);
+    setAnimateMode(false);
+    setFloat(false);
+    setSpeed(false);
+    setRotate(false);
   }
-    return (
+  return (
     <>
       <fieldset className="mx-auto flex flex-col gap-0.5 accent-slate-500">
         <div key="animation-checkbox" className="flex items-center gap-1">
@@ -23,7 +33,10 @@ export default function AnimationControls({ animateMode, float, rotate, speed, s
               setFloat(!animateMode);
             }}
           />
-          <label htmlFor="animation-checkbox" className={`${stickerLength < 50 ? 'cursor-pointer' : 'cursor-not-allowed text-gray-500/85'}`}>
+          <label
+            htmlFor="animation-checkbox"
+            className={`${stickerLength < 50 ? 'cursor-pointer' : 'cursor-not-allowed text-gray-500/85'}`}
+          >
             Animate
           </label>
         </div>

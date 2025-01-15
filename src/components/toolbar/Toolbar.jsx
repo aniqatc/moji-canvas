@@ -9,7 +9,16 @@ import {
 } from './controls';
 import { InfoButton } from '../reusable';
 
-export default function Toolbar({ animationProps, backgroundProps, onStickerMode, onReset, onThemeSelect, onScaleChange, onSave, onShare }) {
+export default function Toolbar({
+  animationProps,
+  backgroundProps,
+  onStickerMode,
+  onReset,
+  onThemeSelect,
+  onScaleChange,
+  onSave,
+  onShare,
+}) {
   return (
     <motion.aside
       initial={{ opacity: 0, x: -60 }}
@@ -19,10 +28,7 @@ export default function Toolbar({ animationProps, backgroundProps, onStickerMode
         backdropFilter: 'blur(3px)',
         WebkitBackdropFilter: 'blur(3px)',
       }}
-      className="centering-override custom-scrollbar top-50 fixed left-3 flex h-max flex-col
-      gap-2 rounded-md border border-stone-200 bg-white bg-white/85 p-2 text-center text-xs
-      font-semibold text-gray-600 shadow h-sm:left-1 h-sm:gap-1.5 h-sm:p-1.5 h-sm:text-[11px]
-      h-xs:h-[506px] h-xs:overflow-y-scroll"
+      className="centering-override custom-scrollbar top-50 fixed left-3 flex h-max flex-col gap-2 rounded-md border border-stone-200 bg-white bg-white/85 p-2 text-center text-xs font-semibold text-gray-600 shadow h-sm:left-1 h-sm:gap-1.5 h-sm:p-1.5 h-sm:text-[11px] h-xs:h-[506px] h-xs:overflow-y-scroll"
     >
       <StickerControls onStickerMode={onStickerMode} />
       <Separator />

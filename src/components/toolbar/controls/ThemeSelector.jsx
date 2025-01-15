@@ -11,9 +11,9 @@ export default function ThemeSelector({ onThemeSelect }) {
     <>
       <Select.Root
         onValueChange={(value) => {
-            const theme = themes.find((t) => t.value === value);
-            setSelectedTheme(theme);
-            onThemeSelect(theme.value);
+          const theme = themes.find((t) => t.value === value);
+          setSelectedTheme(theme);
+          onThemeSelect(theme.value);
         }}
       >
         <Select.Trigger

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { AnimatePresence, motion, useDragControls } from 'framer-motion';
 import { Heading, ClickHintText, Toolbar } from './components';
-import { getStickerByCategory, generateRandomSize } from './utils/stickers.js';
+import { getStickerByCategory, generateRandomSizeAndPosition } from './utils/stickers.js';
 
 function App() {
   const controls = useDragControls();
@@ -22,26 +22,28 @@ function App() {
   const [rotate, setRotate] = useState(false);
   const [speed, setSpeed] = useState(1);
 
-  useEffect( () => {
+  useEffect(() => {
     async function getMetadata() {
       const response = await fetch(`/data/metadata.json`);
       const data = await response.json();
       setMetadata(data);
     }
     getMetadata();
-  }, [])
+  }, []);
 
   async function handleCanvasClick(e) {
     if (isDragging) return;
 
-    const nonCanvasEl = document.querySelectorAll('aside, header, [data-radix-popper-content-wrapper]');
+    const nonCanvasEl = document.querySelectorAll(
+      'aside, header, [data-radix-popper-content-wrapper]'
+    );
     if ([...nonCanvasEl].some((el) => el?.contains(e.target))) return;
 
     if (stickerMode === 'add') {
       setShowInitialElements(false);
       const sticker = await getStickerByCategory(metadata, category);
 
-      const { width, rotation, height } = generateRandomSize();
+      const { width, rotation, height, floatOffsets } = generateRandomSizeAndPosition();
       const stickerWithStyles = {
         ...sticker,
         src: `/stickers/${sticker.hexcode}.svg`,
@@ -49,12 +51,9 @@ function App() {
         height,
         width,
         rotation,
+        floatOffsets,
         top: e.clientY - parseInt(height) / 2 + 'px',
         left: e.clientX - parseInt(width) / 2 + 'px',
-        floatOffsets: {
-          x: [-Math.random() * 300, Math.random() * 300],
-          y: [-Math.random() * 300, Math.random() * 300]
-        }
       };
       setStickers((prev) => [...prev, stickerWithStyles]);
     } else if (stickerMode === 'remove') {
@@ -74,8 +73,7 @@ function App() {
     <main
       ref={constraintsRef}
       onClick={handleCanvasClick}
-      className="relative mx-auto flex h-dvh min-h-screen w-full cursor-pointer flex-col
-      items-center justify-center gap-5 w-xs:justify-normal"
+      className="relative mx-auto flex h-dvh min-h-screen w-full cursor-pointer flex-col items-center justify-center gap-5 w-xs:justify-normal"
       style={{
         backgroundColor: backgroundColor,
         backgroundImage: `radial-gradient(${dotColor} 2px, transparent 2px), 
@@ -111,100 +109,114 @@ function App() {
         )}
         {stickers &&
           stickers.map((sticker) => (
+            <motion.div
+              className="sticker-div"
+              id={sticker.id}
+              key={`${sticker.id}-${animateMode}`}
+              style={{
+                position: 'absolute',
+                top: sticker.top,
+                left: sticker.left,
+                width: sticker.width,
+                height: sticker.height,
+                cursor: 'grab',
+                filter: 'drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.5))',
+              }}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0 }}
+              drag
+              dragControls={controls}
+              onDragStart={() => setIsDragging(true)}
+              onDragEnd={() => setIsDragging(false)}
+              whileDrag={{ cursor: 'grabbing' }}
+              dragConstraints={constraintsRef}
+            >
               <motion.div
-                  className="sticker-div"
-                  id={sticker.id}
-                  key={`${sticker.id}-${animateMode}`}
-                  style={{
-                    position: 'absolute',
-                    top: sticker.top,
-                    left: sticker.left,
-                    width: sticker.width,
-                    height: sticker.height,
-                    cursor: 'grab',
-                    filter: 'drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.5))',
-                  }}
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0 }}
-                  drag
-                  dragControls={controls}
-                  onDragStart={() => setIsDragging(true)}
-                  onDragEnd={() => setIsDragging(false)}
-                  whileDrag={{cursor: 'grabbing'}}
-                  dragConstraints={constraintsRef}
-              >
-                <motion.div
-                    key={speed}
-                    animate={
-                      animateMode && float ? {
+                key={speed}
+                animate={
+                  animateMode && float
+                    ? {
                         y: sticker.floatOffsets.y,
                         x: sticker.floatOffsets.x,
-                      } : {y: 0, x: 0}
-                    }
-                    transition={{
-                      y: {
-                        duration: 2 / speed,
-                        repeat: float ? Infinity : 0,
-                        repeatType: "reverse",
-                        ease: "easeInOut"
-                      },
-                      x: {
-                        duration: 2 / speed,
-                        repeat: float ? Infinity : 0,
-                        repeatType: "reverse",
-                        ease: "easeInOut"
                       }
-                    }}
+                    : { y: 0, x: 0 }
+                }
+                transition={{
+                  y: {
+                    duration: 2 / speed,
+                    repeat: float ? Infinity : 0,
+                    repeatType: 'reverse',
+                    ease: 'easeInOut',
+                  },
+                  x: {
+                    duration: 2 / speed,
+                    repeat: float ? Infinity : 0,
+                    repeatType: 'reverse',
+                    ease: 'easeInOut',
+                  },
+                }}
+              >
+                <motion.div
+                  key={speed}
+                  initial={{ rotate: sticker.rotation }}
+                  animate={
+                    animateMode && rotate
+                      ? {
+                          rotate: [0, parseInt(sticker.rotation) + 100],
+                        }
+                      : { rotate: sticker.rotation }
+                  }
+                  transition={{
+                    duration: 2 / speed,
+                    repeat: rotate ? Infinity : 0,
+                    repeatType: 'reverse',
+                    ease: 'linear',
+                  }}
                 >
-                  <motion.div
-                      key={speed}
-                      initial={{rotate: sticker.rotation}}
-                      animate={
-                        animateMode && rotate ? {
-                          rotate: [0, parseInt(sticker.rotation) + 100]
-                        } : {rotate: sticker.rotation}
-                      }
-                      transition={{
-                          duration: 2 / speed,
-                          repeat: rotate ? Infinity : 0,
-                          repeatType: "reverse",
-                          ease: "linear"
-                      }}
-                  >
-                    <img
-                        src={sticker.src}
-                        alt={sticker.annotation}
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          pointerEvents: 'none',
-                          transform: `scale(${scale})`
-                        }}
-                    />
-                  </motion.div>
+                  <img
+                    src={sticker.src}
+                    alt={sticker.annotation}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      pointerEvents: 'none',
+                      transform: `scale(${scale})`,
+                    }}
+                  />
                 </motion.div>
               </motion.div>
+            </motion.div>
           ))}
       </AnimatePresence>
       <Toolbar
-          animationProps={{animateMode, float, rotate, speed, setRotate, setFloat, setSpeed, setAnimateMode, stickerLength: stickers.length}}
-          backgroundProps={{backgroundColor, dotColor, setBackgroundColor, setDotColor}}
-          onStickerMode={(mode) => setStickerMode(mode)}
-          onThemeSelect={(theme) => setCategory(theme)}
-          onScaleChange={(value) => setScale(value)}
-          onReset={() => {
-            setStickers([]);
-            setShowInitialElements(true);
-            setSpeed(1);
-            setScale(1);
-            setAnimateMode(false);
-            setRotate(false);
-            setFloat(false);
-            setStickerMode('add');
-          }}
-         onSave={() => {}}
-         onShare={() => {}}
+        animationProps={{
+          animateMode,
+          float,
+          rotate,
+          speed,
+          setRotate,
+          setFloat,
+          setSpeed,
+          setAnimateMode,
+          stickerLength: stickers.length,
+        }}
+        backgroundProps={{ backgroundColor, dotColor, setBackgroundColor, setDotColor }}
+        onStickerMode={(mode) => setStickerMode(mode)}
+        onThemeSelect={(theme) => setCategory(theme)}
+        onScaleChange={(value) => setScale(value)}
+        onReset={() => {
+          setStickers([]);
+          setShowInitialElements(true);
+          setSpeed(1);
+          setScale(1);
+          setAnimateMode(false);
+          setRotate(false);
+          setFloat(false);
+          setStickerMode('add');
+        }}
+        onSave={() => {}}
+        onShare={() => {}}
       />
     </main>
   );

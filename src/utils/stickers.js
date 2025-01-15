@@ -1,11 +1,15 @@
 async function getStickerByCategory(metadata, category) {
   try {
-    if (category === "all" || !category) {
-      const stickers = metadata.filter((data) => data.group === category || data.group.startsWith(category));
+    if (category === 'all' || !category) {
+      const stickers = metadata.filter(
+        (data) => data.group === category || data.group.startsWith(category)
+      );
       const randomIndex = Math.floor(Math.random() * stickers.length);
       return stickers[randomIndex];
     } else {
-      const filteredStickers = metadata.filter((data) => data.group === category || data.group.startsWith(category));
+      const filteredStickers = metadata.filter(
+        (data) => data.group === category || data.group.startsWith(category)
+      );
       const randomIndex = Math.floor(Math.random() * filteredStickers.length);
       return filteredStickers[randomIndex];
     }
@@ -14,14 +18,24 @@ async function getStickerByCategory(metadata, category) {
   }
 }
 
-function generateRandomSize() {
+function generateRandomSizeAndPosition() {
   const size = Math.floor(Math.random() * 200 + 100);
-  const rotation = Math.floor(Math.random() * 90 - 45) + 'deg';
+
   return {
     width: size + 'px',
     height: size + 'px',
-    rotation
+    rotation: getPositiveOrNegativeValue() * Math.random() * 360 + 'deg',
+    floatOffsets: {
+      x: [getPositiveOrNegativeValue() * Math.random() * (window.innerWidth * 0.25),
+        getPositiveOrNegativeValue() * Math.random() * (window.innerWidth * 0.25)],
+      y: [getPositiveOrNegativeValue() * Math.random() * (window.innerHeight * 0.25),
+        getPositiveOrNegativeValue() * Math.random() * (window.innerHeight * 0.25)],
+    },
   };
 }
 
-export { getStickerByCategory, generateRandomSize };
+function getPositiveOrNegativeValue() {
+  return Math.random() > 0.5 ? - 1 : 1;
+}
+
+export { getStickerByCategory, generateRandomSizeAndPosition };

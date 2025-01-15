@@ -12,8 +12,9 @@ export default function SizeControls({ onScaleChange }) {
       step={0.1}
       value={scale}
       onChange={(event) => {
-        setScale(event.target.value)
-        onScaleChange(event.target.value)}}
+        setScale(event.target.value);
+        onScaleChange(event.target.value);
+      }}
       label="Scale"
     />
   );
