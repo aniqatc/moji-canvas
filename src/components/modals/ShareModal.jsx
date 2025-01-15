@@ -19,7 +19,7 @@ export default function ShareModal({ isOpen, onClose }) {
 
     return (
         <Modal heading="Share Moji Canvas" isOpen={isOpen} onClose={onClose}>
-            <p className="text-gray-700 mb-2">Moji Canvas is a fun, <strong>interactive emoji-based sticker canvas</strong>! Create, customize, and bring your digital space to life with playful stickers and animations.
+            <p className="text-gray-700 mb-2">Moji Canvas is a fun, <strong>interactive emoji-based sticker canvas</strong>! Create, customize, and bring your digital space to life with <strong>4000+ unique emojis and stickers</strong>.
             </p>
             <button
                 onClick={handleLinkCopy}

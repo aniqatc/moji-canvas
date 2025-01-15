@@ -12,10 +12,13 @@ export default function InfoModal({ isOpen, onClose, stickerDesigners }) {
                     <strong>Add, remove and arrange </strong> stickers
                 </li>
                 <li>
+                    <strong>4000+ illustrations</strong> across <em>10 unique themes</em>
+                </li>
+                <li>
                     <strong>Customize</strong> background and pattern colors
                 </li>
                 <li>
-                    <strong>Animate</strong> stickers with floating, rotating and scaling options
+                    <strong>Animate</strong> stickers with <em>floating, rotating and scaling options</em>
                 </li>
                 <li>
                     <strong>Save</strong> your creation for next time or <strong>download</strong> as an image
