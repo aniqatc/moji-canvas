@@ -12,7 +12,7 @@ export default function ActionButtons({ onReset, onDownload, onSave, onShare }) 
             <Download weight="bold" className="text-[26px] h-sm:text-[22px]" />
             <span>Download</span>
         </BaseButton>
-      <BaseButton disabled={true} ariaLabel="Share canvas" onClick={onShare}>
+      <BaseButton ariaLabel="Share canvas" onClick={onShare}>
         <Share weight="bold" className="text-[26px] h-sm:text-[22px]" />
         <span>Share</span>
       </BaseButton>

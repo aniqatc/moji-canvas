@@ -6,7 +6,7 @@ export default {
     extend: {
       screens: {
         'h-sm': { raw: '(max-height: 820px) or (max-width: 600px)' },
-        'h-xs': { raw: '(max-height: 750px) or (max-width: 400px)' },
+        'h-xs': { raw: '(max-height: 750px) or (max-width: 430px)' },
         'w-xs': { raw: '(max-width: 380px)' },
       },
       colors: {

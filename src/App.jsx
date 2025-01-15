@@ -3,12 +3,13 @@ import { AnimatePresence, motion, useDragControls } from 'framer-motion';
 import { Heading, ClickHintText, Toolbar } from './components';
 import { getStickerByCategory, generateRandomSizeAndPosition } from './utils/stickers.js';
 import { downloadImage } from './utils/download.js';
-import { InfoModal } from './components/modals';
+import { InfoModal, ShareModal } from './components/modals';
 
 function App() {
   const controls = useDragControls();
   const constraintsRef = useRef(null);
   const [infoModalOpen, setInfoModalOpen] = useState(false);
+  const [shareModalOpen, setShareModalOpen] = useState(false);
   const [designers, setDesigners] = useState(JSON.parse(localStorage.getItem('designers')) || []);
 
   const [metadata, setMetadata] = useState(null);
@@ -241,10 +242,11 @@ function App() {
         onDownload={() => {
           downloadImage(constraintsRef);
         }}
-        onShare={() => {}}
+        onShare={() => setShareModalOpen(true)}
         openModal={() => setInfoModalOpen(true)}
       />
       <InfoModal isOpen={infoModalOpen} onClose={() => setInfoModalOpen(false)} stickerDesigners={designers} />
+      <ShareModal isOpen={shareModalOpen} onClose={() => setShareModalOpen(false)} />
     </main>
   );
 }

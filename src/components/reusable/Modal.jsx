@@ -26,7 +26,7 @@ export default function Modal({ heading, children, isOpen, onClose }) {
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.9, opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="cursor-default h-sm:max-w-[90%] w-[500px] bg-white rounded shadow-xl p-6"
+                        className="cursor-default h-sm:max-w-[90%] w-[500px] bg-white rounded shadow-xl py-4 px-5"
                     >
                         <div className="flex justify-between items-center border-b pb-2 mb-2">
                             <p className="text-lg font-semibold flex items-center">

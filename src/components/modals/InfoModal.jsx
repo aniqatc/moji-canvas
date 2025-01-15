@@ -4,7 +4,7 @@ export default function InfoModal({ isOpen, onClose, stickerDesigners }) {
     const uniqueDesigners = [...new Set(stickerDesigners)];
 
     return (
-        <Modal heading="About moji canvas" isOpen={isOpen} onClose={onClose}>
+        <Modal heading="About Moji Canvas" isOpen={isOpen} onClose={onClose}>
             <p className="text-gray-700 mb-2">An interactive emoji-based sticker canvas.</p>
             <h4 className="font-bold mb-1">Key Features</h4>
             <ul className="ml-3 list-disc text-xs mb-2">
