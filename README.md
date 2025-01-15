@@ -30,6 +30,7 @@
 - Share your creations directly to social media
 - Fully responsive design that works seamlessly across devices
 - PWA support
+- Dynamic designer credits that automatically update based on stickers in use
 
 ## Project Structure
 
