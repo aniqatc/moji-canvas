@@ -3,10 +3,12 @@ import { AnimatePresence, motion, useDragControls } from 'framer-motion';
 import { Heading, ClickHintText, Toolbar } from './components';
 import { getStickerByCategory, generateRandomSizeAndPosition } from './utils/stickers.js';
 import { downloadImage } from './utils/download.js';
+import { Modal } from './components/reusable'
 
 function App() {
   const controls = useDragControls();
   const constraintsRef = useRef(null);
+  const [infoModalOpen, setInfoModalOpen] = useState(false);
 
   const [metadata, setMetadata] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -108,7 +110,7 @@ function App() {
                 exit: { duration: 0.3 },
               }}
             >
-              <Heading />
+              <Heading openModal={() => setInfoModalOpen(true)} />
             </motion.div>
           </>
         )}
@@ -235,7 +237,9 @@ function App() {
           downloadImage(constraintsRef);
         }}
         onShare={() => {}}
+        openModal={() => setInfoModalOpen(true)}
       />
+      <Modal heading="About" isOpen={infoModalOpen} onClose={() => {setInfoModalOpen(false)}}>Hi</Modal>
     </main>
   );
 }

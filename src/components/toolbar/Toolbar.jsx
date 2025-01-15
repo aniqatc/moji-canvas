@@ -18,7 +18,8 @@ export default function Toolbar({
   onScaleChange,
   onSave,
   onShare,
-  onDownload
+  onDownload,
+  openModal
 }) {
   return (
     <motion.aside
@@ -42,7 +43,7 @@ export default function Toolbar({
       <SizeControls onScaleChange={onScaleChange} />
       <Separator />
       <ActionButtons onReset={onReset} onSave={onSave} onShare={onShare} onDownload={onDownload} />
-      <InfoButton />
+      <InfoButton openModal={openModal} />
     </motion.aside>
   );
 }
