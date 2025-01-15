@@ -246,7 +246,7 @@ function App() {
         }}
         onShare={() => setShareModalOpen(true)}
         openModal={() => setInfoModalOpen(true)}
-        disableButton={showInitialElements}
+        disableButton={showInitialElements || animateMode}
       />
       <InfoModal
         isOpen={infoModalOpen}
