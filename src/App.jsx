@@ -34,13 +34,13 @@ function App() {
   async function handleCanvasClick(e) {
     if (isDragging) return;
 
-    const forbidden = document.querySelectorAll('aside, header, [data-radix-popper-content-wrapper]');
-    if ([...forbidden].some((el) => el?.contains(e.target))) return;
+    const nonCanvasEl = document.querySelectorAll('aside, header, [data-radix-popper-content-wrapper]');
+    if ([...nonCanvasEl].some((el) => el?.contains(e.target))) return;
 
     if (stickerMode === 'add') {
       setShowInitialElements(false);
-
       const sticker = await getStickerByCategory(metadata, category);
+
       const { width, rotation, height } = generateRandomSize();
       const stickerWithStyles = {
         ...sticker,
@@ -188,7 +188,7 @@ function App() {
           ))}
       </AnimatePresence>
       <Toolbar
-          animationProps={{animateMode, float, rotate, speed, setRotate, setFloat, setSpeed, setAnimateMode}}
+          animationProps={{animateMode, float, rotate, speed, setRotate, setFloat, setSpeed, setAnimateMode, stickerLength: stickers.length}}
           backgroundProps={{backgroundColor, dotColor, setBackgroundColor, setDotColor}}
           onStickerMode={(mode) => setStickerMode(mode)}
           onThemeSelect={(theme) => setCategory(theme)}
@@ -201,9 +201,10 @@ function App() {
             setAnimateMode(false);
             setRotate(false);
             setFloat(false);
-            setCategory('');
             setStickerMode('add');
           }}
+         onSave={() => {}}
+         onShare={() => {}}
       />
     </main>
   );

@@ -9,18 +9,18 @@ import {
 } from './controls';
 import { InfoButton } from '../reusable';
 
-export default function Toolbar({ animationProps, backgroundProps, onStickerMode, onReset, onThemeSelect, onScaleChange }) {
+export default function Toolbar({ animationProps, backgroundProps, onStickerMode, onReset, onThemeSelect, onScaleChange, onSave, onShare }) {
   return (
     <motion.aside
       initial={{ opacity: 0, x: -60 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: 1.2, duration: 0.5, type: 'spring' }}
       style={{
-        backdropFilter: 'blur(2px)',
-        WebkitBackdropFilter: 'blur(2px)',
+        backdropFilter: 'blur(3px)',
+        WebkitBackdropFilter: 'blur(3px)',
       }}
       className="centering-override custom-scrollbar top-50 fixed left-3 flex h-max flex-col
-      gap-2 rounded-md border border-stone-200 bg-white bg-white/65 p-2 text-center text-xs
+      gap-2 rounded-md border border-stone-200 bg-white bg-white/85 p-2 text-center text-xs
       font-semibold text-gray-600 shadow h-sm:left-1 h-sm:gap-1.5 h-sm:p-1.5 h-sm:text-[11px]
       h-xs:h-[506px] h-xs:overflow-y-scroll"
     >
@@ -34,7 +34,7 @@ export default function Toolbar({ animationProps, backgroundProps, onStickerMode
       <Separator />
       <SizeControls onScaleChange={onScaleChange} />
       <Separator />
-      <ActionButtons onReset={onReset} />
+      <ActionButtons onReset={onReset} onSave={onSave} onShare={onShare} />
       <InfoButton />
     </motion.aside>
   );
