@@ -8,13 +8,14 @@ function App() {
   const constraintsRef = useRef(null);
 
   const [metadata, setMetadata] = useState(null);
-  const [backgroundColor, setBackgroundColor] = useState('#ffefef');
-  const [dotColor, setDotColor] = useState('#ec1111');
-  const [showInitialElements, setShowInitialElements] = useState(true);
-  const [stickers, setStickers] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
   const [stickerMode, setStickerMode] = useState('add');
+  const [showInitialElements, setShowInitialElements] = useState(true);
+  const [backgroundColor, setBackgroundColor] = useState('#ffefef');
+  const [dotColor, setDotColor] = useState('#ec1111');
+  const [stickers, setStickers] = useState([]);
   const [category, setCategory] = useState('');
+  const [scaleValue, setScaleValue] = useState(1);
 
   useEffect( () => {
     async function getMetadata() {
@@ -63,7 +64,8 @@ function App() {
     <main
       ref={constraintsRef}
       onClick={handleCanvasClick}
-      className="relative mx-auto flex h-dvh min-h-screen w-full cursor-pointer flex-col items-center justify-center gap-5 w-xs:justify-normal"
+      className="relative mx-auto flex h-dvh min-h-screen w-full cursor-pointer flex-col
+      items-center justify-center gap-5 w-xs:justify-normal"
       style={{
         backgroundColor: backgroundColor,
         backgroundImage: `radial-gradient(${dotColor} 2px, transparent 2px), 
@@ -134,6 +136,7 @@ function App() {
                   width: '100%',
                   height: '100%',
                   pointerEvents: 'none',
+                  transform: `scale(${scaleValue})`,
                 }}
               />
             </motion.div>
@@ -148,6 +151,9 @@ function App() {
         }}
         onThemeSelect={(theme) => {
           setCategory(theme);
+        }}
+        onScaleChange={(value) => {
+          setScaleValue(value)
         }}
       />
     </main>
