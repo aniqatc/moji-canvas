@@ -1,12 +1,6 @@
-import { useState } from 'react';
 import { BaseSlider } from '../../reusable';
 
-export default function AnimationControls() {
-  const [animationMode, setAnimationMode] = useState(false);
-  const [float, setFloat] = useState(animationMode);
-  const [rotate, setRotate] = useState(animationMode);
-  const [speed, setSpeed] = useState(1);
-
+export default function AnimationControls({ animateMode, float, rotate, speed, setRotate, setFloat, setSpeed, setAnimateMode }) {
   return (
     <>
       <fieldset className="mx-auto flex flex-col gap-0.5 accent-slate-500">
@@ -14,11 +8,11 @@ export default function AnimationControls() {
           <input
             type="checkbox"
             id="animation-checkbox"
-            checked={animationMode}
+            checked={animateMode}
             onChange={() => {
-              setAnimationMode(!animationMode);
-              setRotate(!animationMode);
-              setFloat(!animationMode);
+              setAnimateMode(!animateMode);
+              setRotate(!animateMode);
+              setFloat(!animateMode);
             }}
           />
           <label htmlFor="animation-checkbox" className="cursor-pointer">
@@ -29,8 +23,8 @@ export default function AnimationControls() {
           <input
             type="checkbox"
             id="float-checkbox"
-            className={`${animationMode ? 'cursor-pointer' : 'cursor-not-allowed'}`}
-            disabled={!animationMode}
+            className={`${animateMode ? 'cursor-pointer' : 'cursor-not-allowed'}`}
+            disabled={!animateMode}
             checked={float}
             onChange={() => {
               setFloat(!float);
@@ -38,7 +32,7 @@ export default function AnimationControls() {
           />
           <label
             htmlFor="float-checkbox"
-            className={`${animationMode ? 'cursor-pointer' : 'cursor-not-allowed'}`}
+            className={`${animateMode ? 'cursor-pointer' : 'cursor-not-allowed'}`}
           >
             Float
           </label>
@@ -47,8 +41,8 @@ export default function AnimationControls() {
           <input
             type="checkbox"
             id="rotate-checkbox"
-            className={`${animationMode ? 'cursor-pointer' : 'cursor-not-allowed'}`}
-            disabled={!animationMode}
+            className={`${animateMode ? 'cursor-pointer' : 'cursor-not-allowed'}`}
+            disabled={!animateMode}
             checked={rotate}
             onChange={() => {
               setRotate(!rotate);
@@ -56,7 +50,7 @@ export default function AnimationControls() {
           />
           <label
             htmlFor="rotate-checkbox"
-            className={`${animationMode ? 'cursor-pointer' : 'cursor-not-allowed'}`}
+            className={`${animateMode ? 'cursor-pointer' : 'cursor-not-allowed'}`}
           >
             Rotate
           </label>
@@ -66,9 +60,9 @@ export default function AnimationControls() {
         id="speed-slider"
         min={0}
         max={2}
-        step={0.1}
+        step={0.25}
         value={speed}
-        onChange={(event) => setSpeed(event.target.value)}
+        onChange={(event) => setSpeed(Number(event.target.value))}
         label="Speed"
       />
     </>
