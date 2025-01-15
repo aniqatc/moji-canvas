@@ -65,13 +65,13 @@ function App() {
         left: e.clientX - parseInt(width) / 2 + 'px',
       };
       setStickers((prev) => [...prev, stickerWithStyles]);
-      setDesigners(prev => [...prev, stickerWithStyles.openmoji_author]);
+      setDesigners((prev) => [...prev, stickerWithStyles.openmoji_author]);
     } else if (stickerMode === 'remove') {
       const stickerDiv = e.target.closest('.sticker-div');
       if (stickerDiv) {
         const updatedStickers = stickers.filter((sticker) => sticker.id !== stickerDiv.id);
         setStickers(updatedStickers);
-        setDesigners(prev => [...prev, updatedStickers.openmoji_author]);
+        setDesigners((prev) => [...prev, updatedStickers.openmoji_author]);
 
         if (updatedStickers.length === 0) {
           setShowInitialElements(true);
@@ -244,8 +244,13 @@ function App() {
         }}
         onShare={() => setShareModalOpen(true)}
         openModal={() => setInfoModalOpen(true)}
+        disableButton={showInitialElements}
       />
-      <InfoModal isOpen={infoModalOpen} onClose={() => setInfoModalOpen(false)} stickerDesigners={designers} />
+      <InfoModal
+        isOpen={infoModalOpen}
+        onClose={() => setInfoModalOpen(false)}
+        stickerDesigners={designers}
+      />
       <ShareModal isOpen={shareModalOpen} onClose={() => setShareModalOpen(false)} />
     </main>
   );

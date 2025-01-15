@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { BaseSlider } from '../../reusable';
 
 export default function AnimationControls({
