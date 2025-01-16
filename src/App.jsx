@@ -16,13 +16,9 @@ function App() {
   const [isDragging, setIsDragging] = useState(false);
   const [stickerMode, setStickerMode] = useState('add');
   const [showInitialElements, setShowInitialElements] = useState(!localStorage.getItem('stickers'));
-  const [backgroundColor, setBackgroundColor] = useState(
-    localStorage.getItem('bg-color') || '#ffefef'
-  );
+  const [backgroundColor, setBackgroundColor] = useState(localStorage.getItem('bg-color') || '#ffefef');
   const [dotColor, setDotColor] = useState(localStorage.getItem('dot-color') || '#ec1111');
-  const [stickers, setStickers] = useState(
-    () => JSON.parse(localStorage.getItem('stickers')) || []
-  );
+  const [stickers, setStickers] = useState(JSON.parse(localStorage.getItem('stickers')) || []);
   const [category, setCategory] = useState('');
 
   const [scale, setScale] = useState(1);
