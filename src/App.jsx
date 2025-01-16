@@ -8,6 +8,7 @@ import { InfoModal, ShareModal } from './components/modals';
 function App() {
   const controls = useDragControls();
   const constraintsRef = useRef(null);
+
   const [infoModalOpen, setInfoModalOpen] = useState(false);
   const [shareModalOpen, setShareModalOpen] = useState(false);
   const [designers, setDesigners] = useState(JSON.parse(localStorage.getItem('designers')) || []);
@@ -39,15 +40,9 @@ function App() {
   async function handleCanvasClick(e) {
     if (isDragging) return;
 
-    const nonCanvasEl = document.querySelectorAll(
-      'aside, header, [data-radix-popper-content-wrapper]'
-    );
-    if ([...nonCanvasEl].some((el) => el?.contains(e.target))) return;
-
     if (stickerMode === 'add') {
       setShowInitialElements(false);
       const sticker = await getStickerByCategory(metadata, category);
-
       const { width, rotation, height, floatOffsets } = generateRandomSizeAndPosition();
       const stickerWithStyles = {
         ...sticker,

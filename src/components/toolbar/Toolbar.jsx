@@ -23,7 +23,7 @@ export default function Toolbar({
   disableButton,
 }) {
   return (
-    <motion.aside
+    <motion.aside onClick={(event) => event.stopPropagation()}
       initial={{ opacity: 0, x: -60 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: 1.2, duration: 0.5, type: 'spring' }}

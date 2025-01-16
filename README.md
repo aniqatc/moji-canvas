@@ -13,7 +13,7 @@
 
 ## Libraries
 
-- [OpenMoji](https://openmoji.org/) - Emoji and sticker assets
+- [OpenMoji](https://openmoji.org/) - Emoji/sticker assets
 - [Phosphor Icons](https://phosphoricons.com/) - Icon set
 - [Radix UI](https://www.radix-ui.com/) - Custom select component
 - [React-Share](https://github.com/nygardk/react-share) - Social media sharing
