@@ -224,10 +224,10 @@ function App() {
           setDotColor('#ec1111');
         }}
         onSave={() => {
-          localStorage.setItem('stickers', JSON.stringify(stickers));
           localStorage.setItem('bg-color', backgroundColor);
           localStorage.setItem('dot-color', dotColor);
-          localStorage.setItem('designers', JSON.stringify(designers));
+          if (stickers.length > 0) localStorage.setItem('stickers', JSON.stringify(stickers));
+          if (designers.length > 0) localStorage.setItem('designers', JSON.stringify(designers));
         }}
         onDownload={() => {
           downloadImage(constraintsRef);
