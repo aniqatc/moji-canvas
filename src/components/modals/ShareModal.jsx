@@ -15,8 +15,8 @@ export default function ShareModal({ isOpen, onClose }) {
   const [isCopied, setIsCopied] = useState(false);
 
   const shareURL = 'https://moji.aniqa.dev/';
-  const title = 'Check out this fun, interactive emoji-based sticker canvas! Created by @aniqatc';
-  const blueskyShareUrl = `https://bsky.app/intent/compose?text=${encodeURIComponent(`${title + '.bsky.social'} ${shareURL}`)}`;
+  const title = 'Check out this fun, interactive emoji-based sticker canvas!';
+  const blueskyShareUrl = `https://bsky.app/intent/compose?text=${encodeURIComponent(`${title + ' Created by @aniqa.dev.'} ${shareURL}`)}`;
 
   function handleLinkCopy() {
     navigator.clipboard.writeText(shareURL);
@@ -80,7 +80,7 @@ export default function ShareModal({ isOpen, onClose }) {
 
         <TwitterShareButton
           url={shareURL}
-          title={title}
+          title={title + " Created by @aniqatc."}
           className="group flex items-center gap-1 hover:underline"
         >
           <TwitterLogo

@@ -210,10 +210,7 @@ function App() {
         onThemeSelect={(theme) => setCategory(theme)}
         onScaleChange={(value) => setScale(value)}
         onReset={() => {
-          localStorage.removeItem('stickers');
-          localStorage.removeItem('bg-color');
-          localStorage.removeItem('dot-color');
-          localStorage.removeItem('designers');
+          localStorage.clear();
           setDesigners([]);
           setStickers([]);
           setShowInitialElements(true);
@@ -244,7 +241,9 @@ function App() {
         onClose={() => setInfoModalOpen(false)}
         stickerDesigners={designers}
       />
-      <ShareModal isOpen={shareModalOpen} onClose={() => setShareModalOpen(false)} />
+      <ShareModal
+          isOpen={shareModalOpen}
+          onClose={() => setShareModalOpen(false)} />
     </main>
   );
 }
