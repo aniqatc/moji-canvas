@@ -4,38 +4,33 @@ import { Heading, ClickHintText, Toolbar } from './components';
 import { getStickerByCategory, generateRandomSizeAndPosition } from './utils/stickers.js';
 import { downloadImage } from './utils/download.js';
 import { InfoModal, ShareModal } from './components/modals';
+import useMetadata from './hooks/useMetadata.js';
 
 function App() {
   const controls = useDragControls();
   const constraintsRef = useRef(null);
+  const metadata = useMetadata();
 
   const [infoModalOpen, setInfoModalOpen] = useState(false);
   const [shareModalOpen, setShareModalOpen] = useState(false);
   const [designers, setDesigners] = useState(JSON.parse(localStorage.getItem('designers')) || []);
 
-  const [metadata, setMetadata] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   const [stickerMode, setStickerMode] = useState('add');
   const [showInitialElements, setShowInitialElements] = useState(!localStorage.getItem('stickers'));
   const [backgroundColor, setBackgroundColor] = useState(localStorage.getItem('bg-color') || '#ffefef');
   const [dotColor, setDotColor] = useState(localStorage.getItem('dot-color') || '#ec1111');
   const [stickers, setStickers] = useState(JSON.parse(localStorage.getItem('stickers')) || []);
-  const [category, setCategory] = useState('');
 
+  const [category, setCategory] = useState('');
   const [scale, setScale] = useState(1);
   const [animateMode, setAnimateMode] = useState(false);
   const [float, setFloat] = useState(false);
   const [rotate, setRotate] = useState(false);
   const [speed, setSpeed] = useState(1);
 
-  useEffect(() => {
-    async function getMetadata() {
-      const response = await fetch(`/data/metadata.json`);
-      const data = await response.json();
-      setMetadata(data);
-    }
-    getMetadata();
-  }, []);
+  console.log(metadata);
+  console.log(designers);
 
   async function handleCanvasClick(e) {
     if (isDragging) return;
@@ -61,12 +56,14 @@ function App() {
       const stickerDiv = e.target.closest('.sticker-div');
       if (stickerDiv) {
         const stickerToRemove = stickers.find(sticker => sticker.id === stickerDiv.id);
-        const updatedStickers = stickers.filter(sticker => sticker.id !== stickerDiv.id);
-        setStickers(updatedStickers);
-        setDesigners(designers.filter(designer => designer !== stickerToRemove.openmoji_author));
+        if (stickerToRemove) {
+          const updatedStickers = stickers.filter(sticker => sticker.id !== stickerDiv.id);
+          setStickers(updatedStickers);
+          setDesigners(designers.filter(designer => designer !== stickerToRemove.openmoji_author));
 
-        if (updatedStickers.length === 0) {
-          setShowInitialElements(true);
+          if (updatedStickers.length === 0) {
+            setShowInitialElements(true);
+          }
         }
       }
     }
