@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { headingIcons } from '../../assets/heading';
-import Tooltip from './tooltip';
+import Tooltip from './Tooltip.jsx';
 
 const { sparkles, partyface, bouquet, pizza, teddy } = headingIcons;
 
