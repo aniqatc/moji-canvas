@@ -6,7 +6,13 @@ const { sparkles, partyface, bouquet, pizza, teddy } = headingIcons;
 
 export default function Heading({ openModal }) {
   return (
-    <header
+    <motion.header
+        initial={{ opacity: 1, pointerEvents: 'auto' }}
+        exit={{ opacity: 0, y: -30, pointerEvents: 'none' }}
+        transition={{
+          initial: { delay: 0.3, duration: 0.3 },
+          exit: { duration: 0.3 },
+        }}
       className="group relative cursor-default w-xs:mt-4"
       onClick={(event) => event.stopPropagation()}
     >
@@ -94,6 +100,6 @@ export default function Heading({ openModal }) {
           </span>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }

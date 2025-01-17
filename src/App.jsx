@@ -1,23 +1,10 @@
 import { useState, useRef } from 'react';
-import { AnimatePresence, motion, useDragControls } from 'framer-motion';
-import {
-  Heading,
-  ClickHintText,
-  Toolbar,
-  InfoModal,
-  ShareModal,
-  Sticker,
-  CanvasBackground,
-} from './components';
-import { getStickerByCategory, generateRandomSizeAndPosition, downloadImage } from './utils';
+import { AnimatePresence, useDragControls } from 'framer-motion';
+import { Heading, ClickHintText, Toolbar, InfoModal, ShareModal, Sticker, CanvasBackground } from './components';
+import { canvasAddMode, canvasRemoveMode, downloadImage } from './utils';
 import { useMetadata, useModal, useLocalStorage, useAnimation } from './hooks';
 
 function App() {
-  const [showInitialElements, setShowInitialElements] = useState(() => {
-    const savedStickers = localStorage.getItem('stickers');
-    return !savedStickers || JSON.parse(savedStickers).length === 0;
-  });
-
   const metadata = useMetadata();
   const [infoModalOpen, toggleInfoModal] = useModal(false);
   const [shareModalOpen, toggleShareModal] = useModal(false);
@@ -30,50 +17,41 @@ function App() {
 
   const [stickers, setStickers, saveStickers] = useLocalStorage('stickers', []);
   const [designers, setDesigners, saveDesigners] = useLocalStorage('designers', []);
-  const [backgroundColor, setBackgroundColor, saveBackgroundColor] = useLocalStorage(
-    'bg-color',
-    '#ffefef'
-  );
+  const [backgroundColor, setBackgroundColor, saveBackgroundColor] = useLocalStorage('bg-color', '#ffefef');
   const [dotColor, setDotColor, saveDotColor] = useLocalStorage('dot-color', '#ec1111');
   const { animationProps, get, setters, reset: resetAnimations } = useAnimation();
+  const [showInitialElements, setShowInitialElements] = useState(stickers.length === 0);
 
-  async function handleCanvasClick(e) {
+  function handleSave() {
+    saveStickers();
+    saveDesigners();
+    saveDotColor();
+    saveBackgroundColor();
+  }
+
+  function handleReset() {
+    localStorage.clear();
+    setShowInitialElements(true);
+    setStickerMode('add');
+    setDesigners([]);
+    setStickers([]);
+    setBackgroundColor('#ffefef');
+    setDotColor('#ec1111');
+    resetAnimations();
+  }
+
+  async function handleCanvasClick(event) {
     if (isDragging) return;
-
     if (stickerMode === 'add') {
       setShowInitialElements(false);
-      const sticker = await getStickerByCategory(metadata, category);
-      const { width, rotation, height, floatOffsets } = generateRandomSizeAndPosition();
-      const stickerWithStyles = {
-        ...sticker,
-        src: `/stickers/${sticker.hexcode}.svg`,
-        id: Date.now() + sticker.hexcode,
-        height,
-        width,
-        rotation,
-        floatOffsets,
-        top: e.clientY - parseInt(height) / 2 + 'px',
-        left: e.clientX - parseInt(width) / 2 + 'px',
-      };
-      setStickers((prev) => [...prev, stickerWithStyles]);
-      setDesigners((prev) => [...prev, stickerWithStyles.openmoji_author]);
-    } else if (stickerMode === 'remove') {
-      const stickerDiv = e.target.closest('.sticker-div');
+      await canvasAddMode(event, metadata, category, setStickers, setDesigners);
+    }
+    if (stickerMode === 'remove') {
+      const stickerDiv = event.target.closest('.sticker-div');
       if (stickerDiv) {
-        const stickerToRemove = stickers.find((sticker) => sticker.id === stickerDiv.id);
-        if (stickerToRemove) {
-          const updatedStickers = stickers.filter((sticker) => sticker.id !== stickerDiv.id);
-          setStickers(updatedStickers);
-
-          // only remove the first instance of the designer name
-          const updatedDesigners = [...designers];
-          updatedDesigners.splice(designers.indexOf(stickerToRemove.openmoji_author), 1);
-          setDesigners(updatedDesigners);
-
-          if (updatedStickers.length === 0) {
-            setShowInitialElements(true);
-          }
-        }
+        setShowInitialElements(
+            canvasRemoveMode(stickerDiv, stickers, setStickers, designers, setDesigners)
+        );
       }
     }
   }
@@ -88,23 +66,8 @@ function App() {
       <AnimatePresence>
         {showInitialElements && (
           <>
-            <motion.div
-              initial={{ opacity: 1 }}
-              exit={{ opacity: 0, y: -30 }}
-              transition={{ duration: 0.2 }}
-            >
               <ClickHintText />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 1, pointerEvents: 'auto' }}
-              exit={{ opacity: 0, y: -30, pointerEvents: 'none' }}
-              transition={{
-                initial: { delay: 0.3, duration: 0.3 },
-                exit: { duration: 0.3 },
-              }}
-            >
               <Heading openModal={toggleInfoModal} />
-            </motion.div>
           </>
         )}
         {stickers &&
@@ -125,33 +88,14 @@ function App() {
           })}
       </AnimatePresence>
       <Toolbar
-        animationProps={{
-          ...animationProps,
-          stickerLength: stickers.length,
-        }}
+        animationProps={{ ...animationProps, stickerLength: stickers.length }}
         backgroundProps={{ backgroundColor, dotColor, setBackgroundColor, setDotColor }}
         onStickerMode={(mode) => setStickerMode(mode)}
         onThemeSelect={(theme) => setCategory(theme)}
         onScaleChange={(value) => setters.setScale(value)}
-        onReset={() => {
-          localStorage.clear();
-          setShowInitialElements(true);
-          setStickerMode('add');
-          setDesigners([]);
-          setStickers([]);
-          setBackgroundColor('#ffefef');
-          setDotColor('#ec1111');
-          resetAnimations();
-        }}
-        onSave={() => {
-          saveStickers();
-          saveDesigners();
-          saveDotColor();
-          saveBackgroundColor();
-        }}
-        onDownload={() => {
-          downloadImage(constraintsRef);
-        }}
+        onReset={handleReset}
+        onSave={handleSave}
+        onDownload={() => downloadImage(constraintsRef)}
         onShare={toggleShareModal}
         openModal={toggleInfoModal}
         disableButton={showInitialElements || get.animateMode}
