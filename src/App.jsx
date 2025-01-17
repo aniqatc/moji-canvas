@@ -108,10 +108,15 @@ function App() {
         )}
         {stickers &&
           stickers.map((sticker) => {
-            const stickerProps = {
-              sticker, get, controls, setIsDragging, constraintsRef
-            }
-            return <Sticker key={`${sticker.id}-${get.animateMode}`} {...stickerProps} />
+            return <Sticker key={`${sticker.id}-${get.animateMode}`}
+                            drag
+                            dragControls={controls}
+                            onDragStart={() => setIsDragging(true)}
+                            onDragEnd={() => setIsDragging(false)}
+                            whileDrag={{ cursor: 'grabbing' }}
+                            dragConstraints={constraintsRef}
+                            sticker={sticker}
+                            get={get} />
           })}
       </AnimatePresence>
       <Toolbar

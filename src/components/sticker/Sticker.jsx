@@ -1,11 +1,16 @@
 import { motion } from "framer-motion";
-
-export default function Sticker({ sticker, get, controls, setIsDragging, constraintsRef }) {
+export default function Sticker({ sticker,
+                                    get,
+                                    drag,
+                                    dragControls,
+                                    dragConstraints,
+                                    onDragStart,
+                                    onDragEnd,
+                                    whileDrag }) {
     return (
         <motion.div
             className="sticker-div"
             id={sticker.id}
-            key={`${sticker.id}-${get.animateMode}`}
             style={{
                 position: 'absolute',
                 top: sticker.top,
@@ -19,12 +24,12 @@ export default function Sticker({ sticker, get, controls, setIsDragging, constra
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0 }}
             transition={{ duration: 0.3 }}
-            drag
-            dragControls={controls}
-            onDragStart={() => setIsDragging(true)}
-            onDragEnd={() => setIsDragging(false)}
-            whileDrag={{ cursor: 'grabbing' }}
-            dragConstraints={constraintsRef}
+            drag={drag}
+            dragControls={dragControls}
+            dragConstraints={dragConstraints}
+            onDragStart={onDragStart}
+            onDragEnd={onDragEnd}
+            whileDrag={whileDrag}
         >
             <motion.div
                 key={get.speed}

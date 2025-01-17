@@ -7,6 +7,7 @@ export default defineConfig({
   base: 'https://moji.aniqa.dev',
   server: {
     port: 5000,
+    host: true,
   },
   plugins: [
     react(),
