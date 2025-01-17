@@ -1,8 +1,8 @@
 import { useState, useRef } from 'react';
 import { AnimatePresence, motion, useDragControls } from 'framer-motion';
-import { Heading, ClickHintText, Toolbar, InfoModal, ShareModal } from './components';
+import {Heading, ClickHintText, Toolbar, InfoModal, ShareModal, Sticker } from './components';
 import { getStickerByCategory, generateRandomSizeAndPosition, downloadImage } from './utils';
-import { useMetadata, useModal, useLocalStorage } from './hooks';
+import { useMetadata, useModal, useLocalStorage, useAnimation } from './hooks';
 
 function App() {
   const [showInitialElements, setShowInitialElements] = useState(() => {
@@ -25,11 +25,7 @@ function App() {
   const [backgroundColor, setBackgroundColor, saveBackgroundColor] = useLocalStorage('bg-color', '#ffefef');
   const [dotColor, setDotColor, saveDotColor] = useLocalStorage('dot-color', '#ec1111');
 
-  const [animateMode, setAnimateMode] = useState(false);
-  const [float, setFloat] = useState(false);
-  const [rotate, setRotate] = useState(false);
-  const [speed, setSpeed] = useState(1);
-  const [scale, setScale] = useState(1);
+  const { animationProps, get, setters, reset: resetAnimations } = useAnimation();
 
   async function handleCanvasClick(e) {
     if (isDragging) return;
@@ -111,117 +107,31 @@ function App() {
           </>
         )}
         {stickers &&
-          stickers.map((sticker) => (
-            <motion.div
-              className="sticker-div"
-              id={sticker.id}
-              key={`${sticker.id}-${animateMode}`}
-              style={{
-                position: 'absolute',
-                top: sticker.top,
-                left: sticker.left,
-                width: sticker.width,
-                height: sticker.height,
-                cursor: 'grab',
-                filter: 'drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5)) drop-shadow(-2px -2px 6px rgba(0, 0, 0, 0.2))',
-              }}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0 }}
-              transition={{ duration: 0.3 }}
-              drag
-              dragControls={controls}
-              onDragStart={() => setIsDragging(true)}
-              onDragEnd={() => setIsDragging(false)}
-              whileDrag={{ cursor: 'grabbing' }}
-              dragConstraints={constraintsRef}
-            >
-              <motion.div
-                key={speed}
-                animate={
-                  animateMode && float
-                    ? {
-                        y: sticker.floatOffsets.y,
-                        x: sticker.floatOffsets.x,
-                      }
-                    : { y: 0, x: 0 }
-                }
-                transition={{
-                  y: {
-                    duration: 2 / speed,
-                    repeat: float ? Infinity : 0,
-                    repeatType: 'mirror',
-                    ease: 'easeInOut',
-                  },
-                  x: {
-                    duration: 2 / speed,
-                    repeat: float ? Infinity : 0,
-                    repeatType: 'mirror',
-                    ease: 'easeInOut',
-                  },
-                }}
-              >
-                <motion.div
-                  key={speed}
-                  initial={{ rotate: sticker.rotation }}
-                  animate={
-                    animateMode && rotate
-                      ? {
-                          rotate: [0, parseInt(sticker.rotation) + 100],
-                        }
-                      : { rotate: sticker.rotation }
-                  }
-                  transition={{
-                    duration: 2 / speed,
-                    repeat: rotate ? Infinity : 0,
-                    repeatType: 'mirror',
-                    ease: 'linear',
-                  }}
-                >
-                  <img
-                    src={sticker.src}
-                    alt={sticker.annotation}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      pointerEvents: 'none',
-                      transform: `scale(${scale})`,
-                    }}
-                  />
-                </motion.div>
-              </motion.div>
-            </motion.div>
-          ))}
+          stickers.map((sticker) => {
+            const stickerProps = {
+              sticker, get, controls, setIsDragging, constraintsRef
+            }
+            return <Sticker key={`${sticker.id}-${get.animateMode}`} {...stickerProps} />
+          })}
       </AnimatePresence>
       <Toolbar
         animationProps={{
-          animateMode,
-          float,
-          rotate,
-          speed,
-          setRotate,
-          setFloat,
-          setSpeed,
-          setAnimateMode,
+          ...animationProps,
           stickerLength: stickers.length,
         }}
         backgroundProps={{ backgroundColor, dotColor, setBackgroundColor, setDotColor }}
         onStickerMode={(mode) => setStickerMode(mode)}
         onThemeSelect={(theme) => setCategory(theme)}
-        onScaleChange={(value) => setScale(value)}
+        onScaleChange={(value) => setters.setScale(value)}
         onReset={() => {
           localStorage.clear();
+          setShowInitialElements(true);
+          setStickerMode('add');
           setDesigners([]);
           setStickers([]);
-          setShowInitialElements(true);
-          setSpeed(1);
-          setScale(1);
-          setAnimateMode(false);
-          setRotate(false);
-          setFloat(false);
-          setStickerMode('add');
           setBackgroundColor('#ffefef');
           setDotColor('#ec1111');
+          resetAnimations();
         }}
         onSave={() => {
           saveStickers();
@@ -234,7 +144,7 @@ function App() {
         }}
         onShare={toggleShareModal}
         openModal={toggleInfoModal}
-        disableButton={showInitialElements || animateMode}
+        disableButton={showInitialElements || get.animateMode}
       />
       <InfoModal
         isOpen={infoModalOpen}
