@@ -80,7 +80,7 @@ export default function ShareModal({ isOpen, onClose }) {
 
         <TwitterShareButton
           url={shareURL}
-          title={title + " Created by @aniqatc."}
+          title={title + ' Created by @aniqatc.'}
           className="group flex items-center gap-1 hover:underline"
         >
           <TwitterLogo

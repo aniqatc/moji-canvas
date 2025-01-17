@@ -7,7 +7,7 @@ async function downloadImage(ref) {
     const dataURL = await toPng(ref.current, {
       quality: 1,
       pixelRatio: window.devicePixelRatio || 2,
-      skipFonts: true // to avoid error
+      skipFonts: true, // to avoid error
     });
 
     const link = document.createElement('a');
@@ -15,7 +15,7 @@ async function downloadImage(ref) {
     link.href = dataURL;
     link.click();
   } catch (error) {
-    console.error("Error occurred during download: " + error.message);
+    console.error('Error occurred during download: ' + error.message);
   } finally {
     toolbar.style.opacity = 1;
   }

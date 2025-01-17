@@ -1,6 +1,14 @@
 import { useState, useRef } from 'react';
 import { AnimatePresence, motion, useDragControls } from 'framer-motion';
-import {Heading, ClickHintText, Toolbar, InfoModal, ShareModal, Sticker } from './components';
+import {
+  Heading,
+  ClickHintText,
+  Toolbar,
+  InfoModal,
+  ShareModal,
+  Sticker,
+  CanvasBackground,
+} from './components';
 import { getStickerByCategory, generateRandomSizeAndPosition, downloadImage } from './utils';
 import { useMetadata, useModal, useLocalStorage, useAnimation } from './hooks';
 
@@ -22,9 +30,11 @@ function App() {
 
   const [stickers, setStickers, saveStickers] = useLocalStorage('stickers', []);
   const [designers, setDesigners, saveDesigners] = useLocalStorage('designers', []);
-  const [backgroundColor, setBackgroundColor, saveBackgroundColor] = useLocalStorage('bg-color', '#ffefef');
+  const [backgroundColor, setBackgroundColor, saveBackgroundColor] = useLocalStorage(
+    'bg-color',
+    '#ffefef'
+  );
   const [dotColor, setDotColor, saveDotColor] = useLocalStorage('dot-color', '#ec1111');
-
   const { animationProps, get, setters, reset: resetAnimations } = useAnimation();
 
   async function handleCanvasClick(e) {
@@ -50,9 +60,9 @@ function App() {
     } else if (stickerMode === 'remove') {
       const stickerDiv = e.target.closest('.sticker-div');
       if (stickerDiv) {
-        const stickerToRemove = stickers.find(sticker => sticker.id === stickerDiv.id);
+        const stickerToRemove = stickers.find((sticker) => sticker.id === stickerDiv.id);
         if (stickerToRemove) {
-          const updatedStickers = stickers.filter(sticker => sticker.id !== stickerDiv.id);
+          const updatedStickers = stickers.filter((sticker) => sticker.id !== stickerDiv.id);
           setStickers(updatedStickers);
 
           // only remove the first instance of the designer name
@@ -69,20 +79,11 @@ function App() {
   }
 
   return (
-    <main
+    <CanvasBackground
       ref={constraintsRef}
       onClick={handleCanvasClick}
-      className="relative mx-auto flex h-dvh min-h-screen w-full cursor-pointer flex-col items-center justify-center gap-5 w-xs:justify-normal"
-      style={{
-        backgroundColor: backgroundColor,
-        backgroundImage: `radial-gradient(${dotColor} 2px, transparent 2px), 
-                           radial-gradient(${dotColor} 2px, ${backgroundColor} 2px)`,
-        backgroundSize: '100px 100px',
-        backgroundPosition: '0 0, 50px 50px',
-        '--accent-maroon': `color-mix(in srgb, ${dotColor}, #540F0F)`,
-        '--muted': `color-mix(in srgb, ${dotColor}, #000000 50%)`,
-        '--highlight': `color-mix(in srgb, ${backgroundColor}, rgba(0,0,0,0.1))`,
-      }}
+      backgroundColor={backgroundColor}
+      dotColor={dotColor}
     >
       <AnimatePresence>
         {showInitialElements && (
@@ -108,15 +109,19 @@ function App() {
         )}
         {stickers &&
           stickers.map((sticker) => {
-            return <Sticker key={`${sticker.id}-${get.animateMode}`}
-                            drag
-                            dragControls={controls}
-                            onDragStart={() => setIsDragging(true)}
-                            onDragEnd={() => setIsDragging(false)}
-                            whileDrag={{ cursor: 'grabbing' }}
-                            dragConstraints={constraintsRef}
-                            sticker={sticker}
-                            get={get} />
+            return (
+              <Sticker
+                key={`${sticker.id}-${get.animateMode}`}
+                drag
+                dragControls={controls}
+                onDragStart={() => setIsDragging(true)}
+                onDragEnd={() => setIsDragging(false)}
+                whileDrag={{ cursor: 'grabbing' }}
+                dragConstraints={constraintsRef}
+                sticker={sticker}
+                get={get}
+              />
+            );
           })}
       </AnimatePresence>
       <Toolbar
@@ -151,15 +156,9 @@ function App() {
         openModal={toggleInfoModal}
         disableButton={showInitialElements || get.animateMode}
       />
-      <InfoModal
-        isOpen={infoModalOpen}
-        onClose={toggleInfoModal}
-        stickerDesigners={designers}
-      />
-      <ShareModal
-          isOpen={shareModalOpen}
-          onClose={toggleShareModal} />
-    </main>
+      <InfoModal isOpen={infoModalOpen} onClose={toggleInfoModal} stickerDesigners={designers} />
+      <ShareModal isOpen={shareModalOpen} onClose={toggleShareModal} />
+    </CanvasBackground>
   );
 }
 

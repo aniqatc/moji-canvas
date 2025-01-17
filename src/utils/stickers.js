@@ -1,8 +1,9 @@
 async function getStickerByCategory(metadata, category) {
   try {
-    const stickers = category === 'all' || !category
+    const stickers =
+      category === 'all' || !category
         ? metadata
-        : metadata.filter(data => data.group === category || data.group.startsWith(category));
+        : metadata.filter((data) => data.group === category || data.group.startsWith(category));
 
     const randomIndex = Math.floor(Math.random() * stickers.length);
     return stickers[randomIndex];

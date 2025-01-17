@@ -6,7 +6,10 @@ const { sparkles, partyface, bouquet, pizza, teddy } = headingIcons;
 
 export default function Heading({ openModal }) {
   return (
-    <header className="group relative cursor-default w-xs:mt-4" onClick={(event) => event.stopPropagation()}>
+    <header
+      className="group relative cursor-default w-xs:mt-4"
+      onClick={(event) => event.stopPropagation()}
+    >
       <div className="relative">
         <motion.h1
           initial={{ opacity: 0, scaleX: 0 }}

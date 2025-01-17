@@ -53,7 +53,7 @@ export default function ThemeSelector({ onThemeSelect }) {
                 >
                   <Select.Item
                     value={theme.value}
-                    className="flex cursor-pointer items-center gap-1 transition-all hover:bg-stone-100"
+                    className="flex cursor-pointer items-center gap-1 transition-all hover:bg-stone-100 focus-visible:bg-stone-100"
                   >
                     <img src={theme.icon} alt={theme.label} className="size-7" />
                     <Select.ItemText className="hidden">{theme.label}</Select.ItemText>

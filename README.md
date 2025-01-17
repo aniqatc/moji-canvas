@@ -24,7 +24,7 @@
 - Choose from 4,000+ illustrations across 10 unique themes
 - Add, remove, and freely arrange stickers on the canvas
 - Customize background colors and patterns
-- Animate stickers with floating, rotating, and scaling effects (*however, for performance reasons, animations are disabled if there are more than 40 stickers in the canvas*)
+- Animate stickers with floating, rotating, and scaling effects (_however, for performance reasons, animations are disabled if there are more than 40 stickers in the canvas_)
 - Save your creations to browser storage for future editing
 - Download your canvas as a high-quality PNG image
 - Share your creations directly to social media
@@ -35,23 +35,25 @@
 ## Project Structure
 
 - `/assets`
-    - SVG files for heading and custom Radix UI select component
+
+  - SVG files for heading and custom Radix UI select component
 
 - `/components`
-    - `heading/`: Logo, hint text, and tooltip components
-    - `modals/`: Share modal for social media integration and info modal for application details & credits
-    - `reusable/`: Common UI components (modal, toolbar buttons, info button, range slider)
-    - `toolbar/`: Canvas control components including:
-        - Action buttons
-        - Animation controls
-        - Background customization
-        - Size controls
-        - Sticker management
-        - Theme selector
+
+  - `heading/`: Logo, hint text, and tooltip components
+  - `modals/`: Share modal for social media integration and info modal for application details & credits
+  - `reusable/`: Common UI components (modal, toolbar buttons, info button, range slider)
+  - `toolbar/`: Canvas control components including:
+    - Action buttons
+    - Animation controls
+    - Background customization
+    - Size controls
+    - Sticker management
+    - Theme selector
 
 - `/utils`
-    - `download.js`: Canvas-to-PNG export functionality using html-to-image
-    - `stickers.js`: Sticker management utilities including random sticker generation and helper functions
+  - `download.js`: Canvas-to-PNG export functionality using html-to-image
+  - `stickers.js`: Sticker management utilities including random sticker generation and helper functions
 
 ## Available Scripts
 
