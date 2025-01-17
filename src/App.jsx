@@ -1,20 +1,20 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { AnimatePresence, motion, useDragControls } from 'framer-motion';
 import { Heading, ClickHintText, Toolbar } from './components';
 import { getStickerByCategory, generateRandomSizeAndPosition } from './utils/stickers.js';
 import { downloadImage } from './utils/download.js';
 import { InfoModal, ShareModal } from './components/modals';
-import useMetadata from './hooks/useMetadata.js';
+import { useMetadata, useModal } from './hooks';
 
 function App() {
   const controls = useDragControls();
   const constraintsRef = useRef(null);
   const metadata = useMetadata();
 
-  const [infoModalOpen, setInfoModalOpen] = useState(false);
-  const [shareModalOpen, setShareModalOpen] = useState(false);
-  const [designers, setDesigners] = useState(JSON.parse(localStorage.getItem('designers')) || []);
+  const [infoModalOpen, toggleInfoModal] = useModal(false);
+  const [shareModalOpen, toggleShareModal] = useModal(false);
 
+  const [designers, setDesigners] = useState(JSON.parse(localStorage.getItem('designers')) || []);
   const [isDragging, setIsDragging] = useState(false);
   const [stickerMode, setStickerMode] = useState('add');
   const [showInitialElements, setShowInitialElements] = useState(!localStorage.getItem('stickers'));
@@ -107,7 +107,7 @@ function App() {
                 exit: { duration: 0.3 },
               }}
             >
-              <Heading openModal={() => setInfoModalOpen(true)} />
+              <Heading openModal={toggleInfoModal} />
             </motion.div>
           </>
         )}
@@ -233,18 +233,18 @@ function App() {
         onDownload={() => {
           downloadImage(constraintsRef);
         }}
-        onShare={() => setShareModalOpen(true)}
-        openModal={() => setInfoModalOpen(true)}
+        onShare={toggleShareModal}
+        openModal={toggleInfoModal}
         disableButton={showInitialElements || animateMode}
       />
       <InfoModal
         isOpen={infoModalOpen}
-        onClose={() => setInfoModalOpen(false)}
+        onClose={toggleInfoModal}
         stickerDesigners={designers}
       />
       <ShareModal
           isOpen={shareModalOpen}
-          onClose={() => setShareModalOpen(false)} />
+          onClose={toggleShareModal} />
     </main>
   );
 }
