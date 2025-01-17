@@ -6,7 +6,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 export default defineConfig({
   base: 'https://moji.aniqa.dev',
   server: {
-    port: 5000,
+    port: 3000,
     host: true,
   },
   plugins: [

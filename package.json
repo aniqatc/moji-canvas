@@ -27,7 +27,7 @@
   "type": "module",
   "scripts": {
     "start": "vite",
-    "serve:mobile": "ngrok http 5000",
+    "serve:mobile": "ngrok http 3000",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",

@@ -5,3 +5,4 @@ export { default as Sticker } from './sticker/Sticker.jsx';
 export { default as InfoModal } from './modals/InfoModal';
 export { default as ShareModal } from './modals/ShareModal';
 export { default as CanvasBackground } from './canvas/CanvasBackground.jsx';
+export { Notification } from './reusable';

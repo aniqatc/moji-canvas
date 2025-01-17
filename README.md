@@ -42,9 +42,11 @@
 ## Project Structure
 
 - `/assets`
+
   - SVG files, specifically for the heading and custom Radix UI select components
 
 - `/components`
+
   - `heading/`: Logo, hint text, and tooltip components
   - `modals/`: Share modal for social media sharing and info modal for application details & credits
   - `reusable/`: Common UI components (modal, toolbar buttons, info button, range slider, and toast notification)
@@ -59,6 +61,7 @@
   - `canvas/`: Manages background color, dot color, and provides reference for dragging mechanism provided by Framer Motion
 
 - `/utils`
+
   - `download.js`: PNG export functionality using html-to-image
   - `stickers.js`: Utilities for sticker management, including random sticker generation and random position/size helper functions
   - `canvas.js`: Manages canvas interactions based on sticker mode (add/remove) and updates relevant states

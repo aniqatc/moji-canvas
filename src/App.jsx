@@ -1,8 +1,17 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { AnimatePresence, useDragControls } from 'framer-motion';
-import { Heading, ClickHintText, Toolbar, InfoModal, ShareModal, Sticker, CanvasBackground } from './components';
 import { canvasAddMode, canvasRemoveMode, downloadImage } from './utils';
 import { useMetadata, useModal, useLocalStorage, useAnimation } from './hooks';
+import {
+  Heading,
+  ClickHintText,
+  Toolbar,
+  InfoModal,
+  ShareModal,
+  Sticker,
+  CanvasBackground,
+  Notification
+} from './components';
 
 function App() {
   const metadata = useMetadata();
@@ -22,11 +31,28 @@ function App() {
   const { animationProps, get, setters, reset: resetAnimations } = useAnimation();
   const [showInitialElements, setShowInitialElements] = useState(stickers.length === 0);
 
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationType, setNotificationType] = useState('');
+
+  useEffect(() => {
+    if (showNotification) {
+      const timeoutId = setTimeout(() => {
+        setShowNotification(false);
+      }, 3000)
+
+      return () => {
+        clearTimeout(timeoutId);
+      }
+    }
+  }, [showNotification, notificationType]);
+
   function handleSave() {
     saveStickers();
     saveDesigners();
     saveDotColor();
     saveBackgroundColor();
+    setShowNotification(true);
+    setNotificationType('save');
   }
 
   function handleReset() {
@@ -38,6 +64,8 @@ function App() {
     setBackgroundColor('#ffefef');
     setDotColor('#ec1111');
     resetAnimations();
+    setShowNotification(true);
+    setNotificationType('reset');
   }
 
   async function handleCanvasClick(event) {
@@ -50,7 +78,7 @@ function App() {
       const stickerDiv = event.target.closest('.sticker-div');
       if (stickerDiv) {
         setShowInitialElements(
-            canvasRemoveMode(stickerDiv, stickers, setStickers, designers, setDesigners)
+          canvasRemoveMode(stickerDiv, stickers, setStickers, designers, setDesigners)
         );
       }
     }
@@ -66,8 +94,8 @@ function App() {
       <AnimatePresence>
         {showInitialElements && (
           <>
-              <ClickHintText />
-              <Heading openModal={toggleInfoModal} />
+            <ClickHintText />
+            <Heading openModal={toggleInfoModal} />
           </>
         )}
         {stickers &&
@@ -95,13 +123,18 @@ function App() {
         onScaleChange={(value) => setters.setScale(value)}
         onReset={handleReset}
         onSave={handleSave}
-        onDownload={() => downloadImage(constraintsRef)}
+        onDownload={() => {
+          downloadImage(constraintsRef);
+          setShowNotification(true);
+          setNotificationType('download');
+        }}
         onShare={toggleShareModal}
         openModal={toggleInfoModal}
         disableButton={showInitialElements || get.animateMode}
       />
       <InfoModal isOpen={infoModalOpen} onClose={toggleInfoModal} stickerDesigners={designers} />
       <ShareModal isOpen={shareModalOpen} onClose={toggleShareModal} />
+      {showNotification && (<Notification type={notificationType} />)}
     </CanvasBackground>
   );
 }
