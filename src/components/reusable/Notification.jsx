@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Palette, FolderSimple, Broom } from '@phosphor-icons/react';
+import { Palette, FolderSimple, Broom, Warning } from '@phosphor-icons/react';
 
 const notificationConfig = {
   save: {
@@ -18,7 +18,13 @@ const notificationConfig = {
     icon: Broom,
     title: 'Canvas reset!',
     message: 'Your canvas is now a clean slate.',
-    color: 'text-red-600',
+    color: 'text-pink-600',
+  },
+  error: {
+    icon: Warning,
+    title: 'Canvas not found!',
+    message: "Start fresh with a clean slate.",
+    color: 'text-red-700',
   },
 };
 

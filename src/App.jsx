@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { AnimatePresence, useDragControls } from 'framer-motion';
 import { canvasAddMode, canvasRemoveMode, downloadImage } from './utils';
 import { useMetadata, useModal, useLocalStorage, useAnimation } from './hooks';
@@ -12,8 +13,11 @@ import {
   CanvasBackground,
   Notification
 } from './components';
+import { saveCanvasData, getCanvasData } from "./data/supabase.js";
 
 function App() {
+  const [canvasId, setCanvasId] = useState(useParams().canvasId || null);
+
   const metadata = useMetadata();
   const [infoModalOpen, toggleInfoModal] = useModal(false);
   const [shareModalOpen, toggleShareModal] = useModal(false);
@@ -35,6 +39,33 @@ function App() {
   const [notificationType, setNotificationType] = useState('');
 
   useEffect(() => {
+    async function fetchExistingCanvas() {
+      if (canvasId) {
+        try {
+          const data = await getCanvasData(canvasId);
+          if (data) {
+            setDesigners(data.designers);
+            setStickers(data.stickers);
+            setBackgroundColor(data.backgroundColor);
+            setDotColor(data.dotColor);
+            setShowInitialElements(!data.stickers.length > 0);
+          }
+        } catch (error) {
+          clearCanvas();
+          setShowNotification(true);
+          setNotificationType('error');
+
+          // invalid canvasId in params
+          if (error.code === '22P02') {
+            setCanvasId(null);
+          }
+        }
+      }
+    }
+    fetchExistingCanvas();
+  }, [canvasId])
+
+  useEffect(() => {
     if (showNotification) {
       const timeoutId = setTimeout(() => {
         setShowNotification(false);
@@ -46,17 +77,29 @@ function App() {
     }
   }, [showNotification, notificationType]);
 
-  function handleSave() {
+  async function handleSave() {
     saveStickers();
     saveDesigners();
     saveDotColor();
     saveBackgroundColor();
     setShowNotification(true);
     setNotificationType('save');
+
+    const savedId = await saveCanvasData(stickers, designers, backgroundColor, dotColor, canvasId);
+    setCanvasId(savedId);
   }
 
-  function handleReset() {
+  async function handleReset() {
     localStorage.clear();
+    clearCanvas();
+    setShowNotification(true);
+    setNotificationType('reset');
+
+    const savedId = await saveCanvasData([], [], '#ffefef', '#ec1111', canvasId);
+    setCanvasId(savedId);
+  }
+
+  function clearCanvas() {
     setShowInitialElements(true);
     setStickerMode('add');
     setDesigners([]);
@@ -64,8 +107,6 @@ function App() {
     setBackgroundColor('#ffefef');
     setDotColor('#ec1111');
     resetAnimations();
-    setShowNotification(true);
-    setNotificationType('reset');
   }
 
   async function handleCanvasClick(event) {
@@ -128,12 +169,15 @@ function App() {
           setShowNotification(true);
           setNotificationType('download');
         }}
-        onShare={toggleShareModal}
+        onShare={async () => {
+          await handleSave();
+          toggleShareModal();
+        }}
         openModal={toggleInfoModal}
         disableButton={showInitialElements || get.animateMode}
       />
       <InfoModal isOpen={infoModalOpen} onClose={toggleInfoModal} stickerDesigners={designers} />
-      <ShareModal isOpen={shareModalOpen} onClose={toggleShareModal} />
+      <ShareModal isOpen={shareModalOpen} onClose={toggleShareModal} canvasId={canvasId} />
       {showNotification && (<AnimatePresence>
         <Notification key={notificationType} type={notificationType} />
       </AnimatePresence>)}

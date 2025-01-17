@@ -11,12 +11,12 @@ import {
 } from '@phosphor-icons/react';
 import { Modal } from '../reusable';
 
-export default function ShareModal({ isOpen, onClose }) {
+export default function ShareModal({ isOpen, onClose, canvasId }) {
   const [isCopied, setIsCopied] = useState(false);
 
-  const shareURL = 'https://moji.aniqa.dev/';
-  const title = 'Check out this fun, interactive emoji-based sticker canvas!';
-  const blueskyShareUrl = `https://bsky.app/intent/compose?text=${encodeURIComponent(`${title + ' Created by @aniqa.dev.'} ${shareURL}`)}`;
+  const shareURL = `https://moji.aniqa.dev/${canvasId ? canvasId : ''}`;
+  const title = 'Check out this fun, interactive emoji-based sticker canvas! App built by @aniqa.dev.';
+  const blueskyShareUrl = `https://bsky.app/intent/compose?text=${encodeURIComponent(`${title} ${shareURL}`)}`;
 
   function handleLinkCopy() {
     navigator.clipboard.writeText(shareURL);
@@ -33,9 +33,9 @@ export default function ShareModal({ isOpen, onClose }) {
       </p>
       <button
         onClick={handleLinkCopy}
-        className="group mb-2 flex w-full items-center justify-between rounded border bg-gray-100 px-2 py-1 text-gray-500 shadow-sm transition-all hover:outline hover:outline-gray-300"
+        className="gap-4 text-start group mb-2 flex w-full items-center justify-between rounded border bg-gray-100 px-2 py-1 text-gray-500 shadow-sm transition-all hover:outline hover:outline-gray-300"
       >
-        <p>{shareURL}</p>
+        <p className="truncate">{shareURL}</p>
         <AnimatePresence mode="wait">
           {isCopied ? (
             <motion.div
