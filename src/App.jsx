@@ -1,9 +1,7 @@
 import { useState, useRef } from 'react';
 import { AnimatePresence, motion, useDragControls } from 'framer-motion';
-import { Heading, ClickHintText, Toolbar } from './components';
-import { getStickerByCategory, generateRandomSizeAndPosition } from './utils/stickers.js';
-import { downloadImage } from './utils/download.js';
-import { InfoModal, ShareModal } from './components/modals';
+import { Heading, ClickHintText, Toolbar, InfoModal, ShareModal } from './components';
+import { getStickerByCategory, generateRandomSizeAndPosition, downloadImage } from './utils';
 import { useMetadata, useModal } from './hooks';
 
 function App() {
