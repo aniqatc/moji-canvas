@@ -2,9 +2,14 @@ import { useState, useRef } from 'react';
 import { AnimatePresence, motion, useDragControls } from 'framer-motion';
 import { Heading, ClickHintText, Toolbar, InfoModal, ShareModal } from './components';
 import { getStickerByCategory, generateRandomSizeAndPosition, downloadImage } from './utils';
-import { useMetadata, useModal } from './hooks';
+import { useMetadata, useModal, useLocalStorage } from './hooks';
 
 function App() {
+  const [showInitialElements, setShowInitialElements] = useState(() => {
+    const savedStickers = localStorage.getItem('stickers');
+    return !savedStickers || JSON.parse(savedStickers).length === 0;
+  });
+
   const metadata = useMetadata();
   const [infoModalOpen, toggleInfoModal] = useModal(false);
   const [shareModalOpen, toggleShareModal] = useModal(false);
@@ -15,11 +20,10 @@ function App() {
   const [stickerMode, setStickerMode] = useState('add');
   const [category, setCategory] = useState('');
 
-  const [designers, setDesigners] = useState(JSON.parse(localStorage.getItem('designers')) || []);
-  const [showInitialElements, setShowInitialElements] = useState(!localStorage.getItem('stickers'));
-  const [backgroundColor, setBackgroundColor] = useState(localStorage.getItem('bg-color') || '#ffefef');
-  const [dotColor, setDotColor] = useState(localStorage.getItem('dot-color') || '#ec1111');
-  const [stickers, setStickers] = useState(JSON.parse(localStorage.getItem('stickers')) || []);
+  const [stickers, setStickers, saveStickers] = useLocalStorage('stickers', []);
+  const [designers, setDesigners, saveDesigners] = useLocalStorage('designers', []);
+  const [backgroundColor, setBackgroundColor, saveBackgroundColor] = useLocalStorage('bg-color', '#ffefef');
+  const [dotColor, setDotColor, saveDotColor] = useLocalStorage('dot-color', '#ec1111');
 
   const [animateMode, setAnimateMode] = useState(false);
   const [float, setFloat] = useState(false);
@@ -220,10 +224,10 @@ function App() {
           setDotColor('#ec1111');
         }}
         onSave={() => {
-          localStorage.setItem('bg-color', backgroundColor);
-          localStorage.setItem('dot-color', dotColor);
-          if (stickers.length > 0) localStorage.setItem('stickers', JSON.stringify(stickers));
-          if (designers.length > 0) localStorage.setItem('designers', JSON.stringify(designers));
+          saveStickers();
+          saveDesigners();
+          saveDotColor();
+          saveBackgroundColor();
         }}
         onDownload={() => {
           downloadImage(constraintsRef);
