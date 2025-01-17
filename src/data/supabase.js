@@ -6,29 +6,24 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 async function saveCanvasData(stickers, designers, backgroundColor, dotColor, existingCanvasId = null) {
     let result;
+    const dataToUpdate = {
+        stickers: stickers,
+        designers: designers,
+        backgroundColor: backgroundColor,
+        dotColor: dotColor,
+    }
     if (existingCanvasId) {
         result = await supabase
             .from('moji_data')
-            .update({
-                stickers: stickers,
-                designers: designers,
-                backgroundColor: backgroundColor,
-                dotColor: dotColor,
-            })
+            .update(dataToUpdate)
             .eq('id', existingCanvasId)
             .select();
     } else {
         result = await supabase
             .from('moji_data')
-            .insert({
-                stickers: stickers,
-                designers: designers,
-                backgroundColor: backgroundColor,
-                dotColor: dotColor,
-            })
+            .insert(dataToUpdate)
             .select();
     }
-
     const { data, error } = result;
     if (error) throw error;
     return data[0].id;
@@ -37,7 +32,6 @@ async function saveCanvasData(stickers, designers, backgroundColor, dotColor, ex
 async function getCanvasData(id) {
     const { data, error } = await supabase.from('moji_data').select('*').eq('id', id).single();
     if (error) throw error;
-    console.log(data);
     return data;
 }
 
