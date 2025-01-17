@@ -30,10 +30,18 @@ export default function Notification({ type }) {
 
   return (
       <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 75 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 30 }}
-          transition={{ duration: 0.3 }}
+          exit={{ opacity: 0, y: 75 }}
+          transition={{
+            type: "spring",
+            duration: 2.75,
+            opacity: {
+              duration: 2.75,
+              times: [0, 0.5, 0.85, 1],
+              keyframes: [0, 1, 1, 0]
+            }
+          }}
           style={{ backdropFilter: 'blur(3px)', WebkitBackdropFilter: 'blur(3px)' }}
           className="fixed bottom-4 right-4 z-50 flex -translate-x-1/2 items-center gap-2 rounded-md border border-gray-300 bg-white/80 p-2 shadow-lg"
       >

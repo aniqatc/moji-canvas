@@ -134,7 +134,9 @@ function App() {
       />
       <InfoModal isOpen={infoModalOpen} onClose={toggleInfoModal} stickerDesigners={designers} />
       <ShareModal isOpen={shareModalOpen} onClose={toggleShareModal} />
-      {showNotification && (<Notification type={notificationType} />)}
+      {showNotification && (<AnimatePresence>
+        <Notification key={notificationType} type={notificationType} />
+      </AnimatePresence>)}
     </CanvasBackground>
   );
 }
