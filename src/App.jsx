@@ -59,7 +59,11 @@ function App() {
         if (stickerToRemove) {
           const updatedStickers = stickers.filter(sticker => sticker.id !== stickerDiv.id);
           setStickers(updatedStickers);
-          setDesigners(designers.filter(designer => designer !== stickerToRemove.openmoji_author));
+
+          // only remove the first instance of the designer name
+          const updatedDesigners = [...designers];
+          updatedDesigners.splice(designers.indexOf(stickerToRemove.openmoji_author), 1);
+          setDesigners(updatedDesigners);
 
           if (updatedStickers.length === 0) {
             setShowInitialElements(true);
