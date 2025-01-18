@@ -53,7 +53,7 @@ function App() {
         } catch (error) {
           clearCanvas();
           setShowNotification(true);
-          setNotificationType('error');
+          setNotificationType('notFound');
 
           // invalid canvasId in params
           if (error.code === '22P02') {

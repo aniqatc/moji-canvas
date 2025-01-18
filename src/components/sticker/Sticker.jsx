@@ -12,7 +12,8 @@ export default function Sticker({
 }) {
   return (
     <motion.div
-      className="sticker-div"
+      tabIndex={0}
+      className="sticker-div focus-visible:outline-0"
       id={sticker.id}
       style={{
         position: 'absolute',
@@ -21,8 +22,6 @@ export default function Sticker({
         width: sticker.width,
         height: sticker.height,
         cursor: 'grab',
-        filter:
-          'drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5)) drop-shadow(-2px -2px 6px rgba(0, 0, 0, 0.2))',
       }}
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}

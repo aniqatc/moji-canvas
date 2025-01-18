@@ -20,7 +20,7 @@ const notificationConfig = {
     message: 'Your canvas is now a clean slate.',
     color: 'text-pink-600',
   },
-  error: {
+  notFound: {
     icon: Warning,
     title: 'Canvas not found!',
     message: "Start fresh with a clean slate.",

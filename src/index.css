@@ -37,6 +37,20 @@ a:focus-visible {
   transition: all 200ms ease-in;
 }
 
+.sticker-div {
+  filter: drop-shadow(-3px -3px 0px rgba(255, 255, 255, 1))
+  drop-shadow(3px -3px 0px rgba(255, 255, 255, 1))
+  drop-shadow(-3px 3px 0px rgba(255, 255, 255, 1))
+  drop-shadow(3px 3px 0px rgba(255, 255, 255, 1));
+}
+
+.sticker-div:focus-visible {
+  filter: drop-shadow(-3px -3px 0px rgba(0, 0, 0, 1))
+  drop-shadow(3px -3px 0px rgba(0, 0, 0, 1))
+  drop-shadow(-3px 3px 0px rgba(0, 0, 0, 1))
+  drop-shadow(3px 3px 0px rgba(0, 0, 0, 1));
+}
+
 .custom-scrollbar {
   scrollbar-gutter: stable;
   scrollbar-width: thin;
