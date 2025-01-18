@@ -1,7 +1,7 @@
 import { BaseSlider } from '../../reusable';
 
 export default function SizeControls({ scale, setScale }) {
-    return (
+  return (
     <BaseSlider
       id="scale-slider"
       min={0}

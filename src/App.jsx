@@ -30,7 +30,10 @@ function App() {
 
   const [stickers, setStickers, saveStickers] = useLocalStorage('stickers', []);
   const [designers, setDesigners, saveDesigners] = useLocalStorage('designers', []);
-  const [backgroundColor, setBackgroundColor, saveBackgroundColor] = useLocalStorage('bg-color', '#ffefef');
+  const [backgroundColor, setBackgroundColor, saveBackgroundColor] = useLocalStorage(
+    'bg-color',
+    '#ffefef'
+  );
   const [dotColor, setDotColor, saveDotColor] = useLocalStorage('dot-color', '#ec1111');
   const { animationProps, get, reset: resetAnimations } = useAnimation();
   const [scale, setScale, saveScale] = useLocalStorage('scale', 1);
@@ -100,7 +103,14 @@ function App() {
     setShowNotification(true);
     setNotificationType('save');
 
-    const savedId = await saveCanvasData(stickers, designers, backgroundColor, dotColor, scale, canvasId);
+    const savedId = await saveCanvasData(
+      stickers,
+      designers,
+      backgroundColor,
+      dotColor,
+      scale,
+      canvasId
+    );
     setCanvasId(savedId);
   }
 
