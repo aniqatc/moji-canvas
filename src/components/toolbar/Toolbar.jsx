@@ -24,6 +24,7 @@ export default function Toolbar({
 }) {
   return (
     <motion.aside
+      aria-label="Canvas controls"
       onClick={(event) => event.stopPropagation()}
       initial={{ opacity: 0, x: -60 }}
       animate={{ opacity: 1, x: 0 }}
@@ -57,5 +58,5 @@ export default function Toolbar({
 }
 
 function Separator() {
-  return <div className="h-[1.5px] flex-shrink-0 rounded bg-stone-300/70" />;
+  return <hr className="h-[1.5px] flex-shrink-0 rounded bg-stone-300/70" />;
 }

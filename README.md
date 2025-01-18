@@ -1,11 +1,9 @@
 # moji-canvas
-
 🎨 An interactive emoji-based sticker canvas.
 
 <a href="https://moji.aniqa.dev"><img src="/public/og-img.png" alt="Moji Canvas Demo" /></a>
 
 ## Tech
-
 - React
 - React Router
 - Vite
@@ -14,7 +12,6 @@
 - Supabase
 
 ## Libraries
-
 - [OpenMoji](https://openmoji.org/) - Emoji/sticker assets
 - [Phosphor Icons](https://phosphoricons.com/) - Icon set
 - [Radix UI](https://www.radix-ui.com/) - Custom select component
@@ -22,7 +19,6 @@
 - [HTML-to-Image](https://github.com/bubkoo/html-to-image) - Canvas export functionality
 
 ## Features
-
 - Choose from 4,000+ illustrations across 10 unique themes
 - Add, remove, and freely arrange stickers on the canvas
 - Customize background colors and patterns
@@ -33,14 +29,12 @@
 - Fully responsive design that works seamlessly across devices
 - PWA support
 - Dynamic designer credits that automatically update based on stickers in use
+- Accessibility features including keyboard controls and ARIA labels for screen reader compatibility
 
 ## Future Improvements
-
-- Accessibility improvements
 - Improved animations
 
 ## Project Structure
-
 - `App.jsx`: Main app logic 
   - dynamically loads canvas data from database if canvasId is present, otherwise, localStorage and fallback values are used
   - handles user interactions
@@ -76,15 +70,14 @@
   - `useLocalStorage.js`: Handles saving and retrieving items from localStorage
   - `useMetadata.js`: Performs the initial fetch for the JSON file that contains the stickers metadata
   - `useModal.js`: Provides modal open/close toggle functionality
+  - `useKey.js`: Handles relevant keypress events to trigger specific actions (e.g. adding, removing, dragging)
 
 - `/data`
   - `supabase.js`: Provides functions for fetching, updating and saving canvas content/metadata to the database 
 
 
 ## Available Scripts
-
 Built with [Vite](https://vite.dev/). Available scripts include:
-
 - `npm start`: Start development server
 - `npm run build`: Create production build
 - `npm run preview`: Preview production build

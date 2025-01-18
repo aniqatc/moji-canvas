@@ -6,8 +6,8 @@ export default forwardRef(function CanvasBackground(
 ) {
   return (
     <main tabIndex={0}
-      aria-label="Sticker Canvas"
-      ref={ref}
+     aria-label="Sticker canvas area"
+     ref={ref}
       onClick={onClick}
       className="relative mx-auto flex h-dvh min-h-screen w-full cursor-pointer flex-col items-center justify-center gap-5 w-xs:justify-normal"
       style={{

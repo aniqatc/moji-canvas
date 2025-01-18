@@ -13,7 +13,7 @@ export default function Sticker({
   return (
     <motion.div
       tabIndex={0}
-      className="sticker-div focus-visible:outline-0"
+      className="sticker-div"
       id={sticker.id}
       style={{
         position: 'absolute',
@@ -22,6 +22,7 @@ export default function Sticker({
         width: sticker.width,
         height: sticker.height,
         cursor: 'grab',
+        outline: 'none'
       }}
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
@@ -33,6 +34,7 @@ export default function Sticker({
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
       whileDrag={whileDrag}
+      aria-label={`${sticker.annotation} sticker`}
     >
       <motion.div
         key={get.speed}
