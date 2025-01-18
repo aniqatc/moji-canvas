@@ -15,7 +15,8 @@ export default function Toolbar({
   onStickerMode,
   onReset,
   onThemeSelect,
-  onScaleChange,
+  setScale,
+  scale,
   onSave,
   onShare,
   onDownload,
@@ -43,7 +44,7 @@ export default function Toolbar({
       <Separator />
       <AnimationControls {...animationProps} />
       <Separator />
-      <SizeControls onScaleChange={onScaleChange} />
+      <SizeControls setScale={setScale} scale={scale} />
       <Separator />
       <ActionButtons
         onReset={onReset}

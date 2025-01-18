@@ -9,6 +9,7 @@ async function saveCanvasData(
   designers,
   backgroundColor,
   dotColor,
+  scale,
   existingCanvasId = null
 ) {
   let result;
@@ -17,6 +18,7 @@ async function saveCanvasData(
     designers: designers,
     backgroundColor: backgroundColor,
     dotColor: dotColor,
+    scale: scale,
   };
   if (existingCanvasId) {
     result = await supabase

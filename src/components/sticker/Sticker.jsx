@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 export default function Sticker({
   sticker,
   get,
+  scale,
   drag,
   dragControls,
   dragConstraints,
@@ -85,7 +86,7 @@ export default function Sticker({
               width: '100%',
               height: '100%',
               pointerEvents: 'none',
-              transform: `scale(${get.scale})`,
+              transform: `scale(${scale})`,
             }}
           />
         </motion.div>

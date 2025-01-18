@@ -32,7 +32,8 @@ function App() {
   const [designers, setDesigners, saveDesigners] = useLocalStorage('designers', []);
   const [backgroundColor, setBackgroundColor, saveBackgroundColor] = useLocalStorage('bg-color', '#ffefef');
   const [dotColor, setDotColor, saveDotColor] = useLocalStorage('dot-color', '#ec1111');
-  const { animationProps, get, setters, reset: resetAnimations } = useAnimation();
+  const { animationProps, get, reset: resetAnimations } = useAnimation();
+  const [scale, setScale, saveScale] = useLocalStorage('scale', 1);
   const [showInitialElements, setShowInitialElements] = useState(stickers.length === 0);
 
   const [showNotification, setShowNotification] = useState(false);
@@ -60,6 +61,7 @@ function App() {
             setStickers(data.stickers);
             setBackgroundColor(data.backgroundColor);
             setDotColor(data.dotColor);
+            setScale(data.scale);
             setShowInitialElements(!data.stickers.length > 0);
           }
         } catch (error) {
@@ -94,10 +96,11 @@ function App() {
     saveDesigners();
     saveDotColor();
     saveBackgroundColor();
+    saveScale();
     setShowNotification(true);
     setNotificationType('save');
 
-    const savedId = await saveCanvasData(stickers, designers, backgroundColor, dotColor, canvasId);
+    const savedId = await saveCanvasData(stickers, designers, backgroundColor, dotColor, scale, canvasId);
     setCanvasId(savedId);
   }
 
@@ -107,7 +110,7 @@ function App() {
     setShowNotification(true);
     setNotificationType('reset');
 
-    const savedId = await saveCanvasData([], [], '#ffefef', '#ec1111', canvasId);
+    const savedId = await saveCanvasData([], [], '#ffefef', '#ec1111', 1, canvasId);
     setCanvasId(savedId);
   }
 
@@ -118,6 +121,7 @@ function App() {
     setStickers([]);
     setBackgroundColor('#ffefef');
     setDotColor('#ec1111');
+    setScale(1);
     resetAnimations();
   }
 
@@ -164,6 +168,7 @@ function App() {
                 dragConstraints={constraintsRef}
                 sticker={sticker}
                 get={get}
+                scale={scale}
               />
             );
           })}
@@ -173,7 +178,8 @@ function App() {
         backgroundProps={{ backgroundColor, dotColor, setBackgroundColor, setDotColor }}
         onStickerMode={(mode) => setStickerMode(mode)}
         onThemeSelect={(theme) => setCategory(theme)}
-        onScaleChange={(value) => setters.setScale(value)}
+        setScale={(value) => setScale(value)}
+        scale={scale}
         onReset={handleReset}
         onSave={handleSave}
         onDownload={() => {

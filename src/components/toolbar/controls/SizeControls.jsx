@@ -1,10 +1,7 @@
-import { useState } from 'react';
 import { BaseSlider } from '../../reusable';
 
-export default function SizeControls({ onScaleChange }) {
-  const [scale, setScale] = useState(1);
-
-  return (
+export default function SizeControls({ scale, setScale }) {
+    return (
     <BaseSlider
       id="scale-slider"
       min={0}
@@ -13,7 +10,6 @@ export default function SizeControls({ onScaleChange }) {
       value={scale}
       onChange={(event) => {
         setScale(event.target.value);
-        onScaleChange(event.target.value);
       }}
       label="Scale"
     />
