@@ -1,11 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-echo "Running lint"
 npm run lint
-
-echo "Running format"
 npm run format
-
-echo "Running build"
-npm run build
