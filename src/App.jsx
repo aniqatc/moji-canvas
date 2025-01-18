@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { AnimatePresence, useDragControls } from 'framer-motion';
 import { canvasAddMode, canvasRemoveMode, downloadImage } from './utils';
-import { useMetadata, useModal, useLocalStorage, useAnimation } from './hooks';
+import { useMetadata, useModal, useLocalStorage, useAnimation, useKey } from './hooks';
 import {
   Heading,
   ClickHintText,
@@ -11,9 +11,9 @@ import {
   ShareModal,
   Sticker,
   CanvasBackground,
-  Notification
+  Notification,
 } from './components';
-import { saveCanvasData, getCanvasData } from "./data/supabase.js";
+import { saveCanvasData, getCanvasData } from './data/supabase.js';
 
 function App() {
   const [canvasId, setCanvasId] = useState(useParams().canvasId || null);
@@ -37,6 +37,18 @@ function App() {
 
   const [showNotification, setShowNotification] = useState(false);
   const [notificationType, setNotificationType] = useState('');
+
+  useKey('Enter', handleCanvasClick);
+  useKey(' ', handleCanvasClick);
+  useKey('Backspace', handleReset);
+  useKey('Escape', () => {
+    if (infoModalOpen) {
+      toggleInfoModal();
+    }
+    if (shareModalOpen) {
+      toggleShareModal();
+    }
+  });
 
   useEffect(() => {
     async function fetchExistingCanvas() {
@@ -63,17 +75,17 @@ function App() {
       }
     }
     fetchExistingCanvas();
-  }, [canvasId])
+  }, [canvasId]);
 
   useEffect(() => {
     if (showNotification) {
       const timeoutId = setTimeout(() => {
         setShowNotification(false);
-      }, 3000)
+      }, 3000);
 
       return () => {
         clearTimeout(timeoutId);
-      }
+      };
     }
   }, [showNotification, notificationType]);
 
@@ -178,9 +190,16 @@ function App() {
       />
       <InfoModal isOpen={infoModalOpen} onClose={toggleInfoModal} stickerDesigners={designers} />
       <ShareModal isOpen={shareModalOpen} onClose={toggleShareModal} canvasId={canvasId} />
-      {showNotification && (<AnimatePresence>
-        <Notification key={notificationType} type={notificationType} role="status" aria-live="polite" />
-      </AnimatePresence>)}
+      {showNotification && (
+        <AnimatePresence>
+          <Notification
+            key={notificationType}
+            type={notificationType}
+            role="status"
+            aria-live="polite"
+          />
+        </AnimatePresence>
+      )}
     </CanvasBackground>
   );
 }

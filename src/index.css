@@ -39,17 +39,15 @@ a:focus-visible {
 
 .sticker-div {
   filter: drop-shadow(-4px -4px 0px rgba(255, 255, 255, 1))
-  drop-shadow(4px -4px 0px rgba(255, 255, 255, 1))
-  drop-shadow(-4px 4px 0px rgba(255, 255, 255, 1))
-  drop-shadow(4px 4px 0px rgba(255, 255, 255, 1));
+    drop-shadow(4px -4px 0px rgba(255, 255, 255, 1))
+    drop-shadow(-4px 4px 0px rgba(255, 255, 255, 1)) drop-shadow(4px 4px 0px rgba(255, 255, 255, 1));
 }
 
 .sticker-div:focus-visible {
   filter: drop-shadow(-3px -3px 0px rgba(255, 0, 128, 0.75))
-  drop-shadow(3px -3px 0px rgba(255, 0, 128, 0.75))
-  drop-shadow(-3px 3px 0px rgba(255, 0, 128, 0.75))
-  drop-shadow(3px 3px 0px rgba(255, 0, 128, 0.75))
-  drop-shadow(0 0 8px rgb(255, 0, 128));
+    drop-shadow(3px -3px 0px rgba(255, 0, 128, 0.75))
+    drop-shadow(-3px 3px 0px rgba(255, 0, 128, 0.75))
+    drop-shadow(3px 3px 0px rgba(255, 0, 128, 0.75)) drop-shadow(0 0 8px rgb(255, 0, 128));
 }
 
 .custom-scrollbar {

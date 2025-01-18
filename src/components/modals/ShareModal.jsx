@@ -15,7 +15,8 @@ export default function ShareModal({ isOpen, onClose, canvasId }) {
   const [isCopied, setIsCopied] = useState(false);
 
   const shareURL = `https://moji.aniqa.dev/${canvasId ? canvasId : ''}`;
-  const title = 'Check out this fun, interactive emoji-based sticker canvas! App built by @aniqa.dev.';
+  const title =
+    'Check out this fun, interactive emoji-based sticker canvas! App built by @aniqa.dev.';
   const blueskyShareUrl = `https://bsky.app/intent/compose?text=${encodeURIComponent(`${title} ${shareURL}`)}`;
 
   function handleLinkCopy() {
@@ -25,7 +26,12 @@ export default function ShareModal({ isOpen, onClose, canvasId }) {
   }
 
   return (
-    <Modal heading="Share Moji Canvas" isOpen={isOpen} onClose={onClose} aria-label="Modal with links to share your unique sticker canvas to social media">
+    <Modal
+      heading="Share Moji Canvas"
+      isOpen={isOpen}
+      onClose={onClose}
+      aria-label="Modal with links to share your unique sticker canvas to social media"
+    >
       <p className="mb-2 text-gray-700">
         Moji Canvas is a fun, <strong>interactive emoji-based sticker canvas</strong>! Create,
         customize, and bring your digital space to life with{' '}
@@ -33,7 +39,7 @@ export default function ShareModal({ isOpen, onClose, canvasId }) {
       </p>
       <button
         onClick={handleLinkCopy}
-        className="gap-4 text-start group mb-2 flex w-full items-center justify-between rounded border bg-gray-100 px-2 py-1 text-gray-500 shadow-sm transition-all hover:outline hover:outline-gray-300"
+        className="group mb-2 flex w-full items-center justify-between gap-4 rounded border bg-gray-100 px-2 py-1 text-start text-gray-500 shadow-sm transition-all hover:outline hover:outline-gray-300"
       >
         <p className="truncate">{shareURL}</p>
         <AnimatePresence mode="wait">

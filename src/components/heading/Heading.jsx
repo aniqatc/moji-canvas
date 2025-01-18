@@ -7,6 +7,7 @@ const { sparkles, partyface, bouquet, pizza, teddy } = headingIcons;
 export default function Heading({ openModal }) {
   return (
     <motion.header
+      tabIndex={0}
       initial={{ opacity: 1, pointerEvents: 'auto' }}
       exit={{ opacity: 0, y: -30, pointerEvents: 'none' }}
       transition={{

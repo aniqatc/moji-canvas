@@ -1,8 +1,20 @@
 import { generateRandomSizeAndPosition, getStickerByCategory } from './stickers.js';
 
 async function canvasAddMode(event, metadata, category, setStickers, setDesigners) {
+  const isKeyboardEvent = event.type === 'keydown';
+
   const sticker = await getStickerByCategory(metadata, category);
   const computedSizes = generateRandomSizeAndPosition();
+
+  const position = isKeyboardEvent
+    ? {
+        top: Math.random() * (window.innerHeight - 200) + 'px',
+        left: Math.random() * (window.innerWidth - 200) + 'px',
+      }
+    : {
+        top: event.clientY - parseInt(computedSizes.height) / 2 + 'px',
+        left: event.clientX - parseInt(computedSizes.width) / 2 + 'px',
+      };
 
   const stickerWithStyles = {
     ...sticker,
@@ -12,8 +24,8 @@ async function canvasAddMode(event, metadata, category, setStickers, setDesigner
     width: computedSizes.width,
     rotation: computedSizes.rotation,
     floatOffsets: computedSizes.floatOffsets,
-    top: event.clientY - parseInt(computedSizes.height) / 2 + 'px',
-    left: event.clientX - parseInt(computedSizes.width) / 2 + 'px',
+    top: position.top,
+    left: position.left,
   };
 
   setStickers((prev) => [...prev, stickerWithStyles]);
