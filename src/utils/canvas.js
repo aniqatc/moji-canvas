@@ -1,21 +1,10 @@
-import { generateRandomSizeAndPosition, getStickerByCategory } from './stickers.js';
+import { getStickerByCategory } from './stickers.js';
+import { generateRandomSizeAndPosition, positionBasedOnEvent } from './helpers.js';
 
 async function canvasAddMode(event, metadata, category, setStickers, setDesigners) {
-  const isKeyboardEvent = event.type === 'keydown';
-
   const sticker = await getStickerByCategory(metadata, category);
   const computedSizes = generateRandomSizeAndPosition();
-
-  const position = isKeyboardEvent
-    ? {
-        top: Math.random() * (window.innerHeight - 200) + 'px',
-        left: Math.random() * (window.innerWidth - 200) + 'px',
-      }
-    : {
-        top: event.clientY - parseInt(computedSizes.height) / 2 + 'px',
-        left: event.clientX - parseInt(computedSizes.width) / 2 + 'px',
-      };
-
+  const position = positionBasedOnEvent(event, computedSizes);
   const stickerWithStyles = {
     ...sticker,
     src: `/stickers/${sticker.hexcode}.svg`,
@@ -29,7 +18,6 @@ async function canvasAddMode(event, metadata, category, setStickers, setDesigner
     translateX: 0,
     translateY: 0,
   };
-
   setStickers((prev) => [...prev, stickerWithStyles]);
   setDesigners((prev) => [...prev, stickerWithStyles.openmoji_author]);
 }
@@ -40,9 +28,8 @@ function canvasRemoveMode(stickerDiv, stickers, setStickers, designers, setDesig
     const updatedStickers = stickers.filter((sticker) => sticker.id !== stickerDiv.id);
     setStickers(updatedStickers);
 
-    // only remove the first instance of the designer name
     const updatedDesigners = [...designers];
-    updatedDesigners.splice(designers.indexOf(stickerToRemove.openmoji_author), 1);
+    updatedDesigners.splice(designers.indexOf(stickerToRemove.openmoji_author), 1); // remove only one occurrence
     setDesigners(updatedDesigners);
 
     return updatedStickers.length === 0;
