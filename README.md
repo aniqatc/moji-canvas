@@ -7,7 +7,7 @@
 ## Tech
 
 - React
-- React Router
+- React Router DOM
 - Vite
 - Tailwind
 - Framer Motion
