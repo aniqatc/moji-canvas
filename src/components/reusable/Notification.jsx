@@ -49,7 +49,7 @@ export default function Notification({ type }) {
         },
       }}
       style={{ backdropFilter: 'blur(3px)', WebkitBackdropFilter: 'blur(3px)' }}
-      className="fixed bottom-4 right-4 z-50 flex -translate-x-1/2 items-center gap-2 rounded-md border border-gray-300 bg-white/80 p-2 shadow-lg"
+      className="notification fixed bottom-4 right-4 z-50 flex -translate-x-1/2 items-center gap-2 rounded-md border border-gray-300 bg-white/80 p-2 shadow-lg"
     >
       <Icon className={`${config.color}`} size={26} weight="duotone" />
       <p className="w-[28ch] text-xs">

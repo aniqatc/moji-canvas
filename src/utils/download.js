@@ -1,13 +1,18 @@
 import { toPng } from 'html-to-image';
 
 async function downloadImage(ref) {
-  const toolbar = ref.current.querySelector('aside');
   try {
-    toolbar.style.opacity = 0;
     const dataURL = await toPng(ref.current, {
       quality: 1,
       pixelRatio: window.devicePixelRatio || 2,
-      skipFonts: true, // to avoid error
+      skipFonts: true,
+      filter: (node) => {
+        // Make sure toolbar 'aside' and toast 'notification' isn't in the screenshot
+        return !(
+            (node.tagName && node.tagName.toLowerCase() === 'aside') ||
+            (node.classList && node.classList.contains('notification'))
+        );
+      }
     });
 
     const link = document.createElement('a');
@@ -16,8 +21,6 @@ async function downloadImage(ref) {
     link.click();
   } catch (error) {
     console.error('Error occurred during download: ' + error.message);
-  } finally {
-    toolbar.style.opacity = 1;
   }
 }
 
