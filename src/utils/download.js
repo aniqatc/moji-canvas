@@ -9,10 +9,10 @@ async function downloadImage(ref) {
       filter: (node) => {
         // Make sure toolbar 'aside' and toast 'notification' isn't in the screenshot
         return !(
-            (node.tagName && node.tagName.toLowerCase() === 'aside') ||
-            (node.classList && node.classList.contains('notification'))
+          (node.tagName && node.tagName.toLowerCase() === 'aside') ||
+          (node.classList && node.classList.contains('notification'))
         );
-      }
+      },
     });
 
     const link = document.createElement('a');
