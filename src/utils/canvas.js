@@ -27,7 +27,7 @@ async function canvasAddMode(event, metadata, category, setStickers, setDesigner
     top: position.top,
     left: position.left,
     translateX: 0,
-    translateY: 0
+    translateY: 0,
   };
 
   setStickers((prev) => [...prev, stickerWithStyles]);
