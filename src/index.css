@@ -38,12 +38,12 @@ a:focus-visible {
 }
 
 .sticker-div {
-  -webkit-filter: drop-shadow(-4px -4px 0px rgba(255, 255, 255, 1))
-    drop-shadow(4px -4px 0px rgba(255, 255, 255, 1))
-    drop-shadow(-4px 4px 0px rgba(255, 255, 255, 1)) drop-shadow(4px 4px 0px rgba(255, 255, 255, 1));
-  filter: drop-shadow(-4px -4px 0px rgba(255, 255, 255, 1))
-    drop-shadow(4px -4px 0px rgba(255, 255, 255, 1))
-    drop-shadow(-4px 4px 0px rgba(255, 255, 255, 1)) drop-shadow(4px 4px 0px rgba(255, 255, 255, 1));
+  -webkit-filter: drop-shadow(-3px -3px 0px rgba(255, 255, 255, 1))
+    drop-shadow(3px -3px 0px rgba(255, 255, 255, 1))
+    drop-shadow(-3px 3px 0px rgba(255, 255, 255, 1)) drop-shadow(3px 3px 0px rgba(255, 255, 255, 1));
+  filter: drop-shadow(-3px -3px 0px rgba(255, 255, 255, 1))
+    drop-shadow(3px -3px 0px rgba(255, 255, 255, 1))
+    drop-shadow(-3px 3px 0px rgba(255, 255, 255, 1)) drop-shadow(3px 3px 0px rgba(255, 255, 255, 1));
 }
 
 .sticker-div:focus-visible {
