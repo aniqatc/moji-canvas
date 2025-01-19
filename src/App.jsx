@@ -168,18 +168,31 @@ function App() {
         {stickers &&
           stickers.map((sticker) => {
             return (
-              <Sticker
-                key={`${sticker.id}-${get.animateMode}`}
-                drag
-                dragControls={controls}
-                onDragStart={() => setIsDragging(true)}
-                onDragEnd={() => setIsDragging(false)}
-                whileDrag={{ cursor: 'grabbing' }}
-                dragConstraints={constraintsRef}
-                sticker={sticker}
-                get={get}
-                scale={scale}
-              />
+                <Sticker
+                    key={`${sticker.id}-${get.animateMode}`}
+                    drag
+                    dragControls={controls}
+                    onDragStart={() => setIsDragging(true)}
+                    onDragEnd={(event, info) => {
+                      setIsDragging(false);
+                      setStickers(prev =>
+                          prev.map(s =>
+                              s.id === sticker.id
+                                  ? {
+                                    ...s,
+                                    translateX: (s.translateX || 0) + info.offset.x,
+                                    translateY: (s.translateY || 0) + info.offset.y,
+                                  }
+                                  : s
+                          )
+                      );
+                    }}
+                    whileDrag={{ cursor: 'grabbing' }}
+                    dragConstraints={constraintsRef}
+                    sticker={sticker}
+                    get={get}
+                    scale={scale}
+                />
             );
           })}
       </AnimatePresence>

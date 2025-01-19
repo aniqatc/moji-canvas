@@ -27,7 +27,7 @@
 - Add, remove, and freely arrange stickers on the canvas
 - Customize background colors and patterns
 - Animate stickers with floating, rotating, and scaling effects (_however, for performance reasons, animations are disabled if there are more than 40 stickers in the canvas_)
-- Save your creations to browser storage for future editing
+- Save your creations to browser storage for future editing (and a shareable link for collaborative edits)
 - Download your canvas as a high-quality PNG image
 - Share your creations directly to social media with a unique link (e.g. [https://moji.aniqa.dev/95a22e4c-9006-480c-bb15-7443b0d1a508](https://moji.aniqa.dev/95a22e4c-9006-480c-bb15-7443b0d1a508))
 - Fully responsive design that works seamlessly across devices
