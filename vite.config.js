@@ -24,10 +24,10 @@ export default defineConfig({
               cacheName: 'stickers',
               expiration: {
                 maxAgeSeconds: 7 * 24 * 60 * 60,
-              }
-            }
-          }
-        ]
+              },
+            },
+          },
+        ],
       },
       manifest: {
         name: 'Moji Canvas',
