@@ -14,6 +14,21 @@ export default defineConfig({
     VitePWA({
       includeAssets: ['sparkles.svg'],
       registerType: 'autoUpdate',
+      workbox: {
+        globPatterns: [`stickers/**/*.svg`],
+        runtimeCaching: [
+          {
+            urlPattern: /\/stickers\/.*\.svg$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'stickers',
+              expiration: {
+                maxAgeSeconds: 7 * 24 * 60 * 60,
+              }
+            }
+          }
+        ]
+      },
       manifest: {
         name: 'Moji Canvas',
         short_name: 'Moji Canvas',
