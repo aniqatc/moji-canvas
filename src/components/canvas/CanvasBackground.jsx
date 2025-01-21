@@ -1,9 +1,6 @@
 import { forwardRef } from 'react';
 
-export default forwardRef(function CanvasBackground(
-  { backgroundColor, dotColor, onClick, children },
-  ref
-) {
+function CanvasBackground({ backgroundColor, dotColor, onClick, children }, ref) {
   return (
     <main
       tabIndex={0}
@@ -25,4 +22,6 @@ export default forwardRef(function CanvasBackground(
       {children}
     </main>
   );
-});
+}
+
+export default forwardRef(CanvasBackground);
