@@ -35,6 +35,20 @@
 - Dynamic designer credits that automatically update based on stickers in use
 - Accessibility features including keyboard controls and ARIA labels for screen reader compatibility
 
+## Key Concepts
+
+- Utilizes custom hooks to aid in state management across the application (`useAnimation`, `useKey`, `useLocalStorage`, `useMetadata`, `useModal`)
+- Implements reusable components (modals, buttons, sliders, notification and info button)
+- Leverages React Router DOM to handle custom canvas URLs for sharing
+- Manages complex user interactions through event handling and state tracking
+- Conditional rendering of certain toolbar options (e.g. animations are disabled after 40 stickers are added or download button is disabled until stickers are added to the canvas)
+- Implements prop drilling to pass data between different components
+- Utilizes `useEffect` to fetch metadata (which is handled within the custom `useMetadata` hook)
+- Integrates with Supabase for cloud storage and retrieval of canvas data
+- Provides additional accessibility access for users using keyboard to navigate
+- Uses Framer Motion for dragging and animations
+- PWA functionality with service worker configured to cache all (4000+) stickers, allowing for offline usage
+
 ## Project Structure
 
 - `App.jsx`: Main app logic
