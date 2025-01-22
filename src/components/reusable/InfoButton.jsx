@@ -1,5 +1,5 @@
 import { Info } from '@phosphor-icons/react';
-import { useUI } from "../../contexts";
+import { useUI } from '../../contexts';
 
 export default function InfoButton() {
   const { toggleInfoModal } = useUI();

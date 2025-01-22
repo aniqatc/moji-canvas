@@ -14,13 +14,22 @@ import {
   Notification,
 } from './components';
 import { saveCanvasData, getCanvasData } from './data/supabase.js';
-import { useUI } from './contexts'
+import { useUI } from './contexts';
 
 function App() {
   const params = useParams();
   const [canvasId, setCanvasId] = useState(params.canvasId || null);
 
-  const { renderNotification, hideNotification, notificationType, showNotification, infoModalOpen, shareModalOpen, toggleShareModal, toggleInfoModal } = useUI();
+  const {
+    renderNotification,
+    hideNotification,
+    notificationType,
+    showNotification,
+    infoModalOpen,
+    shareModalOpen,
+    toggleShareModal,
+    toggleInfoModal,
+  } = useUI();
   const metadata = useMetadata();
 
   const controls = useDragControls();
