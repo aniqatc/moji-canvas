@@ -20,46 +20,27 @@ function App() {
   const params = useParams();
   const [canvasId, setCanvasId] = useState(params.canvasId || null);
 
-  const {
-    renderNotification,
-    hideNotification,
-    notificationType,
-    showNotification,
-    infoModalOpen,
-    shareModalOpen,
-    toggleShareModal,
-    toggleInfoModal,
-  } = useUI();
   const metadata = useMetadata();
-
   const controls = useDragControls();
   const constraintsRef = useRef(null);
+
+  const { renderNotification, notificationType, showNotification, toggleShareModal } = useUI();
   const [isDragging, setIsDragging] = useState(false);
   const [stickerMode, setStickerMode] = useState('add');
   const [category, setCategory] = useState('');
 
   const [stickers, setStickers, saveStickers] = useLocalStorage('stickers', []);
   const [designers, setDesigners, saveDesigners] = useLocalStorage('designers', []);
-  const [backgroundColor, setBackgroundColor, saveBackgroundColor] = useLocalStorage(
-    'bg-color',
-    '#ffefef'
-  );
+  const [backgroundColor, setBackgroundColor, saveBackgroundColor] = useLocalStorage('bg-color', '#ffefef');
   const [dotColor, setDotColor, saveDotColor] = useLocalStorage('dot-color', '#ec1111');
+  const [showInitialElements, setShowInitialElements] = useState(stickers.length === 0);
+
   const { animationProps, get, reset: resetAnimations } = useAnimation();
   const [scale, setScale, saveScale] = useLocalStorage('scale', 1);
-  const [showInitialElements, setShowInitialElements] = useState(stickers.length === 0);
 
   useKey('Enter', handleCanvasClick);
   useKey(' ', handleCanvasClick);
   useKey('Backspace', handleReset);
-  useKey('Escape', () => {
-    if (infoModalOpen) {
-      toggleInfoModal();
-    }
-    if (shareModalOpen) {
-      toggleShareModal();
-    }
-  });
 
   useEffect(() => {
     async function fetchExistingCanvas() {
@@ -87,18 +68,6 @@ function App() {
     }
     fetchExistingCanvas();
   }, [canvasId]);
-
-  useEffect(() => {
-    if (showNotification) {
-      const timeoutId = setTimeout(() => {
-        hideNotification();
-      }, 3000);
-
-      return () => {
-        clearTimeout(timeoutId);
-      };
-    }
-  }, [showNotification, notificationType]);
 
   async function handleSave() {
     saveStickers();

@@ -1,4 +1,5 @@
-import { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext, useEffect } from 'react';
+import { useKey } from '../hooks/index.js';
 
 export const UIContext = createContext();
 
@@ -20,6 +21,27 @@ export const UIProvider = ({ children }) => {
     setShowNotification('');
     setShowNotification(false);
   }
+
+  useKey('Escape', () => {
+    if (infoModalOpen) {
+      toggleInfoModal();
+    }
+    if (shareModalOpen) {
+      toggleShareModal();
+    }
+  });
+
+  useEffect(() => {
+    if (showNotification) {
+      const timeoutId = setTimeout(() => {
+        hideNotification();
+      }, 3000);
+
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    }
+  }, [showNotification, notificationType]);
 
   const context = {
     renderNotification,
