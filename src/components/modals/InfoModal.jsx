@@ -1,13 +1,15 @@
 import { Modal } from '../reusable';
+import { useUI } from '../../contexts';
 
-export default function InfoModal({ isOpen, onClose, stickerDesigners }) {
+export default function InfoModal({ stickerDesigners }) {
+  const { infoModalOpen, toggleInfoModal } = useUI();
   const uniqueDesigners = [...new Set(stickerDesigners)];
 
   return (
     <Modal
       heading="About Moji Canvas"
-      isOpen={isOpen}
-      onClose={onClose}
+      isOpen={infoModalOpen}
+      onClose={toggleInfoModal}
       aria-label="Modal for additional information about the website"
     >
       <p className="mb-2 text-gray-700">An interactive emoji-based sticker canvas.</p>

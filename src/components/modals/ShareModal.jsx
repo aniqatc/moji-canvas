@@ -10,8 +10,10 @@ import {
   Check,
 } from '@phosphor-icons/react';
 import { Modal } from '../reusable';
+import { useUI } from '../../contexts';
 
-export default function ShareModal({ isOpen, onClose, canvasId }) {
+export default function ShareModal({ canvasId }) {
+  const { shareModalOpen, toggleShareModal } = useUI();
   const [isCopied, setIsCopied] = useState(false);
 
   const shareURL = `https://moji.aniqa.dev/${canvasId ? canvasId : ''}`;
@@ -28,8 +30,8 @@ export default function ShareModal({ isOpen, onClose, canvasId }) {
   return (
     <Modal
       heading="Share Moji Canvas"
-      isOpen={isOpen}
-      onClose={onClose}
+      isOpen={shareModalOpen}
+      onClose={toggleShareModal}
       aria-label="Modal with links to share your unique sticker canvas to social media"
     >
       <p className="mb-2 text-gray-700">

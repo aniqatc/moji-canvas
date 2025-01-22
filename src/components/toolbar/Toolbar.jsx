@@ -20,7 +20,6 @@ export default function Toolbar({
   onSave,
   onShare,
   onDownload,
-  openModal,
   disableButton,
 }) {
   return (
@@ -53,7 +52,7 @@ export default function Toolbar({
         onDownload={onDownload}
         disableButton={disableButton}
       />
-      <InfoButton openModal={openModal} />
+      <InfoButton />
     </motion.aside>
   );
 }

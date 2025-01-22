@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { AnimatePresence, useDragControls } from 'framer-motion';
 import { canvasAddMode, canvasRemoveMode, downloadImage } from './utils';
-import { useMetadata, useModal, useLocalStorage, useAnimation, useKey } from './hooks';
+import { useMetadata, useLocalStorage, useAnimation, useKey } from './hooks';
 import {
   Heading,
   ClickHintText,
@@ -14,14 +14,14 @@ import {
   Notification,
 } from './components';
 import { saveCanvasData, getCanvasData } from './data/supabase.js';
+import { useUI } from './contexts'
 
 function App() {
   const params = useParams();
   const [canvasId, setCanvasId] = useState(params.canvasId || null);
 
+  const { renderNotification, hideNotification, notificationType, showNotification, infoModalOpen, shareModalOpen, toggleShareModal, toggleInfoModal } = useUI();
   const metadata = useMetadata();
-  const [infoModalOpen, toggleInfoModal] = useModal(false);
-  const [shareModalOpen, toggleShareModal] = useModal(false);
 
   const controls = useDragControls();
   const constraintsRef = useRef(null);
@@ -39,9 +39,6 @@ function App() {
   const { animationProps, get, reset: resetAnimations } = useAnimation();
   const [scale, setScale, saveScale] = useLocalStorage('scale', 1);
   const [showInitialElements, setShowInitialElements] = useState(stickers.length === 0);
-
-  const [showNotification, setShowNotification] = useState(false);
-  const [notificationType, setNotificationType] = useState('');
 
   useKey('Enter', handleCanvasClick);
   useKey(' ', handleCanvasClick);
@@ -70,8 +67,7 @@ function App() {
           }
         } catch (error) {
           clearCanvas();
-          setShowNotification(true);
-          setNotificationType('notFound');
+          renderNotification('notFound');
 
           // invalid canvasId in params
           if (error.code === '22P02') {
@@ -86,7 +82,7 @@ function App() {
   useEffect(() => {
     if (showNotification) {
       const timeoutId = setTimeout(() => {
-        setShowNotification(false);
+        hideNotification();
       }, 3000);
 
       return () => {
@@ -101,8 +97,7 @@ function App() {
     saveDotColor();
     saveBackgroundColor();
     saveScale();
-    setShowNotification(true);
-    setNotificationType('save');
+    renderNotification('save');
 
     const savedId = await saveCanvasData(
       stickers,
@@ -118,8 +113,7 @@ function App() {
   async function handleReset() {
     localStorage.clear();
     clearCanvas();
-    setShowNotification(true);
-    setNotificationType('reset');
+    renderNotification('reset');
 
     const savedId = await saveCanvasData([], [], '#ffefef', '#ec1111', 1, canvasId);
     setCanvasId(savedId);
@@ -163,7 +157,7 @@ function App() {
         {showInitialElements && (
           <>
             <ClickHintText />
-            <Heading openModal={toggleInfoModal} />
+            <Heading />
           </>
         )}
         {stickers &&
@@ -208,26 +202,19 @@ function App() {
         onSave={handleSave}
         onDownload={() => {
           downloadImage(constraintsRef);
-          setShowNotification(true);
-          setNotificationType('download');
+          renderNotification('download');
         }}
         onShare={async () => {
           await handleSave();
           toggleShareModal();
         }}
-        openModal={toggleInfoModal}
         disableButton={showInitialElements || get.animateMode}
       />
-      <InfoModal isOpen={infoModalOpen} onClose={toggleInfoModal} stickerDesigners={designers} />
-      <ShareModal isOpen={shareModalOpen} onClose={toggleShareModal} canvasId={canvasId} />
+      <InfoModal stickerDesigners={designers} />
+      <ShareModal canvasId={canvasId} />
       {showNotification && (
         <AnimatePresence>
-          <Notification
-            key={notificationType}
-            type={notificationType}
-            role="status"
-            aria-live="polite"
-          />
+          <Notification key={notificationType} type={notificationType} />
         </AnimatePresence>
       )}
     </CanvasBackground>

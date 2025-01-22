@@ -4,7 +4,7 @@ import Tooltip from './Tooltip.jsx';
 
 const { sparkles, partyface, bouquet, pizza, teddy } = headingIcons;
 
-export default function Heading({ openModal }) {
+export default function Heading() {
   return (
     <motion.header
       tabIndex={0}
@@ -67,7 +67,7 @@ export default function Heading({ openModal }) {
           className="absolute -right-11 top-4 size-12 rotate-12 sm:-right-16 sm:top-2 sm:size-16"
         />
       </div>
-      <Tooltip openModal={openModal} />
+      <Tooltip />
     </motion.header>
   );
 }

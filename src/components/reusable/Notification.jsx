@@ -48,6 +48,8 @@ export default function Notification({ type }) {
           keyframes: [0, 1, 1, 0],
         },
       }}
+      role="status"
+      aria-live="polite"
       style={{ backdropFilter: 'blur(3px)', WebkitBackdropFilter: 'blur(3px)' }}
       className="notification fixed bottom-4 right-4 z-50 flex -translate-x-1/2 items-center gap-2 rounded-md border border-gray-300 bg-white/80 p-2 shadow-lg"
     >
