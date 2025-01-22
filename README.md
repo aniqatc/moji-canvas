@@ -20,6 +20,7 @@
 - [Radix UI](https://www.radix-ui.com/) - Custom select component
 - [React-Share](https://github.com/nygardk/react-share) - Social media sharing
 - [HTML-to-Image](https://github.com/bubkoo/html-to-image) - Canvas export functionality
+- [Focus Lock](https://www.npmjs.com/package/react-focus-lock) - Lock focus to modals
 
 ## Features
 

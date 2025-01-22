@@ -1,3 +1,4 @@
+import FocusLock from 'react-focus-lock';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from '@phosphor-icons/react';
 import all from '../../assets/themes/all.svg';
@@ -21,7 +22,9 @@ export default function Modal({ heading, children, isOpen, onClose }) {
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 backdrop-blur-sm"
           onClick={handleModalClick}
         >
+          <FocusLock returnFocus={true}>
           <motion.div
+            aria-modal="true"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
@@ -42,6 +45,7 @@ export default function Modal({ heading, children, isOpen, onClose }) {
             </div>
             <div className="text-[13px] text-gray-800">{children}</div>
           </motion.div>
+          </FocusLock>
         </motion.div>
       )}
     </AnimatePresence>
