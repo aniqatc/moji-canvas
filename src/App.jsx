@@ -17,9 +17,7 @@ import { saveCanvasData, getCanvasData } from './data/supabase.js';
 
 function App() {
   const params = useParams();
-  console.log('Params received:', params); // Debug
   const [canvasId, setCanvasId] = useState(params.canvasId || null);
-  console.log('Canvas ID:', canvasId); // Debug
 
   const metadata = useMetadata();
   const [infoModalOpen, toggleInfoModal] = useModal(false);
@@ -60,13 +58,8 @@ function App() {
   useEffect(() => {
     async function fetchExistingCanvas() {
       if (canvasId) {
-        console.log('Attempting to fetch canvas:', canvasId); // Debug
-        console.log('Environment:', import.meta.env.MODE); // Will show 'development' or 'production'
-        console.log('Base URL:', import.meta.env.BASE_URL);
-        console.log('Supabase URL:', import.meta.env.VITE_SUPABASE_URL);
         try {
           const data = await getCanvasData(canvasId);
-          console.log('Fetched data:', data); // Debug
           if (data) {
             setDesigners(data.designers);
             setStickers(data.stickers);
@@ -76,8 +69,6 @@ function App() {
             setShowInitialElements(!data.stickers.length > 0);
           }
         } catch (error) {
-          console.error('Error details:', error); // Debug full error
-
           clearCanvas();
           setShowNotification(true);
           setNotificationType('notFound');

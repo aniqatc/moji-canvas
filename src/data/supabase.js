@@ -35,9 +35,7 @@ async function saveCanvasData(
 }
 
 async function getCanvasData(id) {
-  console.log('Supabase fetching ID:', id); // Debug
   const { data, error } = await supabase.from('moji_data').select('*').eq('id', id).single();
-  console.log('Supabase response:', { data, error }); // Debug
   if (error) throw error;
   return data;
 }
