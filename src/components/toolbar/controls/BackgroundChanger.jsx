@@ -1,4 +1,4 @@
-import { useCanvas } from '../../../contexts/index.js';
+import { useCanvas } from '../../../contexts';
 
 export default function BackgroundChanger() {
   const { setBackgroundColor, setDotColor, backgroundColor, dotColor } = useCanvas();

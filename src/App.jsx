@@ -1,24 +1,13 @@
-import {
-  CanvasBackground,
-  ClickHintText,
-  Heading,
-  InfoModal,
-  Notification,
-  ShareModal,
-  Toolbar,
-  StickerList,
-} from './components';
 import { AnimatePresence, useDragControls } from 'framer-motion';
 import { useRef } from 'react';
+import { CanvasBackground, ClickHintText, Heading, InfoModal, Notification, ShareModal, Toolbar, StickerList } from './components';
 import { useUI, useCanvas } from './contexts';
 
 export default function App() {
   const controls = useDragControls();
   const constraintsRef = useRef(null);
-
   const { notificationType, showNotification } = useUI();
   const { canvasId, designers, animationProps, showInitialElements } = useCanvas();
-
   const { animateMode } = animationProps;
 
   return (

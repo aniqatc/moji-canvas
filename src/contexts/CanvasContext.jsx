@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext, createContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAnimation, useKey, useLocalStorage, useMetadata } from '../hooks/index.js';
+import { useAnimation, useKey, useLocalStorage, useMetadata } from '../hooks';
 import { useUI } from './UIContext.jsx';
 import { getCanvasData, saveCanvasData } from '../data/supabase.js';
-import { canvasAddMode, canvasRemoveMode } from '../utils/index.js';
+import { canvasAddMode, canvasRemoveMode } from '../utils';
 
 const CanvasContext = createContext();
 

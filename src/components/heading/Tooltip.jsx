@@ -1,4 +1,4 @@
-import { InfoButton } from '../reusable/index.js';
+import { InfoButton } from '../reusable';
 
 export default function Tooltip() {
   return (

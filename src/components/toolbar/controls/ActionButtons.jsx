@@ -1,8 +1,8 @@
 import { forwardRef } from 'react';
-import { BaseButton } from '../../reusable';
 import { FloppyDisk, Download, Share, ArrowsCounterClockwise } from '@phosphor-icons/react';
-import { useCanvas, useUI } from '../../../contexts/index.js';
-import { downloadImage } from '../../../utils/index.js';
+import { useCanvas, useUI } from '../../../contexts';
+import { downloadImage } from '../../../utils';
+import { BaseButton } from '../../reusable';
 
 function ActionButtons({ disableButton = false }, ref) {
   const { handleSave, handleReset } = useCanvas();

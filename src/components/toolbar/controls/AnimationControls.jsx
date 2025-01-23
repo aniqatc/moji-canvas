@@ -1,5 +1,5 @@
 import { BaseSlider } from '../../reusable';
-import { useCanvas } from '../../../contexts/index.js';
+import { useCanvas } from '../../../contexts';
 
 export default function AnimationControls() {
   const { stickers, animationProps } = useCanvas();

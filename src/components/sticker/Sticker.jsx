@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useCanvas } from '../../contexts/index.js';
+import { useCanvas } from '../../contexts';
 
 export default function Sticker({
   sticker,

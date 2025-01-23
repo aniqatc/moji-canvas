@@ -1,6 +1,6 @@
 import Sticker from './Sticker';
 import { AnimatePresence } from 'framer-motion';
-import { useCanvas } from '../../contexts/index.js';
+import { useCanvas } from '../../contexts';
 
 export default function StickerList({ constraintsRef, controls }) {
   const { setIsDragging, stickers, animationProps } = useCanvas();

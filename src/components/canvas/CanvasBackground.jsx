@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { useCanvas } from '../../contexts/index.js';
+import { useCanvas } from '../../contexts';
 
 function CanvasBackground({ children }, ref) {
   const { handleCanvasClick, backgroundColor, dotColor } = useCanvas();

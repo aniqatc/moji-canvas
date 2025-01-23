@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { forwardRef } from 'react';
+import { InfoButton } from '../reusable';
 import {
   StickerControls,
   ThemeSelector,
@@ -8,7 +9,6 @@ import {
   ActionButtons,
   SizeControls,
 } from './controls';
-import { InfoButton } from '../reusable';
 
 function Toolbar({ disableButton }, ref) {
   return (

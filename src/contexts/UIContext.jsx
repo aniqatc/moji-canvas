@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useEffect } from 'react';
-import { useKey } from '../hooks/index.js';
+import { useKey } from '../hooks';
 
 export const UIContext = createContext();
 
