@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext, createContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAnimation, useKey, useLocalStorage, useMetadata } from '../hooks';
-import { useUI } from './UIContext.jsx';
 import { getCanvasData, saveCanvasData } from '../data/supabase.js';
+import { useAnimation, useKey, useLocalStorage, useMetadata } from '../hooks';
 import { canvasAddMode, canvasRemoveMode } from '../utils';
+import { useUI } from './UIContext.jsx';
 
 const CanvasContext = createContext();
 
@@ -11,24 +11,20 @@ export const CanvasProvider = ({ children }) => {
   const params = useParams();
   const [canvasId, setCanvasId] = useState(params.canvasId || null);
 
-  const metadata = useMetadata();
-
-  const { renderNotification } = useUI();
   const [isDragging, setIsDragging] = useState(false);
   const [stickerMode, setStickerMode] = useState('add');
   const [category, setCategory] = useState('');
 
+  const metadata = useMetadata();
   const [stickers, setStickers, saveStickers] = useLocalStorage('stickers', []);
   const [designers, setDesigners, saveDesigners] = useLocalStorage('designers', []);
-  const [backgroundColor, setBackgroundColor, saveBackgroundColor] = useLocalStorage(
-    'bg-color',
-    '#ffefef'
-  );
+  const [backgroundColor, setBackgroundColor, saveBackgroundColor] = useLocalStorage('bg-color', '#ffefef');
   const [dotColor, setDotColor, saveDotColor] = useLocalStorage('dot-color', '#ec1111');
+  const [scale, setScale, saveScale] = useLocalStorage('scale', 1);
   const [showInitialElements, setShowInitialElements] = useState(stickers.length === 0);
 
   const { animationProps, reset: resetAnimations } = useAnimation();
-  const [scale, setScale, saveScale] = useLocalStorage('scale', 1);
+  const { renderNotification } = useUI();
 
   useKey('Enter', handleCanvasClick);
   useKey(' ', handleCanvasClick);
@@ -59,7 +55,7 @@ export const CanvasProvider = ({ children }) => {
       }
     }
     fetchExistingCanvas();
-  }, [canvasId]);
+  });
 
   async function handleSave() {
     saveStickers();
@@ -69,14 +65,7 @@ export const CanvasProvider = ({ children }) => {
     saveScale();
     renderNotification('save');
 
-    const savedId = await saveCanvasData(
-      stickers,
-      designers,
-      backgroundColor,
-      dotColor,
-      scale,
-      canvasId
-    );
+    const savedId = await saveCanvasData(stickers, designers, backgroundColor, dotColor, scale, canvasId);
     setCanvasId(savedId);
   }
 
@@ -109,9 +98,7 @@ export const CanvasProvider = ({ children }) => {
     if (stickerMode === 'remove') {
       const stickerDiv = event.target.closest('.sticker-div');
       if (stickerDiv) {
-        setShowInitialElements(
-          canvasRemoveMode(stickerDiv, stickers, setStickers, designers, setDesigners)
-        );
+        setShowInitialElements(canvasRemoveMode(stickerDiv, stickers, setStickers, designers, setDesigners));
       }
     }
   }

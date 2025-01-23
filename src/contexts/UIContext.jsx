@@ -53,7 +53,6 @@ export const UIProvider = ({ children }) => {
     toggleShareModal,
     toggleInfoModal,
   };
-
   return <UIContext.Provider value={context}>{children}</UIContext.Provider>;
 };
 

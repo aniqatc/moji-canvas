@@ -38,39 +38,33 @@ a:focus-visible {
 }
 
 .sticker-div {
-  -webkit-filter: drop-shadow(-3px -3px 0px rgba(255, 255, 255, 1))
-    drop-shadow(3px -3px 0px rgba(255, 255, 255, 1))
+  -webkit-filter: drop-shadow(-3px -3px 0px rgba(255, 255, 255, 1)) drop-shadow(3px -3px 0px rgba(255, 255, 255, 1))
     drop-shadow(-3px 3px 0px rgba(255, 255, 255, 1)) drop-shadow(3px 3px 0px rgba(255, 255, 255, 1));
-  filter: drop-shadow(-3px -3px 0px rgba(255, 255, 255, 1))
-    drop-shadow(3px -3px 0px rgba(255, 255, 255, 1))
+  filter: drop-shadow(-3px -3px 0px rgba(255, 255, 255, 1)) drop-shadow(3px -3px 0px rgba(255, 255, 255, 1))
     drop-shadow(-3px 3px 0px rgba(255, 255, 255, 1)) drop-shadow(3px 3px 0px rgba(255, 255, 255, 1));
 }
 
 .sticker-div:focus-visible {
-  -webkit-filter: drop-shadow(-3px -3px 0px rgba(255, 0, 128, 0.75))
-    drop-shadow(3px -3px 0px rgba(255, 0, 128, 0.75))
-    drop-shadow(-3px 3px 0px rgba(255, 0, 128, 0.75))
-    drop-shadow(3px 3px 0px rgba(255, 0, 128, 0.75)) drop-shadow(0 0 8px rgb(255, 0, 128));
-  filter: drop-shadow(-3px -3px 0px rgba(255, 0, 128, 0.75))
-    drop-shadow(3px -3px 0px rgba(255, 0, 128, 0.75))
-    drop-shadow(-3px 3px 0px rgba(255, 0, 128, 0.75))
-    drop-shadow(3px 3px 0px rgba(255, 0, 128, 0.75)) drop-shadow(0 0 8px rgb(255, 0, 128));
+  -webkit-filter: drop-shadow(-3px -3px 0px rgba(255, 0, 128, 0.75)) drop-shadow(3px -3px 0px rgba(255, 0, 128, 0.75))
+    drop-shadow(-3px 3px 0px rgba(255, 0, 128, 0.75)) drop-shadow(3px 3px 0px rgba(255, 0, 128, 0.75))
+    drop-shadow(0 0 8px rgb(255, 0, 128));
+  filter: drop-shadow(-3px -3px 0px rgba(255, 0, 128, 0.75)) drop-shadow(3px -3px 0px rgba(255, 0, 128, 0.75))
+    drop-shadow(-3px 3px 0px rgba(255, 0, 128, 0.75)) drop-shadow(3px 3px 0px rgba(255, 0, 128, 0.75))
+    drop-shadow(0 0 8px rgb(255, 0, 128));
 }
 
 /* Subtle shadows for iOS */
 @supports (-webkit-touch-callout: none) {
   .sticker-div {
-    -webkit-filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5))
-      drop-shadow(-2px -2px 6px rgba(0, 0, 0, 0.2));
-    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5))
-      drop-shadow(-2px -2px 6px rgba(0, 0, 0, 0.2));
+    -webkit-filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5)) drop-shadow(-2px -2px 6px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5)) drop-shadow(-2px -2px 6px rgba(0, 0, 0, 0.2));
   }
 
   .sticker-div:focus-visible {
-    -webkit-filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5))
-      drop-shadow(-2px -2px 6px rgba(0, 0, 0, 0.2)) drop-shadow(0 0 4px rgba(255, 0, 128, 0.5));
-    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5))
-      drop-shadow(-2px -2px 6px rgba(0, 0, 0, 0.2)) drop-shadow(0 0 4px rgba(255, 0, 128, 0.5));
+    -webkit-filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5)) drop-shadow(-2px -2px 6px rgba(0, 0, 0, 0.2))
+      drop-shadow(0 0 4px rgba(255, 0, 128, 0.5));
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5)) drop-shadow(-2px -2px 6px rgba(0, 0, 0, 0.2))
+      drop-shadow(0 0 4px rgba(255, 0, 128, 0.5));
   }
 }
 

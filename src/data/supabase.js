@@ -4,14 +4,7 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-async function saveCanvasData(
-  stickers,
-  designers,
-  backgroundColor,
-  dotColor,
-  scale,
-  existingCanvasId = null
-) {
+async function saveCanvasData(stickers, designers, backgroundColor, dotColor, scale, existingCanvasId = null) {
   let result;
   const dataToUpdate = {
     stickers: stickers,
@@ -21,11 +14,7 @@ async function saveCanvasData(
     scale: scale,
   };
   if (existingCanvasId) {
-    result = await supabase
-      .from('moji_data')
-      .update(dataToUpdate)
-      .eq('id', existingCanvasId)
-      .select();
+    result = await supabase.from('moji_data').update(dataToUpdate).eq('id', existingCanvasId).select();
   } else {
     result = await supabase.from('moji_data').insert(dataToUpdate).select();
   }

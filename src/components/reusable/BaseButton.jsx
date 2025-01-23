@@ -1,11 +1,4 @@
-export default function BaseButton({
-  active = false,
-  children,
-  disabled = false,
-  className = '',
-  onClick,
-  ariaLabel,
-}) {
+export default function BaseButton({ active = false, children, disabled = false, className = '', onClick, ariaLabel }) {
   return (
     <button
       type="button"

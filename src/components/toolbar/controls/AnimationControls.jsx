@@ -4,8 +4,7 @@ import { useCanvas } from '../../../contexts';
 export default function AnimationControls() {
   const { stickers, animationProps } = useCanvas();
 
-  const { animateMode, float, rotate, speed, setRotate, setFloat, setSpeed, setAnimateMode } =
-    animationProps;
+  const { animateMode, float, rotate, speed, setRotate, setFloat, setSpeed, setAnimateMode } = animationProps;
 
   const STICKER_LIMIT = 40;
   const isOverLimit = stickers?.length > STICKER_LIMIT;

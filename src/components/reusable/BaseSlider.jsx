@@ -1,13 +1,4 @@
-export default function BaseSlider({
-  id,
-  label,
-  min = 0,
-  max = 2,
-  step = 0.1,
-  value,
-  onChange,
-  disabled = false,
-}) {
+export default function BaseSlider({ id, label, min = 0, max = 2, step = 0.1, value, onChange, disabled = false }) {
   return (
     <div className="relative mx-auto mt-2 flex flex-col gap-2">
       <input
@@ -23,10 +14,7 @@ export default function BaseSlider({
       />
       <span className="absolute -top-2.5 left-0 text-[11px] text-gray-500">0</span>
       <span className="absolute -top-2.5 right-0 text-[11px] text-gray-500">2x</span>
-      <label
-        htmlFor="scale-range"
-        className={disabled ? 'cursor-not-allowed text-gray-500/85' : ''}
-      >
+      <label htmlFor="scale-range" className={disabled ? 'cursor-not-allowed text-gray-500/85' : ''}>
         {label}
       </label>
     </div>

@@ -1,16 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 
 export default function useKey(key, fn) {
-  function handleKeyPress(event) {
+  const handleKeyPress = useCallback((event) => {
     if (event.key === key) {
       fn(event);
     }
-  }
+  }, [fn, key])
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyPress);
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
     };
-  }, [key, fn]);
+  }, [fn, key, handleKeyPress]);
 }
