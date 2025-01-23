@@ -5,7 +5,7 @@ import { downloadImage } from '../../../utils';
 import { BaseButton } from '../../reusable';
 
 function ActionButtons({ disableButton = false }, ref) {
-  const { handleSave, handleReset } = useCanvas();
+  const { handleSave, handleReset, handleShare } = useCanvas();
   const { renderNotification, toggleShareModal } = useUI();
 
   return (
@@ -28,7 +28,7 @@ function ActionButtons({ disableButton = false }, ref) {
       <BaseButton
         ariaLabel="Share canvas"
         onClick={() => {
-          handleSave();
+          handleShare();
           toggleShareModal();
         }}
       >

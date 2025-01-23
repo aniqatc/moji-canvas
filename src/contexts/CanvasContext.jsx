@@ -42,6 +42,7 @@ export const CanvasProvider = ({ children }) => {
             setDotColor(data.dotColor);
             setScale(data.scale);
             setShowInitialElements(!data.stickers.length > 0);
+            renderNotification('loadSuccess');
           }
         } catch (error) {
           clearCanvas();
@@ -55,7 +56,7 @@ export const CanvasProvider = ({ children }) => {
       }
     }
     fetchExistingCanvas();
-  });
+  }, [canvasId]);
 
   async function handleSave() {
     saveStickers();
@@ -64,6 +65,20 @@ export const CanvasProvider = ({ children }) => {
     saveBackgroundColor();
     saveScale();
     renderNotification('save');
+
+    if (canvasId) {
+      const savedId = await saveCanvasData(stickers, designers, backgroundColor, dotColor, scale, canvasId);
+      setCanvasId(savedId);
+    }
+  }
+
+  async function handleShare() {
+    saveStickers();
+    saveDesigners();
+    saveDotColor();
+    saveBackgroundColor();
+    saveScale();
+    renderNotification('share');
 
     const savedId = await saveCanvasData(stickers, designers, backgroundColor, dotColor, scale, canvasId);
     setCanvasId(savedId);
@@ -105,6 +120,7 @@ export const CanvasProvider = ({ children }) => {
 
   const context = {
     handleSave,
+    handleShare,
     handleCanvasClick,
     handleReset,
     clearCanvas,

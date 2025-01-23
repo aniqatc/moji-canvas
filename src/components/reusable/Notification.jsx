@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Palette, FolderSimple, Broom, Warning } from '@phosphor-icons/react';
+import { Palette, FolderSimple, Broom, Warning, ShareNetwork, CheckCircle } from '@phosphor-icons/react';
 
 const notificationConfig = {
   save: {
@@ -19,6 +19,18 @@ const notificationConfig = {
     title: 'Canvas reset!',
     message: 'Your canvas is now a clean slate.',
     color: 'text-pink-600',
+  },
+  share: {
+    icon: ShareNetwork,
+    title: 'Link created!',
+    message: 'Share with friends to collaborate.',
+    color: 'text-violet-600',
+  },
+  loadSuccess: {
+    icon: CheckCircle,
+    title: 'Canvas loaded!',
+    message: 'Shared canvas ready for editing.',
+    color: 'text-indigo-600',
   },
   notFound: {
     icon: Warning,

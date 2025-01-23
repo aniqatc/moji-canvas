@@ -68,7 +68,7 @@ export default function ShareModal({ canvasId }) {
 
         <TwitterShareButton
           url={shareURL}
-          title={title + ' Created by @aniqatc.'}
+          title={title}
           className="group flex items-center gap-1 hover:underline"
         >
           <TwitterLogo size={28} color="#1DA1F2" weight="duotone" className="group-hover:animate-shake" />
