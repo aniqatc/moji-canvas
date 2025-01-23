@@ -66,11 +66,7 @@ export default function ShareModal({ canvasId }) {
           Share on <strong>Bluesky</strong>
         </a>
 
-        <TwitterShareButton
-          url={shareURL}
-          title={title}
-          className="group flex items-center gap-1 hover:underline"
-        >
+        <TwitterShareButton url={shareURL} title={title} className="group flex items-center gap-1 hover:underline">
           <TwitterLogo size={28} color="#1DA1F2" weight="duotone" className="group-hover:animate-shake" />
           Share on <strong>Twitter</strong>
         </TwitterShareButton>
