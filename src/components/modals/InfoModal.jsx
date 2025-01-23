@@ -1,5 +1,5 @@
 import { Modal } from '../reusable';
-import { useUI, useCanvas } from '../../contexts'
+import { useUI, useCanvas } from '../../contexts';
 
 export default function InfoModal() {
   const { infoModalOpen, toggleInfoModal } = useUI();
