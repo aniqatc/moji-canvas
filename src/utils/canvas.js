@@ -1,4 +1,4 @@
-import { getStickerByCategory } from './stickers.js';
+import { getStickerByCategory } from './filter-stickers.js';
 import { generateRandomSizeAndPosition, positionBasedOnEvent } from './helpers.js';
 
 async function canvasAddMode(event, metadata, category, setStickers, setDesigners) {

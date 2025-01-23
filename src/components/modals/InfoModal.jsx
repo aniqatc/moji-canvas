@@ -1,9 +1,10 @@
 import { Modal } from '../reusable';
-import { useUI } from '../../contexts';
+import { useUI, useCanvas } from '../../contexts'
 
-export default function InfoModal({ stickerDesigners }) {
+export default function InfoModal() {
   const { infoModalOpen, toggleInfoModal } = useUI();
-  const uniqueDesigners = [...new Set(stickerDesigners)];
+  const { designers } = useCanvas();
+  const uniqueDesigners = [...new Set(designers)];
 
   return (
     <Modal
