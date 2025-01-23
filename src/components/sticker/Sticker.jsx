@@ -1,16 +1,32 @@
 import { motion } from 'framer-motion';
+import { useCanvas } from '../../contexts/index.js';
 
 export default function Sticker({
   sticker,
-  get,
-  scale,
   drag,
   dragControls,
   dragConstraints,
   onDragStart,
-  onDragEnd,
   whileDrag,
 }) {
+  const { setStickers, scale, animationProps, setIsDragging } = useCanvas();
+  const { animateMode, float, rotate, speed } = animationProps;
+
+  function handleDragEnd(event, info) {
+    setIsDragging(false);
+    setStickers((prev) =>
+      prev.map((s) =>
+        s.id === sticker.id
+          ? {
+              ...s,
+              translateX: (s.translateX || 0) + info.offset.x,
+              translateY: (s.translateY || 0) + info.offset.y,
+            }
+          : s
+      )
+    );
+  }
+
   return (
     <motion.div
       tabIndex={0}
@@ -35,14 +51,14 @@ export default function Sticker({
       dragControls={dragControls}
       dragConstraints={dragConstraints}
       onDragStart={onDragStart}
-      onDragEnd={onDragEnd}
+      onDragEnd={handleDragEnd}
       whileDrag={whileDrag}
       aria-label={`${sticker.annotation} sticker`}
     >
       <motion.div
-        key={get.speed}
+        key={speed}
         animate={
-          get.animateMode && get.float
+          animateMode && float
             ? {
                 y: sticker.floatOffsets.y,
                 x: sticker.floatOffsets.x,
@@ -51,32 +67,32 @@ export default function Sticker({
         }
         transition={{
           y: {
-            duration: 2 / get.speed,
-            repeat: get.float ? Infinity : 0,
+            duration: 2 / speed,
+            repeat: float ? Infinity : 0,
             repeatType: 'mirror',
             ease: 'easeInOut',
           },
           x: {
-            duration: 2 / get.speed,
-            repeat: get.float ? Infinity : 0,
+            duration: 2 / speed,
+            repeat: float ? Infinity : 0,
             repeatType: 'mirror',
             ease: 'easeInOut',
           },
         }}
       >
         <motion.div
-          key={get.speed}
+          key={speed}
           initial={{ rotate: sticker.rotation }}
           animate={
-            get.animateMode && get.rotate
+            animateMode && rotate
               ? {
                   rotate: [0, parseInt(sticker.rotation) + 100],
                 }
               : { rotate: sticker.rotation }
           }
           transition={{
-            duration: 2 / get.speed,
-            repeat: get.rotate ? Infinity : 0,
+            duration: 2 / speed,
+            repeat: rotate ? Infinity : 0,
             repeatType: 'mirror',
             ease: 'linear',
           }}

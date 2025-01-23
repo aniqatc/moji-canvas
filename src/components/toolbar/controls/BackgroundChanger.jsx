@@ -1,9 +1,7 @@
-export default function BackgroundChanger({
-  backgroundColor,
-  dotColor,
-  setBackgroundColor,
-  setDotColor,
-}) {
+import { useCanvas } from '../../../contexts/index.js';
+
+export default function BackgroundChanger() {
+  const { setBackgroundColor, setDotColor, backgroundColor, dotColor } = useCanvas();
   return (
     <div className="flex flex-col items-center gap-2">
       <div className="mt-1 flex flex-col items-center gap-1">

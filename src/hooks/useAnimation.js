@@ -17,12 +17,6 @@ export default function useAnimation() {
       setSpeed,
       setAnimateMode,
     },
-    get: {
-      animateMode,
-      float,
-      rotate,
-      speed,
-    },
     reset: () => {
       setSpeed(1);
       setAnimateMode(false);

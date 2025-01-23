@@ -3,8 +3,11 @@ import { motion } from 'framer-motion';
 import * as Select from '@radix-ui/react-select';
 import { CaretDown } from '@phosphor-icons/react';
 import { themes } from '../../../assets/themes';
+import { useCanvas } from '../../../contexts/index.js';
 
-export default function ThemeSelector({ onThemeSelect }) {
+export default function ThemeSelector() {
+  const { setCategory } = useCanvas();
+
   const [selectedTheme, setSelectedTheme] = useState(themes.find((t) => t.value === 'all'));
 
   return (
@@ -13,7 +16,7 @@ export default function ThemeSelector({ onThemeSelect }) {
         onValueChange={(value) => {
           const theme = themes.find((t) => t.value === value);
           setSelectedTheme(theme);
-          onThemeSelect(theme.value);
+          setCategory(theme.value);
         }}
       >
         <Select.Trigger

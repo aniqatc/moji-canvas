@@ -1,18 +1,14 @@
 import { BaseSlider } from '../../reusable';
+import { useCanvas } from '../../../contexts/index.js';
 
-export default function AnimationControls({
-  animateMode,
-  float,
-  rotate,
-  speed,
-  setRotate,
-  setFloat,
-  setSpeed,
-  setAnimateMode,
-  stickerLength,
-}) {
+export default function AnimationControls() {
+  const { stickers, animationProps } = useCanvas();
+
+  const { animateMode, float, rotate, speed, setRotate, setFloat, setSpeed, setAnimateMode } =
+    animationProps;
+
   const STICKER_LIMIT = 40;
-  const isOverLimit = stickerLength > STICKER_LIMIT;
+  const isOverLimit = stickers?.length > STICKER_LIMIT;
 
   if (isOverLimit && animateMode) {
     setAnimateMode(false);

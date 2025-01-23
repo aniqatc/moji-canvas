@@ -1,6 +1,9 @@
 import { BaseSlider } from '../../reusable';
+import { useCanvas } from '../../../contexts';
 
-export default function SizeControls({ scale, setScale }) {
+export default function SizeControls() {
+  const { setScale, scale } = useCanvas();
+
   return (
     <BaseSlider
       id="scale-slider"

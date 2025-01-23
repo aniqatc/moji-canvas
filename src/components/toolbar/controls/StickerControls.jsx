@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { BaseButton } from '../../reusable';
 import { Minus, Plus } from '@phosphor-icons/react';
+import { useCanvas } from '../../../contexts/index.js';
 
-export default function StickerControls({ onStickerMode }) {
+export default function StickerControls() {
+  const { setStickerMode } = useCanvas();
+
   const [activeButton, setActiveButton] = useState('add');
 
   function handleButtonClick(mode) {
     setActiveButton(mode);
-    onStickerMode(mode);
+    setStickerMode(mode);
   }
 
   return (

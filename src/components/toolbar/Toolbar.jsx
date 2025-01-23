@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { forwardRef } from 'react';
 import {
   StickerControls,
   ThemeSelector,
@@ -9,19 +10,7 @@ import {
 } from './controls';
 import { InfoButton } from '../reusable';
 
-export default function Toolbar({
-  animationProps,
-  backgroundProps,
-  onStickerMode,
-  onReset,
-  onThemeSelect,
-  setScale,
-  scale,
-  onSave,
-  onShare,
-  onDownload,
-  disableButton,
-}) {
+function Toolbar({ disableButton }, ref) {
   return (
     <motion.aside
       aria-label="Canvas controls"
@@ -35,23 +24,17 @@ export default function Toolbar({
       }}
       className="centering-override custom-scrollbar top-50 fixed left-3 flex h-max flex-col gap-1.5 rounded-md border border-stone-200 bg-white bg-white/85 p-2 text-center text-xs font-semibold text-gray-600 shadow h-sm:left-1 h-sm:gap-1.5 h-sm:p-1.5 h-sm:text-[11px] h-xs:h-[506px] h-xs:overflow-y-scroll"
     >
-      <StickerControls onStickerMode={onStickerMode} />
+      <StickerControls />
       <Separator />
-      <ThemeSelector onThemeSelect={onThemeSelect} />
+      <ThemeSelector />
       <Separator />
-      <BackgroundChanger {...backgroundProps} />
+      <BackgroundChanger />
       <Separator />
-      <AnimationControls {...animationProps} />
+      <AnimationControls />
       <Separator />
-      <SizeControls setScale={setScale} scale={scale} />
+      <SizeControls />
       <Separator />
-      <ActionButtons
-        onReset={onReset}
-        onSave={onSave}
-        onShare={onShare}
-        onDownload={onDownload}
-        disableButton={disableButton}
-      />
+      <ActionButtons disableButton={disableButton} ref={ref} />
       <InfoButton />
     </motion.aside>
   );
@@ -60,3 +43,5 @@ export default function Toolbar({
 function Separator() {
   return <hr className="h-[1.5px] flex-shrink-0 rounded bg-stone-300/70" />;
 }
+
+export default forwardRef(Toolbar);

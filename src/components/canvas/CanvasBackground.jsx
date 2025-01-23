@@ -1,12 +1,15 @@
 import { forwardRef } from 'react';
+import { useCanvas } from '../../contexts/index.js';
 
-function CanvasBackground({ backgroundColor, dotColor, onClick, children }, ref) {
+function CanvasBackground({ children }, ref) {
+  const { handleCanvasClick, backgroundColor, dotColor } = useCanvas();
+
   return (
     <main
       tabIndex={0}
       aria-label="Sticker canvas area"
       ref={ref}
-      onClick={onClick}
+      onClick={handleCanvasClick}
       className="relative mx-auto flex h-dvh min-h-screen w-full cursor-pointer flex-col items-center justify-center gap-5 overflow-hidden focus-visible:border-8 focus-visible:border-pink-900/50 w-xs:justify-normal"
       style={{
         backgroundColor: backgroundColor,

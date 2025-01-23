@@ -1,14 +1,28 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { UIProvider } from './contexts';
-import App from './App';
+import { UIProvider, CanvasProvider } from './contexts';
+import App from './App.jsx';
 
 function AppRouter() {
   return (
     <UIProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/:canvasId" element={<App />} />
+          <Route
+            path="/"
+            element={
+              <CanvasProvider>
+                <App />
+              </CanvasProvider>
+            }
+          />
+          <Route
+            path="/:canvasId"
+            element={
+              <CanvasProvider>
+                <App />
+              </CanvasProvider>
+            }
+          />
         </Routes>
       </Router>
     </UIProvider>
