@@ -56,7 +56,7 @@ export const CanvasProvider = ({ children }) => {
       }
     }
     fetchExistingCanvas();
-  }, [canvasId]);
+  }, [params.canvasId]);
 
   async function handleSave() {
     saveStickers();
