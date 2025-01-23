@@ -6,20 +6,23 @@ export default function Sticker({ sticker, drag, dragControls, dragConstraints, 
   const { setStickers, scale, animationProps, setIsDragging } = useCanvas();
   const { animateMode, float, rotate, speed } = animationProps;
 
-  const handleDragEnd = useCallback((event, info) => {
+  const handleDragEnd = useCallback(
+    (event, info) => {
       setIsDragging(false);
       setStickers((prev) =>
-          prev.map((s) =>
-              s.id === sticker.id
-                  ? {
-                      ...s,
-                      translateX: (s.translateX || 0) + info.offset.x,
-                      translateY: (s.translateY || 0) + info.offset.y,
-                  }
-                  : s
-          )
+        prev.map((s) =>
+          s.id === sticker.id
+            ? {
+                ...s,
+                translateX: (s.translateX || 0) + info.offset.x,
+                translateY: (s.translateY || 0) + info.offset.y,
+              }
+            : s
+        )
       );
-  }, [setIsDragging, setStickers, sticker.id])
+    },
+    [setIsDragging, setStickers, sticker.id]
+  );
 
   return (
     <motion.div
