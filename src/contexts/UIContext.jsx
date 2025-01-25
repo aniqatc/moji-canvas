@@ -35,7 +35,7 @@ export const UIProvider = ({ children }) => {
     if (showNotification) {
       const timeoutId = setTimeout(() => {
         hideNotification();
-      }, 3000);
+      }, 4000);
 
       return () => {
         clearTimeout(timeoutId);

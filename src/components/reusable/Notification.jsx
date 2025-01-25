@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Palette, FolderSimple, Broom, Warning, ShareNetwork, CheckCircle } from '@phosphor-icons/react';
+import { Palette, FolderSimple, Broom, Warning, ShareNetwork, CheckCircle, Siren } from '@phosphor-icons/react';
 
 const notificationConfig = {
   save: {
@@ -38,6 +38,12 @@ const notificationConfig = {
     message: 'Start fresh with a clean slate.',
     color: 'text-red-700',
   },
+  limit: {
+    icon: Siren,
+    title: 'Getting crowded!',
+    message: 'Remove a few stickers to make space.',
+    color: 'text-amber-600',
+  },
 };
 
 export default function Notification({ type }) {
@@ -53,9 +59,9 @@ export default function Notification({ type }) {
       exit={{ opacity: 0, y: 75 }}
       transition={{
         type: 'spring',
-        duration: 2.75,
+        duration: 3,
         opacity: {
-          duration: 2.75,
+          duration: 4,
           times: [0, 0.5, 0.85, 1],
           keyframes: [0, 1, 1, 0],
         },
@@ -66,7 +72,7 @@ export default function Notification({ type }) {
       className="notification fixed bottom-4 right-4 z-50 flex -translate-x-1/2 items-center gap-2 rounded-md border border-gray-300 bg-white/80 p-2 shadow-lg"
     >
       <Icon className={`${config.color}`} size={26} weight="duotone" />
-      <p className="w-[28ch] text-xs">
+      <p className="w-[30ch] text-xs">
         <strong>{config.title} </strong>
         {config.message}
       </p>

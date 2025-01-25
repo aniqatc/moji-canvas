@@ -108,7 +108,11 @@ export const CanvasProvider = ({ children }) => {
     if (isDragging) return;
     if (stickerMode === 'add') {
       setShowInitialElements(false);
-      await canvasAddMode(event, metadata, category, setStickers, setDesigners);
+      if (stickers.length >= 150) {
+        renderNotification('limit');
+      } else {
+        await canvasAddMode(event, metadata, category, setStickers, setDesigners);
+      }
     }
     if (stickerMode === 'remove') {
       const stickerDiv = event.target.closest('.sticker-div');
