@@ -1,14 +1,16 @@
-import { getStickerByCategory } from './filter-stickers.js';
 import { generateRandomSizeAndPosition, positionBasedOnEvent } from './helpers.js';
+import { normalizeSticker } from './animations.js';
 
-async function canvasAddMode(event, metadata, category, setStickers, setDesigners) {
-  const sticker = await getStickerByCategory(metadata, category);
+// Turns a metadata entry into a sticker placed where the user clicked
+// (or at a random spot for keyboard input and the sticker picker).
+function createSticker(metadataEntry, event) {
   const computedSizes = generateRandomSizeAndPosition();
   const position = positionBasedOnEvent(event, computedSizes);
-  const stickerWithStyles = {
-    ...sticker,
-    src: `/stickers/${sticker.hexcode}.svg`,
-    id: Date.now() + sticker.hexcode,
+
+  return normalizeSticker({
+    ...metadataEntry,
+    src: `/stickers/${metadataEntry.hexcode}.svg`,
+    id: `${Date.now()}${metadataEntry.hexcode}`,
     height: computedSizes.height,
     width: computedSizes.width,
     rotation: computedSizes.rotation,
@@ -17,24 +19,10 @@ async function canvasAddMode(event, metadata, category, setStickers, setDesigner
     left: position.left,
     translateX: 0,
     translateY: 0,
-  };
-  setStickers((prev) => [...prev, stickerWithStyles]);
-  setDesigners((prev) => [...prev, stickerWithStyles.openmoji_author]);
+    size: 1,
+    speed: 1,
+    animation: 'none',
+  });
 }
 
-function canvasRemoveMode(stickerDiv, stickers, setStickers, designers, setDesigners) {
-  const stickerToRemove = stickers.find((sticker) => sticker.id === stickerDiv.id);
-  if (stickerToRemove) {
-    const updatedStickers = stickers.filter((sticker) => sticker.id !== stickerDiv.id);
-    setStickers(updatedStickers);
-
-    const updatedDesigners = [...designers];
-    updatedDesigners.splice(designers.indexOf(stickerToRemove.openmoji_author), 1); // remove only one occurrence
-    setDesigners(updatedDesigners);
-
-    return updatedStickers.length === 0;
-  }
-  return false;
-}
-
-export { canvasAddMode, canvasRemoveMode };
+export { createSticker };

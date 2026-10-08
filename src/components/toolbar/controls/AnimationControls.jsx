@@ -1,92 +1,54 @@
-import { BaseSlider } from '../../reusable';
+import { Play, Pause, Shuffle } from '@phosphor-icons/react';
+import { BaseButton, BaseSlider } from '../../reusable';
 import { useCanvas } from '../../../contexts';
+import { ANIMATION_STICKER_LIMIT } from '../../../utils';
 
+// Canvas-wide motion. Each sticker's animation is chosen in the sticker panel.
 export default function AnimationControls() {
-  const { stickers, animationProps } = useCanvas();
+  const { stickers, animationProps, togglePlaying, shuffleAnimations, isOverAnimationLimit } = useCanvas();
+  const { playing, speed, setSpeed } = animationProps;
+  const hasStickers = stickers.length > 0;
 
-  const { animateMode, float, rotate, speed, setRotate, setFloat, setSpeed, setAnimateMode } = animationProps;
-
-  const STICKER_LIMIT = 40;
-  const isOverLimit = stickers?.length > STICKER_LIMIT;
-
-  if (isOverLimit && animateMode) {
-    setAnimateMode(false);
-    setFloat(false);
-    setRotate(false);
-    setSpeed(1);
-  }
+  const playLabel = isOverAnimationLimit
+    ? `Animations pause above ${ANIMATION_STICKER_LIMIT} stickers`
+    : playing
+      ? 'Pause all animations'
+      : 'Play all animations';
 
   return (
     <>
-      <fieldset className="mx-auto flex flex-col gap-0.5 accent-slate-500">
-        <div key="animation-checkbox" className="flex items-center gap-1">
-          <input
-            className={`${!isOverLimit ? 'cursor-pointer' : 'cursor-not-allowed'}`}
-            type="checkbox"
-            id="animation-checkbox"
-            disabled={isOverLimit}
-            checked={animateMode}
-            onChange={() => {
-              if (!isOverLimit) {
-                setAnimateMode(!animateMode);
-                setRotate(!animateMode);
-                setFloat(!animateMode);
-              }
-            }}
-          />
-          <label
-            htmlFor="animation-checkbox"
-            className={`${!isOverLimit ? 'cursor-pointer' : 'cursor-not-allowed text-gray-500/85'}`}
+      <div className="flex justify-center gap-1">
+        <span title={playLabel} className="flex">
+          <BaseButton disabled={isOverAnimationLimit} ariaLabel={playLabel} onClick={togglePlaying}>
+            {playing ? (
+              <Pause weight="bold" className="text-[22px] h-sm:text-[18px]" />
+            ) : (
+              <Play weight="bold" className="text-[22px] h-sm:text-[18px]" />
+            )}
+          </BaseButton>
+        </span>
+        <span title="Give every sticker a random animation" className="flex">
+          <BaseButton
+            disabled={!hasStickers}
+            ariaLabel="Give every sticker a random animation"
+            onClick={shuffleAnimations}
           >
-            Animate
-          </label>
-        </div>
-        <div key="float-checkbox" className="flex items-center gap-1">
-          <input
-            type="checkbox"
-            id="float-checkbox"
-            className={`${animateMode ? 'cursor-pointer' : 'cursor-not-allowed'}`}
-            disabled={!animateMode}
-            checked={float}
-            onChange={() => {
-              setFloat(!float);
-            }}
-          />
-          <label
-            htmlFor="float-checkbox"
-            className={`${animateMode ? 'cursor-pointer' : 'cursor-not-allowed text-gray-500/85'}`}
-          >
-            Float
-          </label>
-        </div>
-        <div key="rotate-checkbox" className="flex items-center gap-1">
-          <input
-            type="checkbox"
-            id="rotate-checkbox"
-            className={`${animateMode ? 'cursor-pointer' : 'cursor-not-allowed'}`}
-            disabled={!animateMode}
-            checked={rotate}
-            onChange={() => {
-              setRotate(!rotate);
-            }}
-          />
-          <label
-            htmlFor="rotate-checkbox"
-            className={`${animateMode ? 'cursor-pointer' : 'cursor-not-allowed text-gray-500/85'}`}
-          >
-            Rotate
-          </label>
-        </div>
-      </fieldset>
+            <Shuffle weight="bold" className="text-[22px] h-sm:text-[18px]" />
+          </BaseButton>
+        </span>
+      </div>
+      <span>Motion</span>
       <BaseSlider
         id="speed-slider"
-        min={0}
-        max={2}
-        step={0.2}
+        min={0.25}
+        max={2.5}
+        step={0.25}
         value={speed}
         onChange={(event) => setSpeed(Number(event.target.value))}
         label="Speed"
-        disabled={!animateMode}
+        minLabel="¼x"
+        maxLabel="2½x"
+        disabled={!playing}
       />
     </>
   );

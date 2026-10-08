@@ -2,7 +2,8 @@ import { forwardRef } from 'react';
 import { useCanvas } from '../../contexts';
 
 function CanvasBackground({ children }, ref) {
-  const { handleCanvasClick, backgroundColor, dotColor } = useCanvas();
+  const { handleCanvasClick, backgroundColor, dotColor, animationProps } = useCanvas();
+  const { playing, speed } = animationProps;
 
   return (
     <main
@@ -10,16 +11,17 @@ function CanvasBackground({ children }, ref) {
       aria-label="Sticker canvas area"
       ref={ref}
       onClick={handleCanvasClick}
-      className="relative mx-auto flex h-dvh min-h-screen w-full cursor-pointer flex-col items-center justify-center gap-5 overflow-hidden focus-visible:border-8 focus-visible:border-pink-900/50 w-xs:justify-normal"
+      className={`relative mx-auto flex h-dvh min-h-screen w-full cursor-pointer flex-col items-center justify-center gap-5 overflow-hidden focus-visible:border-8 focus-visible:border-pink-900/50 w-xs:justify-normal ${playing ? '' : 'motion-paused'}`}
       style={{
         backgroundColor: backgroundColor,
-        backgroundImage: `radial-gradient(${dotColor} 2px, transparent 2px), 
+        backgroundImage: `radial-gradient(${dotColor} 2px, transparent 2px),
                            radial-gradient(${dotColor} 2px, ${backgroundColor} 2px)`,
         backgroundSize: '100px 100px',
         backgroundPosition: '0 0, 50px 50px',
         '--accent-maroon': `color-mix(in srgb, ${dotColor}, #540F0F)`,
         '--muted': `color-mix(in srgb, ${dotColor}, #000000 50%)`,
         '--highlight': `color-mix(in srgb, ${backgroundColor}, rgba(0,0,0,0.1))`,
+        '--moji-speed': speed,
       }}
     >
       {children}

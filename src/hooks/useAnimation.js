@@ -1,27 +1,24 @@
 import { useState } from 'react';
 
+function prefersReducedMotion() {
+  return typeof window !== 'undefined' && Boolean(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
+}
+
+// Canvas-wide motion settings. Which animation each sticker uses lives on the sticker itself.
 export default function useAnimation() {
-  const [animateMode, setAnimateMode] = useState(false);
-  const [float, setFloat] = useState(false);
-  const [rotate, setRotate] = useState(false);
+  const [playing, setPlaying] = useState(() => !prefersReducedMotion());
   const [speed, setSpeed] = useState(1);
 
   return {
     animationProps: {
-      animateMode,
-      float,
-      rotate,
+      playing,
       speed,
-      setRotate,
-      setFloat,
+      setPlaying,
       setSpeed,
-      setAnimateMode,
     },
     reset: () => {
       setSpeed(1);
-      setAnimateMode(false);
-      setRotate(false);
-      setFloat(false);
+      setPlaying(!prefersReducedMotion());
     },
   };
 }
