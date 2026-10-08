@@ -78,6 +78,7 @@ export default function Sticker({ sticker, constraintsRef }) {
         style={{
           '--dx': `${drift.x[0] ?? 0}px`,
           '--dy': `${drift.y[0] ?? 0}px`,
+          '--sticker-speed': sticker.speed,
           // Offset each sticker so matching animations don't move in lockstep.
           animationDelay: `-${(parseInt(sticker.hexcode, 16) % 20) / 10}s`,
         }}

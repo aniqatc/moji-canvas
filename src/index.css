@@ -91,11 +91,12 @@ a:focus-visible {
 }
 
 /* ---- Per-sticker animations ----
-   Duration = base / canvas speed (--moji-speed, set on the canvas). */
+   Duration = base / (canvas speed × sticker speed).
+   --moji-speed is set on the canvas, --sticker-speed on each sticker. */
 .sticker-anim {
   width: 100%;
   height: 100%;
-  animation-duration: calc(var(--anim-base, 2s) / var(--moji-speed, 1));
+  animation-duration: calc(var(--anim-base, 2s) / (var(--moji-speed, 1) * var(--sticker-speed, 1)));
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
 }

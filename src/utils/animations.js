@@ -32,6 +32,7 @@ export function normalizeSticker(sticker) {
     ...sticker,
     rotation: Number.isFinite(rotation) ? Math.round(rotation) : 0,
     size: typeof sticker.size === 'number' ? sticker.size : 1,
+    speed: typeof sticker.speed === 'number' ? sticker.speed : 1,
     animation: ANIMATION_IDS.includes(sticker.animation) ? sticker.animation : 'none',
     translateX: sticker.translateX ?? 0,
     translateY: sticker.translateY ?? 0,

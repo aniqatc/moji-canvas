@@ -108,6 +108,17 @@ export default function StickerInspector() {
                 onChange={(value) => updateSticker(sticker.id, { size: value })}
               />
               <RangeRow
+                id="sticker-speed"
+                label="Speed"
+                min={0.25}
+                max={3}
+                step={0.25}
+                value={sticker.speed}
+                display={`${sticker.speed}x`}
+                disabled={sticker.animation === 'none'}
+                onChange={(value) => updateSticker(sticker.id, { speed: value })}
+              />
+              <RangeRow
                 id="sticker-tilt"
                 label="Tilt"
                 min={-180}
@@ -135,10 +146,10 @@ export default function StickerInspector() {
   );
 }
 
-function RangeRow({ id, label, min, max, step, value, display, onChange }) {
+function RangeRow({ id, label, min, max, step, value, display, onChange, disabled = false }) {
   return (
     <div className="flex items-center gap-2">
-      <label htmlFor={id} className="w-9 font-semibold text-gray-700">
+      <label htmlFor={id} className={`w-11 font-semibold ${disabled ? 'text-gray-400' : 'text-gray-700'}`}>
         {label}
       </label>
       <input
@@ -148,8 +159,9 @@ function RangeRow({ id, label, min, max, step, value, display, onChange }) {
         max={max}
         step={step}
         value={value}
+        disabled={disabled}
         onChange={(event) => onChange(Number(event.target.value))}
-        className="moji-range min-w-0 flex-1 cursor-pointer"
+        className="moji-range min-w-0 flex-1 cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
       />
       <output htmlFor={id} className="w-11 text-right tabular-nums text-gray-500">
         {display}

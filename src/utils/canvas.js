@@ -20,6 +20,7 @@ function createSticker(metadataEntry, event) {
     translateX: 0,
     translateY: 0,
     size: 1,
+    speed: 1,
     animation: 'none',
   });
 }

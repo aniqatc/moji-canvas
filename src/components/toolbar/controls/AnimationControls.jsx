@@ -46,8 +46,8 @@ export default function AnimationControls() {
         value={speed}
         onChange={(event) => setSpeed(Number(event.target.value))}
         label="Speed"
-        minLabel="¼x"
-        maxLabel="2½x"
+        minLabel="0.25x"
+        maxLabel="2.5x"
         disabled={!playing}
       />
     </>
