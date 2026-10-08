@@ -1,35 +1,37 @@
-import { useState } from 'react';
 import { BaseButton } from '../../reusable';
-import { Minus, Plus } from '@phosphor-icons/react';
-import { useCanvas } from '../../../contexts';
+import { Minus, Plus, MagnifyingGlass } from '@phosphor-icons/react';
+import { useCanvas, useUI } from '../../../contexts';
 
 export default function StickerControls() {
-  const { setStickerMode } = useCanvas();
+  const { stickerMode, setStickerMode, setSelectedId } = useCanvas();
+  const { togglePicker } = useUI();
 
-  const [activeButton, setActiveButton] = useState('add');
-
-  function handleButtonClick(mode) {
-    setActiveButton(mode);
+  function handleModeChange(mode) {
     setStickerMode(mode);
+    if (mode === 'remove') setSelectedId(null);
   }
 
   return (
     <>
       <BaseButton
-        active={activeButton === 'add'}
+        active={stickerMode === 'add'}
         ariaLabel="Add stickers to canvas"
-        onClick={() => handleButtonClick('add')}
+        onClick={() => handleModeChange('add')}
       >
         <Plus weight="bold" className="text-[28px] h-sm:text-[24px]" />
       </BaseButton>
       <BaseButton
-        active={activeButton === 'remove'}
+        active={stickerMode === 'remove'}
         ariaLabel="Remove stickers from canvas"
-        onClick={() => handleButtonClick('remove')}
+        onClick={() => handleModeChange('remove')}
       >
         <Minus weight="bold" className="text-[28px] h-sm:text-[24px]" />
       </BaseButton>
       <span>Mode</span>
+      <BaseButton ariaLabel="Pick a specific sticker" onClick={togglePicker}>
+        <MagnifyingGlass weight="bold" className="text-[26px] h-sm:text-[22px]" />
+        <span>Pick</span>
+      </BaseButton>
     </>
   );
 }

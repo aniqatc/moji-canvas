@@ -7,10 +7,13 @@ async function downloadImage(ref) {
       pixelRatio: window.devicePixelRatio || 2,
       skipFonts: true,
       filter: (node) => {
-        // Make sure toolbar 'aside' and toast 'notification' isn't in the screenshot
+        // Keep the toolbar, sticker panel, toast and selection outline out of the image
         return !(
           (node.tagName && node.tagName.toLowerCase() === 'aside') ||
-          (node.classList && node.classList.contains('notification'))
+          (node.classList &&
+            (node.classList.contains('notification') ||
+              node.classList.contains('inspector-wrap') ||
+              node.classList.contains('selection-ring')))
         );
       },
     });

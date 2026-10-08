@@ -38,6 +38,12 @@ const notificationConfig = {
     message: 'Start fresh with a clean slate.',
     color: 'text-red-700',
   },
+  saveError: {
+    icon: Warning,
+    title: "Couldn't sync to the cloud.",
+    message: 'Saved in this browser. Check your connection and try again.',
+    color: 'text-red-700',
+  },
   limit: {
     icon: Siren,
     title: 'Getting crowded!',

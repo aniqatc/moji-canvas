@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { AnimatePresence, useDragControls } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { useUI, useCanvas } from './contexts';
 import {
   CanvasBackground,
@@ -9,15 +9,15 @@ import {
   InfoModal,
   Notification,
   ShareModal,
+  StickerInspector,
   StickerList,
+  StickerPickerModal,
 } from './components';
 
 export default function App() {
-  const controls = useDragControls();
   const constraintsRef = useRef(null);
-  const { notificationType, showNotification } = useUI();
-  const { canvasId, animationProps, showInitialElements } = useCanvas();
-  const { animateMode } = animationProps;
+  const { notificationType, notificationCount, showNotification } = useUI();
+  const { canvasId, stickers, showInitialElements } = useCanvas();
 
   return (
     <CanvasBackground ref={constraintsRef}>
@@ -29,17 +29,17 @@ export default function App() {
           </>
         )}
       </AnimatePresence>
-      <StickerList controls={controls} constraintsRef={constraintsRef} />
-      <Toolbar disableButton={showInitialElements || animateMode} ref={constraintsRef} />
+      <StickerList constraintsRef={constraintsRef} />
+      <Toolbar disableButton={showInitialElements || stickers.length === 0} ref={constraintsRef} />
+      <StickerInspector />
 
       {/* -- Notifications & Modals -- */}
       <InfoModal />
       <ShareModal canvasId={canvasId} />
-      {showNotification && (
-        <AnimatePresence>
-          <Notification key={notificationType} type={notificationType} />
-        </AnimatePresence>
-      )}
+      <StickerPickerModal />
+      <AnimatePresence>
+        {showNotification && <Notification key={`${notificationType}-${notificationCount}`} type={notificationType} />}
+      </AnimatePresence>
     </CanvasBackground>
   );
 }

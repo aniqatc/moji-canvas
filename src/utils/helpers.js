@@ -1,13 +1,15 @@
 function positionBasedOnEvent(event, computedSizes) {
-  const isKeyboardEvent = event.type === 'keydown';
-  return isKeyboardEvent
+  const hasPointer = event && typeof event.clientX === 'number' && event.type !== 'keydown';
+  const size = parseInt(computedSizes.height);
+
+  return hasPointer
     ? {
-        top: Math.random() * (window.innerHeight - 200) + 'px',
-        left: Math.random() * (window.innerWidth - 200) + 'px',
+        top: event.clientY - size / 2 + 'px',
+        left: event.clientX - size / 2 + 'px',
       }
     : {
-        top: event.clientY - parseInt(computedSizes.height) / 2 + 'px',
-        left: event.clientX - parseInt(computedSizes.width) / 2 + 'px',
+        top: Math.random() * Math.max(window.innerHeight - 200, 0) + 'px',
+        left: Math.random() * Math.max(window.innerWidth - 200, 0) + 'px',
       };
 }
 
@@ -16,7 +18,7 @@ function generateRandomSizeAndPosition() {
   return {
     width: size + 'px',
     height: size + 'px',
-    rotation: getPositiveOrNegativeValue() * Math.random() * 360 + 'deg',
+    rotation: Math.round(getPositiveOrNegativeValue() * Math.random() * 360),
     floatOffsets: {
       x: [getFloatOffset(window.innerWidth, 0.35), getFloatOffset(window.innerWidth, 0.35)],
       y: [getFloatOffset(window.innerHeight, 0.35), getFloatOffset(window.innerHeight, 0.35)],
@@ -32,4 +34,16 @@ function getFloatOffset(limit, portion) {
   return getPositiveOrNegativeValue() * Math.random() * (limit * portion);
 }
 
-export { generateRandomSizeAndPosition, positionBasedOnEvent };
+// True when a key press should be left to the focused control
+// (typing in a field, pressing a button, picking from a menu, using a dialog).
+function isInteractiveTarget(target) {
+  return Boolean(
+    target?.closest?.('input, textarea, select, button, a, [role="option"], [role="listbox"], [aria-modal="true"]')
+  );
+}
+
+function isTextEntryTarget(target) {
+  return Boolean(target?.closest?.('input, textarea, select, [role="option"], [role="listbox"]'));
+}
+
+export { generateRandomSizeAndPosition, positionBasedOnEvent, isInteractiveTarget, isTextEntryTarget };

@@ -25,16 +25,17 @@
 ## Features
 
 - Choose from 4,000+ illustrations across 10 unique themes
-- Add, remove, and freely arrange stickers on the canvas
+- Add, remove, and freely arrange stickers on the canvas, at random or picked from a searchable sticker sheet
+- Select a sticker to edit it in its own panel: animation, size, tilt, duplicate, bring to front, remove
+- 10 per-sticker animations (drift, float, bounce, spin, wobble, pulse, jelly, swing, shake, orbit) with canvas-wide play/pause, shuffle and speed (_for performance reasons, animations pause if there are more than 40 stickers in the canvas_)
 - Customize background colors and patterns
-- Animate stickers with floating, rotating, and scaling effects (_however, for performance reasons, animations are disabled if there are more than 40 stickers in the canvas_)
 - Save your creations to browser storage for future editing (and a shareable link for collaborative edits)
 - Download your canvas as a high-quality PNG image
 - Share your creations directly to social media with a unique link (e.g. [https://moji.aniqa.dev/95a22e4c-9006-480c-bb15-7443b0d1a508](https://moji.aniqa.dev/95a22e4c-9006-480c-bb15-7443b0d1a508))
 - Fully responsive design that works seamlessly across devices
 - PWA support
 - Dynamic designer credits that automatically update based on stickers in use
-- Accessibility features including keyboard controls and ARIA labels for screen reader compatibility
+- Accessibility features including keyboard controls (Enter adds, arrow keys nudge the selected sticker, Delete removes it, Escape deselects) and ARIA labels for screen reader compatibility
 
 ## Key Concepts
 
@@ -85,15 +86,17 @@
 - `/utils`
 
   - `download.js`: PNG export functionality using html-to-image
-  - `stickers.js`: Utilities for sticker management, including random sticker generation and random position/size helper functions
-  - `canvas.js`: Manages canvas interactions based on sticker mode (add/remove) and updates relevant states
+  - `animations.js`: Animation list, sticker limits, and `normalizeSticker` which upgrades stickers saved by older versions
+  - `canvas.js`: `createSticker` builds a placed sticker from a metadata entry
+  - `filter-stickers.js`: Random sticker by theme, and search used by the sticker picker
+  - `helpers.js`: Random size/position helpers and keyboard target checks
 
 - `/hooks`
 
-  - `useAnimation.js`: Bundles all animation/transformation-related state variables and setter functions, in addition to helper functions (such as, resetting animation states)
+  - `useAnimation.js`: Canvas-wide motion state (play/pause and speed); respects `prefers-reduced-motion`. Each sticker stores its own animation, rendered with CSS keyframes in `index.css`
   - `useLocalStorage.js`: Handles saving and retrieving items from localStorage
   - `useMetadata.js`: Performs the initial fetch for the JSON file that contains the stickers metadata
-  - `useKey.js`: Handles keypress events to trigger specific actions (e.g. add or remove stickers based on sticker mode, close modal with escape button, reset canvas with backspace)
+  - `useKey.js`: Handles keypress events (one key or a list) to trigger specific actions (e.g. add stickers, nudge or remove the selected sticker, close modals with Escape)
 
 - `/contexts`
 

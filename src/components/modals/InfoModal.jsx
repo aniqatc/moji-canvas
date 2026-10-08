@@ -17,7 +17,7 @@ export default function InfoModal() {
       <h4 className="mb-1 font-bold">Key Features</h4>
       <ul className="mb-2 ml-3 list-disc text-xs">
         <li>
-          <strong>Add, remove and arrange </strong> stickers
+          <strong>Add, remove and arrange </strong> stickers, at random or <strong>picked</strong> by search
         </li>
         <li>
           <strong>4000+ illustrations</strong> across <em>10 unique themes</em>
@@ -26,7 +26,14 @@ export default function InfoModal() {
           <strong>Customize</strong> background and pattern colors
         </li>
         <li>
-          <strong>Animate</strong> stickers with <em>floating, rotating and scaling options</em>
+          <strong>Tap a sticker</strong> to give it its own animation, size and tilt, duplicate it or bring it to the
+          front
+        </li>
+        <li>
+          <strong>Animate</strong> with <em>drift, float, bounce, spin, wobble, pulse, jelly, swing, shake and orbit</em>
+        </li>
+        <li>
+          <strong>Keyboard:</strong> Enter adds a sticker, arrow keys nudge the selected one, Delete removes it
         </li>
         <li>
           <strong>Save</strong> your creation for next time or <strong>download</strong> as an image
