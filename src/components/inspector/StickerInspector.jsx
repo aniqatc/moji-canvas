@@ -114,7 +114,7 @@ export default function StickerInspector() {
                 max={3}
                 step={0.25}
                 value={sticker.speed}
-                display={`${sticker.speed}x`}
+                display={formatSpeed(sticker.speed)}
                 disabled={sticker.animation === 'none'}
                 onChange={(value) => updateSticker(sticker.id, { speed: value })}
               />
@@ -144,6 +144,14 @@ export default function StickerInspector() {
       </AnimatePresence>
     </div>
   );
+}
+
+// 0.25 -> "¼x", 1.5 -> "1½x", 2 -> "2x"
+const FRACTIONS = { 0.25: '¼', 0.5: '½', 0.75: '¾' };
+function formatSpeed(speed) {
+  const whole = Math.floor(speed);
+  const fraction = FRACTIONS[Math.round((speed - whole) * 100) / 100] ?? '';
+  return `${whole || ''}${fraction}x`;
 }
 
 function RangeRow({ id, label, min, max, step, value, display, onChange, disabled = false }) {
