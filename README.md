@@ -47,7 +47,9 @@
 - Utilizes `useEffect` to fetch metadata (which is handled within the custom `useMetadata` hook)
 - Integrates with Supabase for cloud storage and retrieval of canvas data
 - Provides additional accessibility access for users using keyboard to navigate
-- Uses Framer Motion for dragging and animations
+- Uses Framer Motion for sticker dragging and gesture interactions
+- Uses CSS keyframes for sticker animations instead of JavaScript animation loops
+- Uses a CSS variable to control animation speed across the canvas and `animation-play-state` for play/pause
 - PWA functionality with service worker configured to cache all (4000+) stickers, allowing for offline usage
 - Uses light prop drilling to pass data between different components
 - Uses Context API for global state management between two contexts:
@@ -80,8 +82,8 @@
     - Size controls
     - Sticker management
     - Theme selector
-  - `sticker/`: Handles sticker components; manages positions, animations, and metadata
-  - `canvas/`: Manages background color, dot color, and provides reference for dragging mechanism provided by Framer Motion
+  - `sticker/`: Handles sticker components; manages positions, dragging, selection, animations, and metadata
+  - `canvas/`: Manages background color, dot color, and provides the reference for sticker dragging through Framer Motion
 
 - `/utils`
 
