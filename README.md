@@ -1,120 +1,113 @@
-# moji-canvas
+# Moji Canvas
 
-🎨 An interactive emoji-based sticker canvas.
+An emoji sticker canvas where you arrange, animate and share collages made from over 4,000 OpenMoji illustrations.
 
-<a href="https://moji.aniqa.dev"><img src="/public/og-img.png" alt="Moji Canvas Demo" /></a>
+**[Live site](https://moji.aniqa.dev)** · [Example canvas](https://moji.aniqa.dev/95a22e4c-9006-480c-bb15-7443b0d1a508)
+
+<a href="https://moji.aniqa.dev"><img src="public/og-img.png" alt="Moji Canvas with a collage of emoji stickers scattered across a dotted background" width="800"></a>
+
+<!-- TODO: add a screenshot of the sticker editing panel (select a sticker so the size, tilt and animation controls are showing), e.g. public/editing-panel.png -->
 
 ## Tech
 
-- React
-- React Router DOM
-- Vite
-- Tailwind
-- Framer Motion
-- Supabase
-
-## Libraries
-
-- [OpenMoji](https://openmoji.org/) - Emoji/sticker assets
-- [Phosphor Icons](https://phosphoricons.com/) - Icon set
-- [Radix UI](https://www.radix-ui.com/) - Custom select component
-- [React-Share](https://github.com/nygardk/react-share) - Social media sharing
-- [HTML-to-Image](https://github.com/bubkoo/html-to-image) - Canvas export functionality
-- [Focus Lock](https://www.npmjs.com/package/react-focus-lock) - Lock focus to modals
+- React, Vite and Tailwind CSS
+- Framer Motion for dragging, html-to-image for PNG export
+- Supabase and React Router for shared canvases
+- Radix UI, Phosphor Icons, react-focus-lock and react-share
+- vite-plugin-pwa, with stickers from [OpenMoji](https://openmoji.org/)
 
 ## Features
 
-- Choose from 4,000+ illustrations across 10 unique themes
-- Add, remove, and freely arrange stickers on the canvas, at random or picked from a searchable sticker sheet
-- Select a sticker to edit it in its own panel: animation, size, tilt, duplicate, bring to front, remove
-- 10 per-sticker animations (drift, float, bounce, spin, wobble, pulse, jelly, swing, shake, orbit) with canvas-wide play/pause, shuffle and speed (_for performance reasons, animations pause if there are more than 40 stickers in the canvas_)
-- Customize background colors and patterns
-- Save your creations to browser storage for future editing (and a shareable link for collaborative edits)
-- Download your canvas as a high-quality PNG image
-- Share your creations directly to social media with a unique link (e.g. [https://moji.aniqa.dev/95a22e4c-9006-480c-bb15-7443b0d1a508](https://moji.aniqa.dev/95a22e4c-9006-480c-bb15-7443b0d1a508))
-- Fully responsive design that works seamlessly across devices
-- PWA support
-- Dynamic designer credits that automatically update based on stickers in use
-- Accessibility features including keyboard controls (Enter adds, arrow keys nudge the selected sticker, Delete removes it, Escape deselects) and ARIA labels for screen reader compatibility
+- Drop random stickers from 10 themes, search for a specific one, or switch to remove mode and tap stickers away
+- Drag stickers anywhere, then edit each one's size, tilt, animation and speed, duplicate it, bring it to the front or remove it
+- 10 animations (drift, float, bounce, spin, wobble, pulse, jelly, swing, shake, orbit) with canvas-wide play, pause, shuffle and speed
+- A scale slider resizes every sticker at once
+- Custom background and dot colors
+- Reset clears the canvas, with a second tap to confirm
+- Save to your browser, download a PNG, or share a link anyone can keep editing, with one-tap copy and sharing to Bluesky, X, LinkedIn and Facebook
+- Credits the designers of the stickers in use
 
-## Key Concepts
+## Design
 
-- Utilizes custom hooks to aid in state management across the application (`useAnimation`, `useKey`, `useLocalStorage`, `useMetadata`, `useModal`)
-- Implements reusable components (modals, buttons, sliders, notification and info button)
-- Leverages React Router DOM to handle custom canvas URLs for sharing
-- Manages complex user interactions through event handling and state tracking
-- Conditional rendering of certain toolbar options (e.g. animations are disabled after 40 stickers are added or download button is disabled until stickers are added to the canvas)
-- Utilizes `useEffect` to fetch metadata (which is handled within the custom `useMetadata` hook)
-- Integrates with Supabase for cloud storage and retrieval of canvas data
-- Provides additional accessibility access for users using keyboard to navigate
-- Uses Framer Motion for sticker dragging and gesture interactions
-- Uses CSS keyframes for sticker animations instead of JavaScript animation loops
-- Uses a CSS variable to control animation speed across the canvas and `animation-play-state` for play/pause
-- PWA functionality with service worker configured to cache all (4000+) stickers, allowing for offline usage
-- Uses light prop drilling to pass data between different components
-- Uses Context API for global state management between two contexts:
-  - `CanvasContext`: manages core canvas-related functionalities
-  - `UIContext`: handles UI-related components (modals and notifications)
+- Animations pause above 40 stickers so dragging stays smooth, and the canvas caps out at 150
+- PNG downloads leave out the toolbar and panels
+- Works offline as a PWA, with every sticker cached
 
-## Project Structure
+## Accessibility
 
-- `App.jsx`: Main app logic
-  - dynamically loads canvas data from database if canvasId is present, otherwise, localStorage and fallback values are used
-  - handles user interactions
-  - handle state management
-  - displays relevant toast notifications
-  - integrates components based on the states and user interactions
-- `AppRouter.jsx`: Defines default route and dynamic canvas routes (based on canvasId param)
+- `Enter` adds a sticker, arrow keys nudge it (`Shift` for bigger steps), `Delete` removes it and `Escape` deselects
+- Screen reader labels name each sticker and its animation
+- Modals trap focus and return it on close
+- Respects reduced motion
 
-- `/assets`
+## Project structure
 
-  - SVG files, specifically for the heading and custom Radix UI select components
+- `src/contexts/`: canvas state and controls (`CanvasContext`), modals and notifications (`UIContext`)
+- `src/components/`: canvas, stickers, toolbar, editing panel and modals
+- `src/hooks/`: keyboard shortcuts, localStorage, motion settings and sticker data loading
+- `src/utils/`: sticker creation, search, animations and PNG export
+- `src/data/supabase.js`: saving and loading shared canvases
+- `public/stickers/`: sticker files, described in `public/data/metadata.json`
 
-- `/components`
+## Key concepts
 
-  - `heading/`: Logo, hint text, and tooltip components
-  - `modals/`: Share modal for social media sharing and info modal for application details & credits
-  - `reusable/`: Common UI components (modal, toolbar buttons, info button, range slider, and toast notification)
-  - `toolbar/`: Canvas control components including:
-    - Action buttons
-    - Animation controls
-    - Background customization
-    - Size controls
-    - Sticker management
-    - Theme selector
-  - `sticker/`: Handles sticker components; manages positions, dragging, selection, animations, and metadata
-  - `canvas/`: Manages background color, dot color, and provides the reference for sticker dragging through Framer Motion
+- **Context API.** I moved state out of props into two contexts to learn Context properly, at the cost of one large `CanvasContext`.
+- **Custom hooks** (`useKey`, `useLocalStorage`, `useAnimation`, `useMetadata`) keep components focused on rendering instead of event listeners and storage.
+- **CSS keyframes for animation.** One CSS variable sets speed and `animation-play-state` pauses everything, keeping dozens of loops off the JavaScript thread.
+- **Migrating saved data.** `normalizeSticker` upgrades stickers saved by older versions, so old share links still work.
 
-- `/utils`
+## Setup
 
-  - `download.js`: PNG export functionality using html-to-image
-  - `animations.js`: Animation list, sticker limits, and `normalizeSticker` which upgrades stickers saved by older versions
-  - `canvas.js`: `createSticker` builds a placed sticker from a metadata entry
-  - `filter-stickers.js`: Random sticker by theme, and search used by the sticker picker
-  - `helpers.js`: Random size/position helpers and keyboard target checks
+Requires Node 18+ and a free [Supabase](https://supabase.com/) project.
 
-- `/hooks`
+| Variable | Where to get it |
+| --- | --- |
+| `VITE_SUPABASE_URL` | Supabase → Project Settings → API |
+| `VITE_SUPABASE_ANON_KEY` | Same page, the `anon` key |
 
-  - `useAnimation.js`: Canvas-wide motion state (play/pause and speed); respects `prefers-reduced-motion`. Each sticker stores its own animation, rendered with CSS keyframes in `index.css`
-  - `useLocalStorage.js`: Handles saving and retrieving items from localStorage
-  - `useMetadata.js`: Performs the initial fetch for the JSON file that contains the stickers metadata
-  - `useKey.js`: Handles keypress events (one key or a list) to trigger specific actions (e.g. add stickers, nudge or remove the selected sticker, close modals with Escape)
+Shared canvases live in a `moji_data` table. Everything but sharing works without it.
 
-- `/contexts`
+| Column | Type |
+| --- | --- |
+| `id` | `uuid`, primary key |
+| `created_at` | `timestamptz` |
+| `stickers` | `jsonb` |
+| `designers` | `jsonb` |
+| `backgroundColor` | `text` |
+| `dotColor` | `text` |
+| `scale` | `numeric` |
 
-  - `CanvasContext`
-  - `UIContext`
+```bash
+git clone https://github.com/aniqatc/moji-canvas.git
+cd moji-canvas
+npm install
+# add the variables above to .env
+npm start
+```
 
-- `/data`
-  - `supabase.js`: Provides functions for fetching, updating and saving canvas content/metadata to the database
+## Scripts
 
-## Available Scripts
+| Command | What it does |
+| --- | --- |
+| `npm start` | Dev server on port 3000 |
+| `npm run build` | Production build |
+| `npm run preview` | Preview the build |
+| `npm run lint` | ESLint |
+| `npm run format` | Prettier |
+| `npm run serve:mobile` | Test on a phone through ngrok |
 
-Built with [Vite](https://vite.dev/). Available scripts include:
+## Changelog
 
-- `npm start`: Start development server
-- `npm run build`: Create production build
-- `npm run preview`: Preview production build
-- `npm run lint`: Run ESLint
-- `npm run format`: Format code with Prettier
-- `npm run serve:mobile`: Preview development server on mobile
+### October 2026
+
+Built with help from Claude.
+
+- Per-sticker editing for size, tilt, animation and speed
+- Animations rewritten as CSS keyframes
+- Searchable sticker picker
+- Older saved canvases upgrade automatically
+
+### January 2025
+
+- Initial release: themes, dragging, share links, PNG download and offline support
+- Moved state from props into Context
