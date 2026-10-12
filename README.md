@@ -6,7 +6,12 @@ An emoji sticker canvas where you arrange, animate and share collages made from 
 
 <a href="https://moji.aniqa.dev"><img src="public/og-img.png" alt="Moji Canvas with a collage of emoji stickers scattered across a dotted background" width="800"></a>
 
-<!-- TODO: add a screenshot of the sticker editing panel (select a sticker so the size, tilt and animation controls are showing), e.g. public/editing-panel.png -->
+<table>
+  <tr>
+    <td valign="top"><img src="public/screenshots/editing-panel.png" alt="The editing panel for a selected waffle sticker, with animation buttons, size, speed and tilt sliders, and duplicate, to front and remove buttons" width="560"></td>
+    <td valign="top"><img src="public/screenshots/toolbar.png" alt="The toolbar: add and remove mode, sticker picker, theme, background and dot colors, motion and speed, scale, save, download, share and reset" width="90"></td>
+  </tr>
+</table>
 
 ## Tech
 
