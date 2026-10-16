@@ -8,6 +8,7 @@ An emoji sticker canvas where you arrange, animate and share collages made from 
 
 <table>
   <tr>
+    <!-- TODO: retake editing-panel.png; the panel header now has a drag grip and a collapse button -->
     <td valign="top"><img src="public/screenshots/editing-panel.png" alt="The editing panel for a selected waffle sticker, with animation buttons, size, speed and tilt sliders, and duplicate, to front and remove buttons" height="480"></td>
     <td valign="top"><img src="public/screenshots/toolbar.png" alt="The toolbar: add and remove mode, sticker picker, theme, background and dot colors, motion and speed, scale, save, download, share and reset" height="480"></td>
   </tr>
@@ -24,7 +25,7 @@ An emoji sticker canvas where you arrange, animate and share collages made from 
 ## Features
 
 - Drop random stickers from 10 themes, search for a specific one, or switch to remove mode and tap stickers away
-- Drag stickers anywhere, then edit each one's size, tilt, animation and speed, duplicate it, bring it to the front or remove it
+- Drag stickers anywhere, then edit each one's size, tilt, animation and speed, duplicate it, bring it to the front or remove it, in a panel you can drag aside or collapse
 - 10 animations (drift, float, bounce, spin, wobble, pulse, jelly, swing, shake, orbit) with canvas-wide play, pause, shuffle and speed
 - A scale slider resizes every sticker at once
 - Custom background and dot colors
@@ -35,6 +36,7 @@ An emoji sticker canvas where you arrange, animate and share collages made from 
 ## Design
 
 - Animations pause above 40 stickers so dragging stays smooth, and the canvas caps out at 150
+- On phones the editing panel opens on the half of the screen away from the selected sticker, so it doesn't cover it
 - PNG downloads leave out the toolbar and panels
 - Works offline as a PWA, with every sticker cached
 
@@ -107,9 +109,9 @@ npm start
 
 Built with help from Claude.
 
-- Per-sticker editing for size, tilt, animation and speed
+- Per-sticker editing for size, tilt, animation and speed, and a searchable sticker picker
+- Movable, collapsible editing panel
 - Animations rewritten as CSS keyframes
-- Searchable sticker picker
 - Older saved canvases upgrade automatically
 
 ### January 2025
